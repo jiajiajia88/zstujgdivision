@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+    <section layout:fragment="content">
+        <p th:text="${page}"></p>
+    </section>
+</body>
+</html>

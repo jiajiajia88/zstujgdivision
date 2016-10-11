@@ -1,4 +1,4 @@
-package com.szy.controller;
+package com.szy.api;
 
 import com.szy.entity.Student;
 import com.szy.service.UserService;
@@ -32,6 +32,5 @@ public class UserController {
     public String user(){
         return userService.userInfo();
     }
-
 
 }

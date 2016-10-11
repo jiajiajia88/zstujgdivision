@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+    <div layout:fragment="content">
+        <!-- page start-->
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#major_list">专业列表</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#major_new">新增专业</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="major_list" class="tab-pane active">
+                                <div class="adv-table editable-table ">
+                                    <div class="space15"></div>
+                                    <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                        <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Points</th>
+                                            <th>Status</th>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="">
+                                            <td>Jonathan</td>
+                                            <td>Smith</td>
+                                            <td>3455</td>
+                                            <td class="center">Lorem ipsume</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Mojela</td>
+                                            <td>Firebox</td>
+                                            <td>567</td>
+                                            <td class="center">new user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Akuman </td>
+                                            <td> Dareon</td>
+                                            <td>987</td>
+                                            <td class="center">ipsume dolor</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Theme</td>
+                                            <td>Bucket</td>
+                                            <td>342</td>
+                                            <td class="center">Good Org</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhone</td>
+                                            <td> Doe</td>
+                                            <td>345</td>
+                                            <td class="center">super user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Margarita</td>
+                                            <td>Diar</td>
+                                            <td>456</td>
+                                            <td class="center">goolsd</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhon Doe</td>
+                                            <td>Jhon Doe </td>
+                                            <td>1234</td>
+                                            <td class="center"> user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Helena</td>
+                                            <td>Fox</td>
+                                            <td>456</td>
+                                            <td class="center"> Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Aishmen</td>
+                                            <td> Samuel</td>
+                                            <td>435</td>
+                                            <td class="center">super Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>dream</td>
+                                            <td>Land</td>
+                                            <td>562</td>
+                                            <td class="center">normal user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>babson</td>
+                                            <td> milan</td>
+                                            <td>567</td>
+                                            <td class="center">nothing</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Waren</td>
+                                            <td>gufet</td>
+                                            <td>622</td>
+                                            <td class="center">author</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhone</td>
+                                            <td> Doe</td>
+                                            <td>345</td>
+                                            <td class="center">super user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Margarita</td>
+                                            <td>Diar</td>
+                                            <td>456</td>
+                                            <td class="center">goolsd</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhon Doe</td>
+                                            <td>Jhon Doe </td>
+                                            <td>1234</td>
+                                            <td class="center"> user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Helena</td>
+                                            <td>Fox</td>
+                                            <td>456</td>
+                                            <td class="center"> Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Aishmen</td>
+                                            <td> Samuel</td>
+                                            <td>435</td>
+                                            <td class="center">super Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>dream</td>
+                                            <td>Land</td>
+                                            <td>562</td>
+                                            <td class="center">normal user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>babson</td>
+                                            <td> milan</td>
+                                            <td>567</td>
+                                            <td class="center">nothing</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Waren</td>
+                                            <td>gufet</td>
+                                            <td>622</td>
+                                            <td class="center">author</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhone</td>
+                                            <td> Doe</td>
+                                            <td>345</td>
+                                            <td class="center">super user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Margarita</td>
+                                            <td>Diar</td>
+                                            <td>456</td>
+                                            <td class="center">goolsd</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Jhon Doe</td>
+                                            <td>Jhon Doe </td>
+                                            <td>1234</td>
+                                            <td class="center"> user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Helena</td>
+                                            <td>Fox</td>
+                                            <td>456</td>
+                                            <td class="center"> Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Aishmen</td>
+                                            <td> Samuel</td>
+                                            <td>435</td>
+                                            <td class="center">super Admin</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>dream</td>
+                                            <td>Land</td>
+                                            <td>562</td>
+                                            <td class="center">normal user</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>babson</td>
+                                            <td> milan</td>
+                                            <td>567</td>
+                                            <td class="center">nothing</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        <tr class="">
+                                            <td>Waren</td>
+                                            <td>gufet</td>
+                                            <td>622</td>
+                                            <td class="center">author</td>
+                                            <td><a class="edit" href="javascript:;">Edit</a></td>
+                                            <td><a class="delete" href="javascript:;">Delete</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="major_new" class="tab-pane">
+                                <div id="wizard">
+                                    <h2>第一步</h2>
+                                    <section>
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">专业名称</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="请输入专业名称"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">专业简介</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control" cols="60" rows="5" placeholder="请输入专业简介"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+
+                                    <h2>第二步</h2>
+                                    <section>
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">计划班级数量</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="请输入计划开设班级数量"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">计划专业人数</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="请输入计划招收学生数量"/>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </section>
+
+                                    <h2>第三步</h2>
+                                    <section>
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">添加教师</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="Phone"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">教师介绍</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control" cols="60" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+
+                                    <h2>第四步</h2>
+                                    <section>
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">添加课程</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" placeholder="Mobile"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-2 control-label">课程介绍</label>
+                                                <div class="col-lg-8">
+                                                    <textarea class="form-control" cols="60" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- page end-->
+    </div>
+</body>
+</html>

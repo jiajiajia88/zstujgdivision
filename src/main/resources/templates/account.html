@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+<section layout:fragment="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a data-toggle="tab" href="#home">账户管理</a>
+                        </li>
+                    </ul>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="pwd1">原密码</label>
+                        <input type="password" class="form-control" id="pwd1" placeholder="请输入原密码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd2">新密码</label>
+                        <input type="password" class="form-control" id="pwd2" placeholder="请输入新密码"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd3">重复新密码</label>
+                        <input type="password" class="form-control" id="pwd3" placeholder="再一遍输入新密码"/>
+                    </div>
+                    <button type="submit" class="btn btn-info">提交</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+</body>
+</html>

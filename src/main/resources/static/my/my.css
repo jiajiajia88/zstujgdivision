@@ -1,0 +1,49 @@
+
+.tab-bg-dark-navy-blue ul>li>a {
+    padding: 6px 15px !important;
+}
+
+.fileupload {
+    margin-left: -15px;
+}
+
+.pull-right {
+    margin-top:15px;
+}
+
+.notice_write{
+    height:328px;
+}
+
+.panel-body{
+    overflow: hidden;
+}
+
+/* *************tree start***************** */
+.tree {
+}
+.tree li,
+.tree li > a,
+.tree li > span {
+    padding: 4pt;
+    border-radius: 4px;
+}
+
+.tree li a {
+    text-decoration: none;
+    line-height: 20pt;
+    border-radius: 4px;
+}
+
+.tree li a:hover {
+    background-color: #F7F7F7;
+}
+
+.tree li a.active:hover {
+    background-color: #F7F7F7;
+}
+
+ul, .list-unstyled{
+    padding-left: 0px!important;
+}
+/* *************tree end***************** */

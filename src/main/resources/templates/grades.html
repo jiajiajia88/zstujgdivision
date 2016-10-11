@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head th:fragment="header">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="/js/mini-upload-form/assets/css/bucketmin.css" />
+    <link rel="stylesheet" href="/js/bootstrap-fileupload/bootstrap-fileupload.css"/>
+    <link rel="stylesheet" href="/tree/jquery.treemenu.css"/>
+</head>
+
+    <section layout:fragment="content">
+        <!-- page start-->
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#grades_list">学生成绩</a>
+                            </li>
+                            <!--<li>
+                                <a data-toggle="tab" href="#grades_import">成绩导入</a>
+                            </li>-->
+                        </ul>
+
+                    </header>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="grades_list" class="tab-pane active">
+                                <div class="col-sm-2">
+                                    <ul class="tree">
+                                        <li><a href="#about">经济管理学院</a>
+                                            <ul>
+                                                <li><a href="#">15级</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#jobs1">电子商务</a>
+                                                            <ul>
+                                                                <li><a href="#">电商1班</a></li>
+                                                                <li><a href="#">电商2班</a></li>
+                                                                <li><a href="#">电商少数民族班</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#jobs2">经济大类</a>
+                                                            <ul>
+                                                                <li><a href="#">经济学1班</a></li>
+                                                                <li><a href="#">经济学2班</a></li>
+                                                                <li><a href="#">经济学3版</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#jobs3">工商大类</a>
+                                                            <ul>
+                                                                <li><a href="#">工商1班</a></li>
+                                                                <li><a href="#">工商2班</a></li>
+                                                                <li><a href="#">工商全英文</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li><a href="#">16级</a>
+                                                    <ul>
+                                                        <li>
+                                                            <a href="#jobs1">电子商务</a>
+                                                            <ul>
+                                                                <li><a href="#">电商1班</a></li>
+                                                                <li><a href="#">电商2班</a></li>
+                                                                <li><a href="#">电商少数民族班</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#jobs2">经济大类</a>
+                                                            <ul>
+                                                                <li><a href="#">经济学1班</a></li>
+                                                                <li><a href="#">经济学2班</a></li>
+                                                                <li><a href="#">经济学3版</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#jobs3">工商大类</a>
+                                                            <ul>
+                                                                <li><a href="#">工商1班</a></li>
+                                                                <li><a href="#">工商2班</a></li>
+                                                                <li><a href="#">工商全英文</a></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-10">
+                                    <!--<form method="POST" enctype="multipart/form-data" action="/file/fileUpload">
+                                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                                            <input type="hidden" />
+                                            <span class="btn btn-white btn-file">
+                                                <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select file</span>
+                                                <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                                                <input type="file" name="file" class="default"/>
+                                            </span>
+                                            <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                                        </div>
+                                        <div>
+                                            <input type="submit" class="btn default"/>
+                                        </div>
+                                    </form>-->
+                                    <form id="upload" method="post" enctype="multipart/form-data" action="/file/fileUpload">
+                                        <div id="drop">
+                                            <a>上传Excel</a>
+                                            <input type="file" name="file"/>
+                                            <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-primary">提交</button>
+                                        </div>
+                                        <ul>
+                                            <!-- The file uploads will be shown here -->
+                                        </ul>
+                                    </form>
+                                    <div class="adv-table editable-table" style="display:none">
+                                        <div class="clearfix">
+                                            <div class="btn-group pull-right">
+                                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools
+                                                    <i class="fa fa-angle-down"></i>
+                                                </button>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li><a href="#">Print</a></li>
+                                                    <li><a href="#">Save as PDF</a></li>
+                                                    <li><a href="#">Export to Excel</a></li>
+                                                </ul>
+                                            </div>
+                                            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                                <thead>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Points</th>
+                                                    <th>Status</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="">
+                                                    <td>Jonathan</td>
+                                                    <td>Smith</td>
+                                                    <td>3455</td>
+                                                    <td class="center">Lorem ipsume</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Mojela</td>
+                                                    <td>Firebox</td>
+                                                    <td>567</td>
+                                                    <td class="center">new user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Akuman </td>
+                                                    <td> Dareon</td>
+                                                    <td>987</td>
+                                                    <td class="center">ipsume dolor</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Theme</td>
+                                                    <td>Bucket</td>
+                                                    <td>342</td>
+                                                    <td class="center">Good Org</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhone</td>
+                                                    <td> Doe</td>
+                                                    <td>345</td>
+                                                    <td class="center">super user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Margarita</td>
+                                                    <td>Diar</td>
+                                                    <td>456</td>
+                                                    <td class="center">goolsd</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhon Doe</td>
+                                                    <td>Jhon Doe </td>
+                                                    <td>1234</td>
+                                                    <td class="center"> user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Helena</td>
+                                                    <td>Fox</td>
+                                                    <td>456</td>
+                                                    <td class="center"> Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Aishmen</td>
+                                                    <td> Samuel</td>
+                                                    <td>435</td>
+                                                    <td class="center">super Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>dream</td>
+                                                    <td>Land</td>
+                                                    <td>562</td>
+                                                    <td class="center">normal user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>babson</td>
+                                                    <td> milan</td>
+                                                    <td>567</td>
+                                                    <td class="center">nothing</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Waren</td>
+                                                    <td>gufet</td>
+                                                    <td>622</td>
+                                                    <td class="center">author</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhone</td>
+                                                    <td> Doe</td>
+                                                    <td>345</td>
+                                                    <td class="center">super user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Margarita</td>
+                                                    <td>Diar</td>
+                                                    <td>456</td>
+                                                    <td class="center">goolsd</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhon Doe</td>
+                                                    <td>Jhon Doe </td>
+                                                    <td>1234</td>
+                                                    <td class="center"> user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Helena</td>
+                                                    <td>Fox</td>
+                                                    <td>456</td>
+                                                    <td class="center"> Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Aishmen</td>
+                                                    <td> Samuel</td>
+                                                    <td>435</td>
+                                                    <td class="center">super Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>dream</td>
+                                                    <td>Land</td>
+                                                    <td>562</td>
+                                                    <td class="center">normal user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>babson</td>
+                                                    <td> milan</td>
+                                                    <td>567</td>
+                                                    <td class="center">nothing</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Waren</td>
+                                                    <td>gufet</td>
+                                                    <td>622</td>
+                                                    <td class="center">author</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhone</td>
+                                                    <td> Doe</td>
+                                                    <td>345</td>
+                                                    <td class="center">super user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Margarita</td>
+                                                    <td>Diar</td>
+                                                    <td>456</td>
+                                                    <td class="center">goolsd</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Jhon Doe</td>
+                                                    <td>Jhon Doe </td>
+                                                    <td>1234</td>
+                                                    <td class="center"> user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Helena</td>
+                                                    <td>Fox</td>
+                                                    <td>456</td>
+                                                    <td class="center"> Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Aishmen</td>
+                                                    <td> Samuel</td>
+                                                    <td>435</td>
+                                                    <td class="center">super Admin</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>dream</td>
+                                                    <td>Land</td>
+                                                    <td>562</td>
+                                                    <td class="center">normal user</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>babson</td>
+                                                    <td> milan</td>
+                                                    <td>567</td>
+                                                    <td class="center">nothing</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                <tr class="">
+                                                    <td>Waren</td>
+                                                    <td>gufet</td>
+                                                    <td>622</td>
+                                                    <td class="center">author</td>
+                                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- page end-->
+        <script src="/tree/jquery-1.11.2.min.js"></script>
+        <script src="/tree/jquery.treemenu.js"></script>
+        <!-- jQuery File Upload Dependencies -->
+        <script src="/js/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
+        <script src="/js/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
+        <script src="/js/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+        <!-- Our main JS file -->
+        <script src="/js/mini-upload-form/assets/js/script.js"></script>
+        <script>
+            $(function(){
+                $(".tree").treemenu({delay:300}).openActive();
+            });
+        </script>
+    </section>
+</html>

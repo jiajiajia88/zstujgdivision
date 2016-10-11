@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+    <div layout:fragment="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <header class="panel-heading">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a data-toggle="tab" href="#home">专业信息</a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div class="panel-body">
+                        <div class="adv-table">
+                            <p th:text="${page}"></p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

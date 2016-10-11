@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+
+<head th:fragment="header">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="/images/favicon.png"/>
+
+    <title>经济管理学院分流系统</title>
+
+    <!--Core CSS -->
+    <link href="/bs3/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="/js/jquery-1.8.3.min.js"></script>
+    <link href="/css/bootstrap-reset.css" rel="stylesheet" />
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/js/data-tables/DT_bootstrap.css" />
+    <link rel="stylesheet" href="/css/jquery.steps.css?1"/>
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/style-responsive.css" rel="stylesheet" />
+
+    <link href="/my/my.css" rel="stylesheet" />
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]>
+    <script src="/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<section id="container">
+    <!--header start-->
+    <header class="header fixed-top clearfix">
+        <!--logo start-->
+        <div class="brand">
+            <a href="index.html" class="logo">
+
+            </a>
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars"></div>
+            </div>
+        </div>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+            <!--  notification goes here -->
+        </div>
+        <div class="top-nav clearfix">
+            <!--search & user info goes here-->
+            <ul class="nav pull-right top-menu">
+                <li>
+                    <input type="text" class="form-control search" placeholder=" Search"/>
+                </li>
+                <!-- user login dropdown start-->
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <img alt="" src="/images/avatar1_small.jpg"/>
+                        <span class="username">John Doe</span>
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu extended logout">
+                        <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                        <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                        <li><a href="/login"><i class="fa fa-key"></i> Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+            <!-- sidebar menu goes here-->
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <li>
+                    <a href="/teacher/info_settings" class="info_settings">
+                        <i class="fa fa-dashboard"></i>
+                        <span>信息设置</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/teacher/notice" class="notice">
+                        <i class="fa fa-bullhorn"></i>
+                        <span>公告发布</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/teacher/grades" class="grades">
+                        <i class="fa fa-book"></i>
+                        <span>成绩导入</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/teacher/task" class="task">
+                        <i class="fa  fa-sort-numeric-asc"></i>
+                        <span>工作进度</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/teacher/intent_adjust" class="intent_adjust">
+                        <i class="fa  fa-retweet"></i>
+                        <span>志愿调整</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/major_info" class="major_info">
+                        <i class="fa fa-group"></i>
+                        <span>专业信息</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/stu_info" class="stu_info">
+                        <i class="fa fa-edit"></i>
+                        <span>个人信息</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/intent_fill" class="intent_fill">
+                        <i class=" fa fa-heart-o"></i>
+                        <span>志愿填报</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/grades_query" class="grades_query">
+                        <i class=" fa fa-bar-chart-o"></i>
+                        <span>成绩查询</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/student/result" class="result">
+                        <i class="fa fa-search"></i>
+                        <span>分流结果查询</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/account" class="account">
+                        <i class="fa fa-user"></i>
+                        <span>账号设置</span>
+                    </a>
+                </li>
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section layout:fragment="content" class="wrapper">
+            <!--main content goes here-->
+
+        </section>
+    </section>
+    <!--main content end-->
+
+    <!--right sidebar start-->
+    <div class="right-sidebar">
+        <div class="right-stat-bar">
+            <ul class="right-side-accordion">
+                <li class="widget-collapsible">
+                    <ul class="widget-container">
+                        <li>
+                            <div class="prog-row side-mini-stat clearfix">
+                                <div class="side-mini-graph">
+                                    <div class="target-sell">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--right sidebar end-->
+</section>
+<!-- Placed js at the end of the document so the pages load faster -->
+
+<!--Core js-->
+
+<script src="/bs3/js/bootstrap.min.js"></script>
+<script class="include" type="text/javascript" src="/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/js/jquery.scrollTo.min.js"></script>
+<script src="/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js"></script>
+<script src="/js/jquery.nicescroll.js"></script>
+
+<script src="/js/jquery-steps/jquery.steps.js"></script>
+<!--Easy Pie Chart-->
+<script src="/js/easypiechart/jquery.easypiechart.js"></script>
+<!--Sparkline Chart-->
+<script src="/js/sparkline/jquery.sparkline.js"></script>
+<!--jQuery Flot Chart-->
+<script src="/js/flot-chart/jquery.flot.js"></script>
+<script src="/js/flot-chart/jquery.flot.tooltip.min.js"></script>
+<script src="/js/flot-chart/jquery.flot.resize.js"></script>
+<script src="/js/flot-chart/jquery.flot.pie.resize.js"></script>
+
+<script type="text/javascript" src="/js/data-tables/jquery.dataTables.js"></script>
+<script type="text/javascript" src="/js/data-tables/DT_bootstrap.js"></script>
+<script type="text/javascript" src="/js/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+
+<!--common script init for all pages-->
+<script src="/js/scripts.js"></script>
+
+<!--script for this page only-->
+<script src="/js/table-editable.js"></script>
+<!-- END JAVASCRIPTS -->
+
+<script>
+    jQuery(document).ready(function() {
+        EditableTable.init();
+    });
+
+    $(function ()
+    {
+        $("#wizard").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft"
+        });
+
+        $("#wizard-vertical").steps({
+            headerTag: "h2",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            stepsOrientation: "vertical"
+        });
+    });
+
+</script>
+
+
+
+<script th:inline="javascript">
+    jQuery(document).ready(function() {
+        /*<![CDATA[*/
+        var page = /*[[${page}]]*/;
+        $("."+page).addClass("active");
+        /*]]>*/
+    });
+</script>
+
+</body>
+</html>
