@@ -1,6 +1,6 @@
 package com.szy.service;
 
-import com.szy.entity.Student;
+import com.szy.entity.UserStudent;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<Student> likeName(String name);
+    List<UserStudent> likeName(String name);
 
     String userInfo();
 }

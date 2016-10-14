@@ -3,13 +3,13 @@
 <mapper namespace="com.szy.mapper.StudentMapper">
 
     <!-- type为实体类Student，包名已经配置，可以直接写类名 -->
-    <resultMap id="stuMap" type="Student">
+    <resultMap id="stuMap" type="UserStudent">
         <id property="id" column="id" />
         <result property="name" column="name" />
         <result property="number" column="number" />
     </resultMap>
 
-    <select id="getById" resultMap="stuMap" resultType="Student">
+    <select id="getById" resultMap="stuMap" resultType="UserStudent">
         SELECT *
         FROM tb_user_student
         WHERE ID = #{id}

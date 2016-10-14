@@ -1,6 +1,6 @@
 package com.szy.controller;
 
-import com.szy.entity.Student;
+import com.szy.entity.UserStudent;
 import com.szy.util.ImportExcelUtil;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -69,7 +69,7 @@ public class FileController {
                 System.out.println(lo.get(3));
             }
         }*/
-        return "redirect:/teacher/grades";
+        return "redirect:/teacher/stu_info";
     }
 
     @RequestMapping("/fileImpl")
@@ -108,11 +108,11 @@ public class FileController {
                     e.printStackTrace();
                 }
                 //解析excel文件
-                List<Student> analyticalExcel = analyticalExcel(input);
-                for (Student stu : analyticalExcel) {
+                List<UserStudent> analyticalExcel = analyticalExcel(input);
+                for (UserStudent stu : analyticalExcel) {
                     System.out.println(stu.getId()+" "+stu.getName()+" "+stu.getNumber());
                 }/*
-                studentService.insertList(analyticalExcel);*/
+                UserStudentService.insertList(analyticalExcel);*/
             }
         }
         return "redirect:/teacher/grades";
@@ -149,8 +149,8 @@ public class FileController {
      * @param input
      */
     @SuppressWarnings("resource")
-    public List<Student> analyticalExcel(InputStream input){
-        List<Student> list = new ArrayList<Student>();
+    public List<UserStudent> analyticalExcel(InputStream input){
+        List<UserStudent> list = new ArrayList<UserStudent>();
         //创建工作簿
         HSSFWorkbook wb =  null;
         try {
@@ -167,7 +167,7 @@ public class FileController {
             HSSFRow row = sheet.getRow(i);
             //获取所占列数
             int lastCellNum = row.getLastCellNum();
-            Student stu = new Student();
+            UserStudent stu = new UserStudent();
             for (int j = 0; j < lastCellNum; j++) {
                 HSSFCell cell = row.getCell(j);
                 String value = cell.toString();
@@ -176,7 +176,7 @@ public class FileController {
                 }else if(j == 1){
                     stu.setName(value);
                 }else{
-                    stu.setNumber(Long.parseLong(value.substring(0,value.indexOf("."))));
+                    stu.setNumber(value.substring(0,value.indexOf(".")));
                 }
             }
             list.add(stu);

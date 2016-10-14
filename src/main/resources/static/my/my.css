@@ -1,4 +1,8 @@
 
+.fixed-top{
+
+}
+
 .tab-bg-dark-navy-blue ul>li>a {
     padding: 6px 15px !important;
 }
@@ -18,6 +22,109 @@
 .panel-body{
     overflow: hidden;
 }
+
+.panel_plan{
+    background-color: #f1f2f7;
+}
+
+.panel_plan > .panel-body{
+    margin:10px auto;
+    background-color: #FFFFFF;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#909090,direction=120,strength=3);/*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+    box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+}
+
+.btn_plan_create{
+    float: right;
+    margin-right: 20px;
+}
+
+.btn_plan_fill{
+    float: right;
+}
+
+.term_picker{
+    float: left;
+    margin-right: 0px;
+    padding-right: 0px;
+    padding-left: 15px;
+}
+
+.td_species_name{
+    vertical-align:middle!important;
+}
+
+.modal_input_1{
+    width: 30%;
+    float:left;
+    margin:0px 0px 15px;
+}
+
+.modal_input_2{
+    width: 25%;
+    float:left;
+    margin:0px 8px 15px;
+}
+
+.modal_input_3{
+    width: 10%;
+    float:left;
+    margin:0px 4px 15px;
+}
+
+.fileupload{
+    margin-left: 0px!important;
+}
+
+.intent_fill_form_group > .control-label{
+    float: left;
+    height:34px;
+    line-height:34px;
+    overflow:hidden;
+}
+
+.intent_fill_form_group{
+    margin-bottom: 0!important;
+}
+
+.intent_view h4{
+    float: left;
+    margin-right:50px;
+}
+
+.intent_view button{
+    float: right;
+    margin-right: 10px;
+}
+
+.btn_plan_create{
+    float:right;
+    margin-right: 0!important;
+    margin-left: 10px!important;
+}
+
+.btn-top{
+    margin-right: 10px!important;
+}
+
+.panel-account{
+    padding: 0px 0px 10px;
+}
+
+.panel_body_top{
+    margin-bottom: 0px!important;
+}
+
+.panel_body_top_select{
+    width: 200px;
+}
+
+.system_input_padding{
+    padding-left: 0px!important;
+}
+
 
 /* *************tree start***************** */
 .tree {
@@ -47,3 +154,36 @@ ul, .list-unstyled{
     padding-left: 0px!important;
 }
 /* *************tree end***************** */
+
+@media (max-width: 768px){
+    .term_picker{
+        float: left;
+        margin: 10px;
+        padding-right: 0px;
+        padding-left: 15px;
+    }
+
+    .btn_plan_search{
+        margin-left:15px;
+        margin-top:15px;
+    }
+
+    .btn_plan_create{
+        margin-top:15px;
+        margin-right:15px!important;
+    }
+
+    .btn_plan_fill{
+        float: right;
+    }
+
+    .intent_view h4{
+        float: left;
+        margin-right:100px;
+    }
+
+    .system_input_padding{
+        padding-left: 0px!important;
+    }
+
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+
+<section layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <form class="form-horizontal bucket-form" method="get">
+                        <div class="form-group">
+                            <div class="term_picker">
+                                <label class="control-label">请选择年级</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>2015-2016-1</option>
+                                    <option>2015-2016-2</option>
+                                    <option>2016-2017-1</option>
+                                </select>
+                            </div>
+                            <div class="term_picker">
+                                <label class="control-label">请选择大类</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>工商管理</option>
+                                    <option>经济学</option>
+                                    <option>电子商务</option>
+                                </select>
+
+                            </div>
+
+                            <button type="button" class="btn btn-white btn_plan_search">删选</button>
+                            <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_create btn-top">
+                                新建计划
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">招生大类</th>
+                                <th>专业名称</th>
+                                <th>班级数(计划)</th>
+                                <th>人数（计划)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="4" class="td_species_name">
+                                    <h5 class="text-center">学期：2015-2016-1</h5>
+                                    <h5 class="text-center">工商管理类</h5>
+                                    <h5 class="text-center">268人</h5>
+                                </td>
+                                <td>工商管理</td>
+                                <td>2</td>
+                                <td>50</td>
+                            </tr>
+                            <tr>
+                                <td>会计学</td>
+                                <td>4</td>
+                                <td>108</td>
+                            </tr>
+                            <tr>
+                                <td>市场营销</td>
+                                <td>2</td>
+                                <td>54</td>
+                            </tr>
+                            <tr>
+                                <td>人力资源管理</td>
+                                <td>2</td>
+                                <td>56</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-body">
+                    This is a sample page
+                </div>
+
+            </section>
+        </div>
+    </div>
+    <!-- page end -->
+
+    <!-- modal start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">新建分流计划</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="species_form">
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择大类</label>
+                            <select id="species_select" class="form-control">
+                                <option>工商管理</option>
+                                <option>经济学</option>
+                                <option>电子商务</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="modal_append">
+                            <!--<div class="modal_input_1">
+                                <input type="text" class="form-control" placeholder="请输入专业名"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划班级数"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划人数"/>
+                            </div>-->
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" id="new_major">新增</button>
+                            <button type="submit" class="btn btn-default">保存</button>
+                            <button type="submit" class="btn btn-default">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal end-->
+    <script>
+        $(document).ready(function() {
+            $("#new_major").on('click', function(e){ //on add input button click
+                $("#modal_append").append('<div class="div-append"></div>');
+                $("#modal_append").children(".div-append:last").append('<div class="modal_input_1"><input type="text" class="form-control" placeholder="请输入专业名"/></div>');
+                $("#modal_append").children(".div-append:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划班级数"/></div>');
+                $("#modal_append").children(".div-append:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划人数"/></div>');
+                $("#modal_append").children(".div-append:last").append('<div class="modal_input_3"><button type="button" class="btn btn-white delete_major">删除</button></div>');
+            });
+
+            $("body").on("click", ".delete_major", function(e){
+                //alert("你好");
+                $(this).parent('div').parent('.div-append').remove();
+            });
+        });
+
+    </script>
+</section>
+</html>

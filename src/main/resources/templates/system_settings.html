@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+<section layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-1">
+                        <h4>添加学期</h4>
+                    </div>
+                    <div class="form-group col-lg-4 system_input_padding">
+                        <input type="password" class="form-control" id="term" name="term" placeholder="请输入学期"/>
+                    </div>
+                    <div class="form-group col-lg-1 system_input_padding">
+                        <button type="submit" class="btn btn-white">提交</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-1">
+                        <h4>添加大类</h4>
+                    </div>
+                    <div class="form-group col-lg-4 system_input_padding">
+                        <input type="password" class="form-control" id="species" name="species" placeholder="请输入大类名"/>
+                    </div>
+                    <div class="form-group col-lg-1 system_input_padding">
+                        <button type="submit" class="btn btn-white">提交</button>
+                    </div>
+                    <table class="table  table-hover general-table">
+                        <thead>
+                        <tr>
+                            <th>大类名</th>
+                            <th>学期</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>工商管理</td>
+                            <td>2015-2016-1</td>
+                        </tr>
+                        <tr>
+                            <td>经济学</td>
+                            <td>2015-2016-1</td>
+                        </tr>
+                        <tr>
+                            <td>电子商务</td>
+                            <td>2015-2016-2</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- page end -->
+</section>
+</body>
+</html>

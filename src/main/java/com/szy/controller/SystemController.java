@@ -37,7 +37,14 @@ public class SystemController {
 
     @RequestMapping("/account")
     public String account(Model model){
+        model.addAttribute("page", "account");
         return "account";
+    }
+
+    @RequestMapping("/system_settings")
+    public String system_settings(Model model){
+        model.addAttribute("page", "system_settings");
+        return "system_settings";
     }
 
 }

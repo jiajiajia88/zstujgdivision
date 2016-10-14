@@ -1,6 +1,6 @@
 package com.szy.api;
 
-import com.szy.entity.Student;
+import com.szy.entity.UserStudent;
 import com.szy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping("/likeName")
-    public List<Student> likeName(@RequestParam String name){
+    public List<UserStudent> likeName(@RequestParam String name){
         System.out.println(name);
         return userService.likeName(name);
     }

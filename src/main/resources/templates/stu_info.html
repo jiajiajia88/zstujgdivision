@@ -3,73 +3,371 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="layout">
 <!-- layout文件路径-->
+<head th:fragment="header">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="/js/mini-upload-form/assets/css/bucketmin.css" />
+    <link rel="stylesheet" href="/js/bootstrap-fileupload/bootstrap-fileupload.css"/>
+    <link rel="stylesheet" href="/tree/jquery.treemenu.css"/>
+</head>
 <body>
-    <div layout:fragment="content">
-        <section class="panel">
-            <header class="panel-heading">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a data-toggle="tab" href="#stu_info">个人信息</a>
-                    </li>
-                    <li class="">
-                        <a data-toggle="tab" href="#stu_info_update">修改个人信息</a>
-                    </li>
-                </ul>
-            </header>
-            <div class="panel-body">
-                <div class="tab-content">
-                    <div id="stu_info" class="tab-pane active">
-                        Home
-                    </div>
-                    <div id="stu_info_update" class="tab-pane">
-                        <div class="panel-group m-bot20" id="accordion">
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                            基本信息
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
-                                    <div class="panel-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
+<section layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <form class="form-horizontal bucket-form" method="get">
+                        <div class="form-group">
+                            <div class="term_picker">
+                                <label class="control-label">请选择年级</label>
                             </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                            获奖信息
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
-                                    <div class="panel-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>2015-2016-1</option>
+                                    <option>2015-2016-2</option>
+                                    <option>2016-2017-1</option>
+                                </select>
                             </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                            Collapsible Group Item #3
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    </div>
-                                </div>
+                            <div class="term_picker">
+                                <label class="control-label">请选择大类</label>
                             </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>工商管理</option>
+                                    <option>经济学</option>
+                                    <option>电子商务</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-white btn_plan_search">删选</button>
+                            <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_create btn-top">
+                                导入数据
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="panel-body">
+                    <div class="adv-table editable-table">
+                        <div class="clearfix">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools
+                                    <i class="fa fa-angle-down"></i>
+                                </button>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="#">Print</a></li>
+                                    <li><a href="#">Save as PDF</a></li>
+                                    <li><a href="#">Export to Excel</a></li>
+                                </ul>
+                            </div>
+                            <table class="table table-striped table-hover table-bordered" id="editable-sample">
+                                <thead>
+                                <tr>
+                                    <th>学号</th>
+                                    <th>姓名</th>
+                                    <th>班级</th>
+                                    <th>学分绩点</th>
+                                    <th>总分</th>
+                                    <th>排名</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td>Jonathan</td>
+                                    <td>Smith</td>
+                                    <td>3455</td>
+                                    <td class="center">Lorem ipsume</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Mojela</td>
+                                    <td>Firebox</td>
+                                    <td>567</td>
+                                    <td class="center">new user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Akuman </td>
+                                    <td> Dareon</td>
+                                    <td>987</td>
+                                    <td class="center">ipsume dolor</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Theme</td>
+                                    <td>Bucket</td>
+                                    <td>342</td>
+                                    <td class="center">Good Org</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
+    <!-- page end -->
+
+    <!-- modal start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">新建分流计划</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="species_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择年级</label>
+                            <select id="grade_select" class="form-control">
+                                <option>2015-2016-1</option>
+                                <option>2015-2016-2</option>
+                                <option>2016-2017-1</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择大类</label>
+                            <select id="species_select" class="form-control">
+                                <option>工商管理</option>
+                                <option>经济学</option>
+                                <option>电子商务</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择导入类型</label>
+                            <select id="_select" class="form-control">
+                                <option>基本信息</option>
+                                <option>学分绩点</option>
+                                <option>高考数据</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <span class="btn btn-white btn-file">
+                                <span class="fileupload-new">
+                                    <i class="fa fa-paper-clip"></i> Select file
+                                </span>
+                                <span class="fileupload-exists">
+                                    <i class="fa fa-undo"></i> Change
+                                </span>
+                                <input type="file" name="file" class="default"/>
+                            </span>
+                                <span class="fileupload-preview" style="margin-left:5px;"></span>
+                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal end-->
+
+    <!-- jQuery File Upload Dependencies -->
+    <script src="/js/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
+    <script src="/js/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
+    <script src="/js/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+</section>
 </body>
 </html>

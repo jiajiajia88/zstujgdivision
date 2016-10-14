@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping({"/teacher"})
 public class TeacherController {
 
-    @RequestMapping("/info_settings")
-    public String info_settings(Model model){
-        model.addAttribute("page", "info_settings");
-        return "info_settings";
+    @RequestMapping("/plan_settings")
+    public String plan_settings(Model model){
+        model.addAttribute("page", "plan_settings");
+        return "plan_settings";
     }
 
     @RequestMapping("/notice")
@@ -25,10 +25,10 @@ public class TeacherController {
         return "notice";
     }
 
-    @RequestMapping("/grades")
-    public String grades(Model model){
-        model.addAttribute("page", "grades");
-        return "grades";
+    @RequestMapping("/stu_info")
+    public String stu_info(Model model){
+        model.addAttribute("page", "stu_info");
+        return "stu_info";
     }
 
     @RequestMapping("/fileUpload")
