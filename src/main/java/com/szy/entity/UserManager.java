@@ -1,12 +1,19 @@
 package com.szy.entity;
 
+/**
+ * 管理员用户实体类
+ */
 public class UserManager {
 
     private Integer id;
 
     private String username;
 
+    private String number;
+
     private String password;
+
+    private int role;
 
     public Integer getId() {
         return id;
@@ -30,5 +37,21 @@ public class UserManager {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 }

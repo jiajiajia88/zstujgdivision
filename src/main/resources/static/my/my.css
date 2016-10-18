@@ -125,6 +125,48 @@
     padding-left: 0px!important;
 }
 
+.panel_close{
+    display: none;
+}
+
+.btn_species_modify,.btn_grade_delete,
+.btn_species_delete,.btn_manager_modify,
+.btn_manager_delete,.btn_position_submit,
+.btn_position_modify,.btn_position_delete{
+    padding: 0 5px!important;
+}
+
+.btn_species_delete,.btn_manager_delete,.btn_position_delete{
+    margin-left: 10px;
+}
+
+/* *************logout start***************** */
+
+.dropdown-menu{
+    width: 80px!important;
+    min-width: 80px!important;
+}
+
+.dropdown-menu.extended{
+    min-width: 80px!important;
+}
+
+.top-nav ul.top-menu>li .dropdown-menu.logout{
+    margin-right: 0!important;
+    padding-right: 0!important;
+    width: 100%!important;
+}
+
+.dropdown-menu.extended.logout>li{
+    margin-right: 0!important;
+    padding-right: 0!important;
+    width: 100%!important;
+}
+.dropdown-menu.extended.logout>li>a{
+    margin-right: 0!important;
+    width: 100%!important;
+}
+/* *************logout end***************** */
 
 /* *************tree start***************** */
 .tree {
@@ -153,6 +195,15 @@
 ul, .list-unstyled{
     padding-left: 0px!important;
 }
+
+.editable-table{
+    margin-top: -15px!important;
+}
+
+.table_page{
+    margin-bottom: 6px;
+}
+
 /* *************tree end***************** */
 
 @media (max-width: 768px){

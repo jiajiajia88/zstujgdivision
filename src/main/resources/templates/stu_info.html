@@ -16,6 +16,10 @@
         <div class="col-sm-12">
             <section class="panel panel_plan">
                 <div class="panel-body">
+                    <button id="stu_info_search" type="button" class="btn btn-white btn_plan_search">查询学生信息</button>
+                    <button id="stu_info_import" type="button" class="btn btn-white btn_plan_search">导入学生信息</button>
+                </div>
+                <div class="panel-body panel_close stu_info_search_panel">
                     <form class="form-horizontal bucket-form" method="get">
                         <div class="form-group">
                             <div class="term_picker">
@@ -38,29 +42,57 @@
                                     <option>电子商务</option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-white btn_plan_search">删选</button>
-                            <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_create btn-top">
+                            <button type="button" class="btn btn-white btn_plan_search ">查询</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-body panel_close stu_info_import_panel">
+                    <form role="form" class="form-horizontal bucket-form" id="species_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
+                        <div class="form-group">
+                            <div class="term_picker">
+                                <label class="control-label">请选择年级</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>2015-2016-1</option>
+                                    <option>2015-2016-2</option>
+                                    <option>2016-2017-1</option>
+                                </select>
+                            </div>
+                            <div class="term_picker">
+                                <label class="control-label">请选择大类</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>工商管理</option>
+                                    <option>经济学</option>
+                                    <option>电子商务</option>
+                                </select>
+                            </div>
+                            <div class="term_picker">
+                                <label class="control-label">请选择导入类型</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control">
+                                    <option>基本信息</option>
+                                    <option>学分绩点</option>
+                                    <option>高考数据</option>
+                                </select>
+                            </div>
+                            <a class="btn btn-white btn_plan_create btn-top">
                                 导入数据
                             </a>
                         </div>
                     </form>
                 </div>
-
-                <div class="panel-body">
+                <div class="panel-body panel_close table_panel">
                     <div class="adv-table editable-table">
                         <div class="clearfix">
                             <div class="btn-group pull-right">
-                                <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Tools
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right">
-                                    <li><a href="#">Print</a></li>
-                                    <li><a href="#">Save as PDF</a></li>
-                                    <li><a href="#">Export to Excel</a></li>
-                                </ul>
+                                <button type="button" class="btn btn-white btn_plan_search">导出pdf</button>
                             </div>
-                            <table class="table table-striped table-hover table-bordered" id="editable-sample">
-                                <thead>
+                            <table class="table table-striped table-hover table-bordered table-student-info" id="editable-sample">
+                                <thead class="stu_info_search_panel">
                                 <tr>
                                     <th>学号</th>
                                     <th>姓名</th>
@@ -70,7 +102,244 @@
                                     <th>排名</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="stu_info_search_panel">
+                                <tr class="">
+                                    <td>Jonathan</td>
+                                    <td>Smith</td>
+                                    <td>3455</td>
+                                    <td class="center">Lorem ipsume</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Mojela</td>
+                                    <td>Firebox</td>
+                                    <td>567</td>
+                                    <td class="center">new user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Akuman </td>
+                                    <td> Dareon</td>
+                                    <td>987</td>
+                                    <td class="center">ipsume dolor</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Theme</td>
+                                    <td>Bucket</td>
+                                    <td>342</td>
+                                    <td class="center">Good Org</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhone</td>
+                                    <td> Doe</td>
+                                    <td>345</td>
+                                    <td class="center">super user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Margarita</td>
+                                    <td>Diar</td>
+                                    <td>456</td>
+                                    <td class="center">goolsd</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Jhon Doe</td>
+                                    <td>Jhon Doe </td>
+                                    <td>1234</td>
+                                    <td class="center"> user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Helena</td>
+                                    <td>Fox</td>
+                                    <td>456</td>
+                                    <td class="center"> Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Aishmen</td>
+                                    <td> Samuel</td>
+                                    <td>435</td>
+                                    <td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>dream</td>
+                                    <td>Land</td>
+                                    <td>562</td>
+                                    <td class="center">normal user</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>babson</td>
+                                    <td> milan</td>
+                                    <td>567</td>
+                                    <td class="center">nothing</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                <tr class="">
+                                    <td>Waren</td>
+                                    <td>gufet</td>
+                                    <td>622</td>
+                                    <td class="center">author</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>
+                                </tr>
+                                </tbody>
+
+                                <thead class="stu_info_import_panel">
+                                <tr>
+                                    <th>学号</th>
+                                    <th>姓名</th>
+                                    <th>原班级</th>
+                                    <th>现班级</th>
+                                    <th>总分</th>
+                                    <th>排名</th>
+                                </tr>
+                                </thead>
+                                <tbody class="stu_info_import_panel">
                                 <tr class="">
                                     <td>Jonathan</td>
                                     <td>Smith</td>
@@ -300,69 +569,12 @@
                         </div>
                     </div>
                 </div>
+
             </section>
         </div>
     </div>
     <!-- page end -->
 
-    <!-- modal start -->
-    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                    <h4 class="modal-title">新建分流计划</h4>
-                </div>
-                <div class="modal-body">
-                    <form role="form" id="species_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
-                        <div class="form-group">
-                            <label class="control-label" for="species_select">请选择年级</label>
-                            <select id="grade_select" class="form-control">
-                                <option>2015-2016-1</option>
-                                <option>2015-2016-2</option>
-                                <option>2016-2017-1</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="species_select">请选择大类</label>
-                            <select id="species_select" class="form-control">
-                                <option>工商管理</option>
-                                <option>经济学</option>
-                                <option>电子商务</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="species_select">请选择导入类型</label>
-                            <select id="_select" class="form-control">
-                                <option>基本信息</option>
-                                <option>学分绩点</option>
-                                <option>高考数据</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <div class="fileupload fileupload-new" data-provides="fileupload">
-                            <span class="btn btn-white btn-file">
-                                <span class="fileupload-new">
-                                    <i class="fa fa-paper-clip"></i> Select file
-                                </span>
-                                <span class="fileupload-exists">
-                                    <i class="fa fa-undo"></i> Change
-                                </span>
-                                <input type="file" name="file" class="default"/>
-                            </span>
-                                <span class="fileupload-preview" style="margin-left:5px;"></span>
-                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default">提交</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--modal end-->
 
     <!-- jQuery File Upload Dependencies -->
     <script src="/js/mini-upload-form/assets/js/jquery.ui.widget.js"></script>

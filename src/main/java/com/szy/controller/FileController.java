@@ -110,7 +110,7 @@ public class FileController {
                 //解析excel文件
                 List<UserStudent> analyticalExcel = analyticalExcel(input);
                 for (UserStudent stu : analyticalExcel) {
-                    System.out.println(stu.getId()+" "+stu.getName()+" "+stu.getNumber());
+                    System.out.println(stu.getId()+" "+stu.getNumber());
                 }/*
                 UserStudentService.insertList(analyticalExcel);*/
             }
@@ -174,7 +174,7 @@ public class FileController {
                 if(j == 0){
                     stu.setId(Integer.parseInt(value.substring(0,value.indexOf("."))));
                 }else if(j == 1){
-                    stu.setName(value);
+                    //stu.setName(value);
                 }else{
                     stu.setNumber(value.substring(0,value.indexOf(".")));
                 }

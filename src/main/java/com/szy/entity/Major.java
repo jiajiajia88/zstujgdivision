@@ -1,6 +1,7 @@
 package com.szy.entity;
 
 public class Major {
+
     private Integer majorId;
 
     private String majorName;

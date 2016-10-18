@@ -1,6 +1,10 @@
 package com.szy.entity;
 
+/**
+ * 志愿实体类
+ */
 public class IntentFill {
+
     private Integer id;
 
     private String name;
@@ -80,4 +84,5 @@ public class IntentFill {
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
     }
+
 }

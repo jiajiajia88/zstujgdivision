@@ -1,9 +1,11 @@
 package com.szy.entity;
 
+/**
+ * 学生用户实体类
+ */
 public class UserStudent {
-    private Integer id;
 
-    private String name;
+    private Integer id;
 
     private String password;
 
@@ -15,14 +17,6 @@ public class UserStudent {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
     }
 
     public String getPassword() {

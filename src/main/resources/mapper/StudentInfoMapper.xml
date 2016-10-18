@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szy.mapper.StudentInfoMapper">
+
+    <!--StudentInfo类-->
+    <resultMap id="stuinfoMap" type="StudentInfo">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="originalClass" column="original_class"/>
+        <result property="presentClass" column="present_class"/>
+        <result property="gpa" column="GPA"/>
+        <result property="realgpa" column="RealGPA"/>
+        <result property="stufrom" column="stuFrom"/>
+        <result property="division" column="division"/>
+        <result property="entrancescore" column="entranceScore"/>
+        <result property="admissionscore" column="admissionScore"/>
+        <result property="gradeone" column="gradeOne"/>
+        <result property="gradetwo" column="gradeTwo"/>
+        <result property="totalgrade" column="totalGrade"/>
+    </resultMap>
+
+    <!--插入学生基础信息-->
+    <insert id="insertBasicInfo">
+        INSERT INTO tb_student_info(number, name, origin_class) VALUES (#{0}, #{1}, #{2})
+    </insert>
+
+    <!--插入学生gpa信息-->
+    <update id="updateGpa">
+        UPDATE tb_student_info
+        SET gpa = #{0} and realGpa = #{1}
+        WHERE number = #{2}
+    </update>
+
+    <!--插入学生高考信息-->
+    <update id="updateEntranceScores">
+        UPDATE tb_student_info
+        SET entranceScore = #{0} and admissionScore = #{1} and division = #{2} and stuFrom = #{3}
+        WHERE number = #{4}
+    </update>
+
+    <!--插入学生计算后分数-->
+    <update id="updateRealGrade">
+        UPDATE tb_student_info
+        SET gradeOne = #{0} and gradeTwo = #{1} and totalGrade = #{2}
+        WHERE number = #{3}
+    </update>
+
+    <!--插入学生现在班级-->
+    <update id="updatePresentClass">
+        UPDATE tb_student_info
+        SET presentClass = #{0}
+        WHERE number = #{1}
+    </update>
+
+    <!--用id映射StudengInfo实体-->
+    <select id="findStudentInfoById" resultMap="stuinfoMap">
+        SELECT *
+        FROM tb_student_info
+        WHERE ID = #{id}
+    </select>
+
+    <!--根据学号查询学生信息-->
+    <select id="findStudentInfoByNumber" resultMap="stuinfoMap">
+        SELECT *
+        FROM tb_student_info
+        WHERE number = #{number}
+    </select>
+
+    <!--查找出所有学生信息-->
+    <select id="findStudentInfoAll" resultMap="stuinfoMap">
+        SELECT *
+        FROM tb_student_info
+    </select>
+
+    <!--根据原班级查找出学生信息-->
+    <select id="findStudentByOriginClass" parameterType="int" resultMap="stuinfoMap">
+        SELECT *
+        FROM tb_student_info
+        WHERE original_class = #{originClass}
+    </select>
+
+    <!--根据现班级查找出学生信息-->
+    <select id="findStudentByPresentClass" parameterType="int" resultMap="stuinfoMap">
+        SELECT *
+        FROM tb_student_info
+        WHERE original_class = #{presentClass}
+    </select>
+
+    <!--修改手机号（长号）-->
+    <update id="updateStudentPhone">
+        UPDATE tb_student_info
+        SET telephone = #{1}
+        WHERE number = #{0}
+    </update>
+
+</mapper>

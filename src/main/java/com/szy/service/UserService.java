@@ -1,8 +1,7 @@
 package com.szy.service;
 
+import com.szy.entity.UserManager;
 import com.szy.entity.UserStudent;
-
-import java.util.List;
 
 /**
  *
@@ -10,7 +9,14 @@ import java.util.List;
  */
 public interface UserService {
 
-    List<UserStudent> likeName(String name);
+    boolean ifExistsUserWithPwd(String number,String password) throws Exception;
 
-    String userInfo();
+    boolean ifExistsManagerWithPwd(String number,String password) throws Exception;
+
+    UserStudent findUserStudent(String number) throws Exception;
+
+    UserManager findUserManager(String number) throws Exception;
+
+    void updatePwd(String number, String newPwd, int type) throws Exception;
+
 }

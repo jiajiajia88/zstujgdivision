@@ -1,9 +1,16 @@
 package com.szy.entity;
 
-import java.math.BigDecimal;
-
 public class StudentInfo {
+
     private Integer id;
+
+    private String name;
+
+    private String telephone;
+
+    private int originalClass;
+
+    private int presentClass;
 
     private Double gpa;
 
@@ -31,6 +38,38 @@ public class StudentInfo {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public int getOriginalClass() {
+        return originalClass;
+    }
+
+    public void setOriginalClass(int originalClass) {
+        this.originalClass = originalClass;
+    }
+
+    public int getPresentClass() {
+        return presentClass;
+    }
+
+    public void setPresentClass(int presentClass) {
+        this.presentClass = presentClass;
     }
 
     public Double getGpa() {

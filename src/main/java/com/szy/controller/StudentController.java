@@ -1,7 +1,5 @@
 package com.szy.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping({"/student"})
 public class StudentController {
-
-
 
     @RequestMapping("/major_info")
     public String major_info(Model model){

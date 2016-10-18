@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.szy.mapper.UserMapper">
+
+    <!--获取所查找的用户名密码-->
+    <resultMap id="stuMap" type="UserStudent">
+        <id property="id" column="id" />
+        <result property="number" column="number" />
+        <result property="password" column="password" />
+    </resultMap>
+
+    <resultMap id="managerMap" type="UserManager">
+        <id property="id" column="id" />
+        <result property="number" column="number" />
+        <result property="password" column="password" />
+    </resultMap>
+
+    <!--向tb_user_student插入学生用户-->
+    <insert id="insertUserStudent" parameterType="UserStudent">
+        INSERT INTO tb_user_student(id, password, number) VALUES (#{id}, #{password}, #{number})
+    </insert>
+
+    <!--查找出所有学生-->
+    <select id="findUserStudentsAll" resultMap="stuMap">
+        SELECT * FROM tb_user_student
+    </select>
+
+    <!--判断是否存在用户名(学号)-->
+    <select id="ifExistsStudent" resultType="int">
+        SELECT count(*)
+        FROM tb_user_student
+        WHERE number = #{number}
+    </select>
+
+    <!--判断用户名密码是否正确-->
+    <select id="ifExistsStudentWithPwd" resultType="int">
+        SELECT count(*)
+        FROM tb_user_student
+        WHERE number = #{0} AND password=#{1}
+    </select>
+
+    <!--获取账号密码相符的实体-->
+    <select id="findUserStudentByNumber" resultMap="stuMap" parameterType="UserStudent">
+        SELECT *
+        FROM tb_user_student
+        WHERE number = #{number}
+    </select>
+
+    <!--修改密码-->
+    <update id="updateStudentPwd">
+        UPDATE tb_user_student
+        SET password = #{1}
+        WHERE number = #{0}
+    </update>
+
+    <!--添加管理员\教师用户信息-->
+    <insert id="insertUserManager" parameterType="UserManager">
+      INSERT INTO tb_user_manager(id, password, number) values (#{id}, #{password}, #{number})
+    </insert>
+
+    <!--查找出所有管理员\教师用户信息-->
+    <select id="findUserManagersAll" resultMap="managerMap">
+        SELECT * FROM tb_user_manager
+    </select>
+
+    <!--判断是否存在管理员\教师用户-->
+    <select id="ifExistsManager" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_user_manager
+        WHERE number = #{0}
+    </select>
+
+    <!--根据用户名密码判断密码是否正确-->
+    <select id="ifExistsManagerWithPwd" resultType="int">
+        SELECT COUNT(*)
+        FROM tb_user_manager
+        WHERE number = #{0} AND password = #{1}
+    </select>
+
+    <!--根据管理员\教师用户名映射用户信息-->
+    <select id="findUserManagerByNumber" parameterType="string" resultMap="managerMap">
+        SELECT *
+        FROM tb_user_manager
+        WHERE number = #{number}
+    </select>
+
+    <!--更新管理员账号密码-->
+    <update id="updateManagerPwd">
+        UPDATE tb_user_manager
+        SET password = #{1}
+        WHERE number = #{0}
+    </update>
+
+    <update id="updateManager" parameterType="UserManager">
+        UPDATE tb_user_manager
+        SET username = #{username} and number = #{number} and position = #{position} and role = #{role}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteManager" parameterType="int">
+        DELETE FROM tb_user_manager
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
