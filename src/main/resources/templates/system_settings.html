@@ -7,43 +7,6 @@
 <section layout:fragment="content">
     <!-- page start-->
     <div class="row">
-        <!--<div class="col-sm-6">
-            <section class="panel panel_plan">
-                <div class="panel-body">
-                    <div class="panel-account col-lg-2">
-                        <h4>添加学期</h4>
-                    </div>
-                    <div class="form-group col-lg-8 system_input_padding">
-                        <input type="password" class="form-control" id="term" name="term" placeholder="请输入学期"/>
-                    </div>
-                    <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white">提交</button>
-                    </div>
-                    <table class="table  table-hover general-table">
-                        <thead>
-                        <tr>
-                            <th><h5>已有学期</h5></th>
-                            <th><h5>操作</h5></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>2015-2016-1</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">删除</button></td>
-                        </tr>
-                        <tr>
-                            <td>2015-2016-2</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">删除</button></td>
-                        </tr>
-                        <tr>
-                            <td>2016-2017-1</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">删除</button></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </div>-->
         <div class="col-sm-6">
             <section class="panel panel_plan">
                 <div class="panel-body">
@@ -51,10 +14,10 @@
                         <h4>添加年级</h4>
                     </div>
                     <div class="form-group col-lg-8 system_input_padding">
-                        <input type="password" class="form-control" id="grade" placeholder="请输入学期"/>
+                        <input type="text" class="form-control" id="grade" placeholder="请输入学期"/>
                     </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white">提交</button>
+                        <button type="submit" class="btn btn-white btn_grade_add">提交</button>
                     </div>
                     <table class="table table-hover general-table">
                         <thead>
@@ -64,18 +27,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>2014</td>
+                        <tr th:each="grade:${gradeList}">
+                            <input type="hidden" th:value="${grade.id}"/>
+                            <td th:text="${grade.grade}"></td>
                             <td><button type="button" class="btn btn-white btn_grade_delete">删除</button></td>
                         </tr>
-                        <tr>
-                            <td>2015</td>
-                            <td><button type="button" class="btn btn-white btn_grade_delete">删除</button></td>
-                        </tr>
-                        <tr>
-                            <td>2016</td>
-                            <td><button type="button" class="btn btn-white btn_grade_delete">删除</button></td>
-                        </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -88,10 +45,10 @@
                         <h4>添加大类</h4>
                     </div>
                     <div class="form-group col-lg-8 system_input_padding">
-                        <input type="password" class="form-control" id="species" name="species" placeholder="请输入大类名"/>
+                        <input type="text" class="form-control" id="species" name="species" placeholder="请输入大类名"/>
                     </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white">提交</button>
+                        <button type="submit" class="btn btn-white btn_species_add">提交</button>
                     </div>
                     <table class="table  table-hover general-table">
                         <thead>
@@ -101,27 +58,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>工商管理</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button><button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                        <tr th:each="species:${speciesList}">
 
-                            <td class="panel_close"><input type="text" class="form-control" value="工商管理" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_species_submit">保存</button></td>
-                        </tr>
-                        <tr>
-                            <td>经济学</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button><button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                            <input type="hidden" th:value="${species.speciesId}"/>
 
-                            <td class="panel_close"><input type="text" class="form-control" value="经济学" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_species_submit">保存</button></td>
-                        </tr>
-                        <tr>
-                            <td>电子商务</td>
-                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button><button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                            <td th:text="${species.speciesName}"></td>
 
-                            <td class="panel_close"><input type="text" class="form-control" value="电子商务" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_species_submit">保存</button></td>
+                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${species.speciesName}" placeholder="请输入大类名"/></td>
+
+                            <td class="panel_close">
+                                <button type="button" class="btn btn-white btn_species_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_species_submitout">取消修改</button>
+                            </td>
+
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -134,16 +87,16 @@
                         <h4>添加管理员</h4>
                     </div>
                     <div class="form-group col-lg-3 system_input_padding">
-                        <input type="password" class="form-control" id="manager" name="manager" placeholder="请输入管理员名"/>
+                        <input type="text" class="form-control" id="manager" name="manager" placeholder="请输入管理员名"/>
                     </div>
                     <div class="panel-account col-lg-1">
                         <h4>学工号</h4>
                     </div>
                     <div class="form-group col-lg-3 system_input_padding">
-                        <input type="password" class="form-control" id="number" name="number" placeholder="请输入学工号"/>
+                        <input type="text" class="form-control" id="number" name="number" placeholder="请输入学工号"/>
                     </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white">提交</button>
+                        <button type="submit" class="btn btn-white btn_manager_add">提交</button>
                     </div>
                     <table class="table  table-hover general-table">
                         <thead>
@@ -155,57 +108,29 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>王老师</td>
-                            <td>23423423423</td>
-                            <td>学工办</td>
-                            <td><button type="button" class="btn btn-white btn_manager_modify">修改</button><button type="button" class="btn btn-white btn_manager_delete">删除</button></td>
+                        <tr th:each="manager:${managerList}">
+                            <td th:text="${manager.username}"></td>
+                            <td th:text="${manager.number}"></td>
+                            <td th:text="未知"></td>
 
+                            <td>
+                                <button type="button" class="btn btn-white btn_manager_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_manager_delete">删除</button>
+                            </td>
                             <td class="panel_close"><input type="text" class="form-control" value="工商管理" placeholder="请输入大类名"/></td>
                             <td class="panel_close"><input type="text" class="form-control" value="23423423423" placeholder="请输入学工号"/></td>
                             <td class="panel_close">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
+                                <select class="form-control" >
+                                    <option th:each="position:${positionList}" th:text="${position.position}"></option>
                                 </select>
                             </td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_manager_submit">保存</button></td>
-                        </tr>
-                        <tr>
-                            <td>李老师</td>
-                            <td>23423423423</td>
-                            <td>教学办</td>
-                            <td><button type="button" class="btn btn-white btn_manager_modify">修改</button><button type="button" class="btn btn-white btn_manager_delete">删除</button></td>
-
-                            <td class="panel_close"><input type="text" class="form-control" value="经济学" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><input type="text" class="form-control" value="23423423423" placeholder="请输入学工号"/></td>
                             <td class="panel_close">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
-                                </select>
+                                <button type="button" class="btn btn-white btn_manager_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_manager_submitout">取消修改</button>
                             </td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_manager_submit">保存</button></td>
+                            <input type="hidden" th:value="${manager.id}"/>
                         </tr>
-                        <tr>
-                            <td>陈老师</td>
-                            <td>23423423423</td>
-                            <td>教学办</td>
-                            <td><button type="button" class="btn btn-white btn_manager_modify">修改</button><button type="button" class="btn btn-white btn_manager_delete">删除</button></td>
 
-                            <td class="panel_close"><input type="text" class="form-control" value="电子商务" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><input type="text" class="form-control" value="23423423423" placeholder="请输入学工号"/></td>
-                            <td class="panel_close">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
-                                </select>
-                            </td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_manager_submit">保存</button></td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -218,10 +143,10 @@
                         <h4>添加职务</h4>
                     </div>
                     <div class="form-group col-lg-8 system_input_padding">
-                        <input type="password" class="form-control" id="position" name="species" placeholder="请输入大类名"/>
+                        <input type="text" class="form-control" id="position" name="species" placeholder="请输入大类名"/>
                     </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white">提交</button>
+                        <button type="submit" class="btn btn-white btn_position_add">提交</button>
                     </div>
                     <table class="table  table-hover general-table">
                         <thead>
@@ -231,27 +156,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>学工办</td>
-                            <td><button type="button" class="btn btn-white btn_position_modify">修改</button><button type="button" class="btn btn-white btn_position_delete">删除</button></td>
+                        <tr th:each="position:${positionList}">
+                            <td th:text="${position.position}"></td>
+                            <td>
+                                <button type="button" class="btn btn-white btn_position_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_position_delete">删除</button>
+                            </td>
 
-                            <td class="panel_close"><input type="text" class="form-control" value="工商管理" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_position_submit">保存</button></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.position}" placeholder="请输入职务"/></td>
+                            <td class="panel_close">
+                                <button type="button" class="btn btn-white btn_position_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_position_submitout">取消修改</button>
+                            </td>
+                            <input type="hidden" th:value="${position.id}"/>
                         </tr>
-                        <tr>
-                            <td>教学办</td>
-                            <td><button type="button" class="btn btn-white btn_position_modify">修改</button><button type="button" class="btn btn-white btn_position_delete">删除</button></td>
 
-                            <td class="panel_close"><input type="text" class="form-control" value="经济学" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_position_submit">保存</button></td>
-                        </tr>
-                        <tr>
-                            <td>教科办</td>
-                            <td><button type="button" class="btn btn-white btn_position_modify">修改</button><button type="button" class="btn btn-white btn_position_delete">删除</button></td>
-
-                            <td class="panel_close"><input type="text" class="form-control" value="电子商务" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><button type="button" class="btn btn-white btn_position_submit">保存</button></td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>

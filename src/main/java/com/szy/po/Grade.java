@@ -1,13 +1,9 @@
-package com.szy.entity;
+package com.szy.po;
 
-/**
- * 年级实体类
- */
 public class Grade {
-
     private Integer id;
 
-    private int grade;
+    private Integer grade;
 
     public Integer getId() {
         return id;
@@ -17,11 +13,11 @@ public class Grade {
         this.id = id;
     }
 
-    public int getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 
-    public void setGrade(int grade) {
+    public void setGrade(Integer grade) {
         this.grade = grade;
     }
 }

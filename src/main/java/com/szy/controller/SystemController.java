@@ -1,7 +1,7 @@
 package com.szy.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.szy.entity.*;
+import com.szy.po.*;
 import com.szy.service.StudentInfoService;
 import com.szy.service.SystemService;
 import com.szy.service.UserService;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import java.util.Map;
  * Created by Administrator on 2016/9/23.
  */
 @Controller
+@RequestMapping({"/system"})
 public class SystemController {
 
     private Logger logger = LoggerFactory.getLogger(SystemController.class);
@@ -37,93 +40,21 @@ public class SystemController {
     @Autowired
     SystemService systemService;
 
-    @RequestMapping({ "/", "index" })
-    public String index(Model model, HttpSession session) {
-        int type = 0;
-        if(session.getAttribute("userStudent") != null) {
-            UserStudent userStudent = (UserStudent) session.getAttribute("userStudent");
-            type = 2;
-            session.setAttribute("number", userStudent.getNumber());
-        } else if(session.getAttribute("userManager") != null){
-            UserManager userManager = (UserManager) session.getAttribute("usermanager");
-            type = 1;
-            session.setAttribute("number", userManager.getNumber());
-            session.setAttribute("name", userManager.getUsername());
-        }
-        if (session.getAttribute("userStudent") == null && session.getAttribute("userManager") == null) {
-            return "redirect:/login";//返回的内容就是templetes下面文件的名称
-        } else{
-            model.addAttribute("page", "index");
-            session.setAttribute("type", type);
-            return "index";
-        }
-    }
-
-    @RequestMapping(value = "/login")
-    public String login(Model model){
-        model.addAttribute("page","login");
-        return "login";
-    }
-
-    @RequestMapping(value = "/loginSubmit" ,produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String loginSubmit(Model model, HttpServletRequest request ,HttpSession session) throws Exception {
-
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        String number = request.getParameter("number");
-        String password = request.getParameter("password");
-        if(userService.ifExistsUserWithPwd(number, password)){
-            UserStudent userStudent = userService.findUserStudent(number);
-            session.setAttribute("userStudent",userStudent);
-            map.put("result", 200);
-        } else if (userService.ifExistsManagerWithPwd(number, password)){
-            UserManager userManager = userService.findUserManager(number);
-            session.setAttribute("userManager",userManager);
-            map.put("result", 200);
-        } else{
-            System.out.println("wrong");
-            map.put("result", 0);
-        }
-        return JSON.toJSONString(map);
-    }
-
-    @RequestMapping(value = "/logout")
-    public String logout(Model model,HttpSession session) throws Exception {
-        session.removeAttribute("userstudent");
-        return "redirect:/login";
-    }
-
-    @RequestMapping("/account")
-    public String account(Model model,HttpSession session){
-        int tag = 0;
-        String number = String.valueOf(session.getAttribute("number"));
-        String phoneNumber = null;
-        try {
-            phoneNumber = studentInfoService.getPhoneNumber(number);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.info("account页面查询电话号码出错");
-        }
-        if(phoneNumber.equals("")){
-            tag = 1;
-        } else {
-            model.addAttribute("phoneNumber", phoneNumber);
-            tag = 2;
-        }
-        model.addAttribute("page", "account");
-        model.addAttribute("tag", tag);
-        return "account";
-    }
+    private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 
     @RequestMapping("/system_settings")
     public String system_settings(Model model) {
         List<Grade> gradeList = null;
         List<Species> speciesList = null;
+        List<TeacherInfo> teacherList = null;
         List<Positions> positionList = null;
+
         try {
             gradeList = systemService.findGradesAll();
             speciesList = systemService.findSpeciesAll();
             positionList = systemService.findPositionsAll();
+            teacherList = systemService.getAllTeacherInfo();
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("查询年级、大类、职位数据时发生错误！");
@@ -132,7 +63,46 @@ public class SystemController {
         model.addAttribute("gradeList", gradeList);
         model.addAttribute("speciesList", speciesList);
         model.addAttribute("positionList", positionList);
+        model.addAttribute("teacherList", teacherList);
         return "system_settings";
+    }
+
+    @RequestMapping("/system_teacher_settings")
+    public String system_teacher_settings(Model model) {
+        List<TeacherInfo> teacherList = null;
+        List<Positions> positionList = null;
+        try {
+            teacherList = systemService.getAllTeacherInfo();
+            positionList = systemService.findPositionsAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("查询年级、大类、职位数据时发生错误！");
+        }
+        model.addAttribute("positionList", positionList);
+        model.addAttribute("page", "system_teacher_settings");
+        model.addAttribute("teacherList", teacherList);
+        return "system_teacher_settings";
+    }
+
+    @RequestMapping("/system_basic")
+    public String system_basic(Model model) {
+        List<Grade> gradeList = null;
+        List<Species> speciesList = null;
+        List<Positions> positionList = null;
+
+        try {
+            gradeList = systemService.findGradesAll();
+            speciesList = systemService.findSpeciesAll();
+            positionList = systemService.findPositionsAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("查询年级、大类、职位数据时发生错误！");
+        }
+        model.addAttribute("page", "system_basic");
+        model.addAttribute("gradeList", gradeList);
+        model.addAttribute("speciesList", speciesList);
+        model.addAttribute("positionList", positionList);
+        return "system_basic";
     }
 
     @RequestMapping(value = "/updatePwd" ,produces = "application/json;charset=UTF-8")
@@ -150,9 +120,9 @@ public class SystemController {
         int type = (int)session.getAttribute("type");
         System.out.println(type);
 
-        if(userService.ifExistsUserWithPwd(number,origin_pwd) || userService.ifExistsManagerWithPwd(number,origin_pwd)){
+        if(userService.checkLogin(number,origin_pwd) || userService.checkLogin(number,origin_pwd)){
             if(new_pwd.equals(repeat_pwd)){
-                userService.updatePwd(number,new_pwd,type);
+                userService.updatePwd(number,new_pwd);
                 map.put("result",200);
             } else {
                 map.put("result", 1);
@@ -179,13 +149,338 @@ public class SystemController {
 
     @RequestMapping(value = "/addGrade" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String addGrade(Model model, HttpServletRequest request) throws Exception {
+    public String addGrade(Model model, HttpServletRequest request){
 
         Map<String, Integer> map = new HashMap<String, Integer>();
         String grade = request.getParameter("grade");
-        systemService.addGrade(grade);
-        map.put("result",200);
+        System.out.println(grade);
+        try {
+            systemService.addGrade(grade);
+            System.out.println(grade);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
         return JSON.toJSONString(map);
     }
+
+    @RequestMapping(value = "/deleteGrade" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteGrade(Model model, HttpServletRequest request) {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        int gradeId = Integer.parseInt(request.getParameter("gradeId"));
+        System.out.println(gradeId);
+
+        try {
+            systemService.deleteGrade(gradeId);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
+    @RequestMapping(value = "/deleteSpecies" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteSpecies(Model model, HttpServletRequest request) {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        int speciesId = Integer.parseInt(request.getParameter("speciesId"));
+        System.out.println(speciesId);
+        try {
+            systemService.deleteSpecies(speciesId);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 添加species
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/addSpecies" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addSpecies(Model model, HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        String species = request.getParameter("species");
+
+        try {
+            Species speciesadd = new Species();
+            int lastID = systemService.findLastSpeciesId();//找出最后一位id
+            speciesadd.setSpeciesId(lastID+1);//新添加的大类id值为最后一位id值加一
+            speciesadd.setSpeciesName(species);
+            speciesadd.setStuAmount(0);//生成species对象完毕
+            systemService.addSpecies(speciesadd);
+
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 更新大类名字
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updateSpecies" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String updateSpecies(Model model, HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        try {
+            int speciesId = Integer.parseInt(request.getParameter("speciesId"));
+            String newSpeciesName = request.getParameter("newSpeciesName");
+            System.out.println(speciesId+"/"+newSpeciesName);
+            systemService.updateSpecies(speciesId,newSpeciesName);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 增加教师用户
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/addTeacher" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addManager(Model model, HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<>();
+        String username = request.getParameter("username");
+        String number = request.getParameter("number");
+        try {
+            TeacherInfo teacherInfo = new TeacherInfo();
+            teacherInfo.setName(username);
+            teacherInfo.setNumber(number);
+            systemService.addTeacherInfo(teacherInfo);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+        System.out.println(map);
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 删除管理员
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deleteTeacherr" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteTeacherr(HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<>();
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            systemService.deleteTeacherInfo(id);
+            String number = systemService.getTeacherInfoById(id).getNumber();
+            userService.deleteUser(number);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 删除管理员
+     * 只能更改学工号，其他列需要在UserMapper修改
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updateTeacher" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String updateTeacher(HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<>();
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String username = request.getParameter("username");
+            String number = request.getParameter("number");
+            String position = request.getParameter("position");
+            int positionId = systemService.getPositionsByDescription(position).getId();
+
+            TeacherInfo teacherInfo = new TeacherInfo();
+            teacherInfo.setId(id);
+            teacherInfo.setName(username);
+            teacherInfo.setNumber(number);
+            teacherInfo.setPositionId(positionId);
+            systemService.addTeacherInfo(teacherInfo);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 增加职务
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/addPosition" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addPosition(Model model, HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        try {
+            String position = request.getParameter("position");
+            Positions positions = new Positions();
+            positions.setDescription(position);
+            systemService.addPositions(positions);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 删除职务
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/deletePosition" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deletePosition(Model model, HttpServletRequest request) {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            systemService.deletePositions(id);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
+    /**
+     * 更新职务名字
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/updatePosition" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String updatePosition(Model model, HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            String newposition = request.getParameter("newposition");
+            systemService.updatePositions(id,newposition);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+
+
+        return JSON.toJSONString(map);
+    }
+
+
+    @RequestMapping(value = "/deleteMajor" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String deleteMajor(HttpServletRequest request) {
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        int majorId = Integer.parseInt(request.getParameter("majorId"));
+        //System.out.println(majorId);
+        try {
+            systemService.deleteMajor(majorId);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            e.printStackTrace();
+        }
+        return JSON.toJSONString(map);
+    }
+
+
+    @RequestMapping("/system_major_settings")
+    public String system_major_settings(Model model) {
+        List<Species> speciesList = null;
+        List<Major> majorList = null;
+        try {
+            speciesList = systemService.findSpeciesAll();
+            majorList = systemService.findMajorsAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("majorList", majorList);
+        model.addAttribute("speciesList", speciesList);
+        model.addAttribute("page", "system_major_settings");
+        return "system_major_settings";
+    }
+
+    /**
+     * 添加species
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/addMajor" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String addMajor(HttpServletRequest request){
+
+        Map<String, Integer> map = new HashMap<>();
+        String major_name = request.getParameter("major_name");
+        String major_species = request.getParameter("major_species");
+        try {
+            Major major = new Major();
+            int speciesId = systemService.getSpeciesByName(major_species).getSpeciesId();
+            int majorId = speciesId*100 + systemService.getMajorCountBySpeciesId(speciesId);
+            major.setMajorId(majorId);
+            major.setMajorName(major_name);
+            systemService.addMajor(major);
+            map.put("result",200);
+        } catch (Exception e) {
+            map.put("result",0);
+            logger.error("数据库查询出错！");
+            e.printStackTrace();
+        }
+
+        return JSON.toJSONString(map);
+    }
+
 
 }

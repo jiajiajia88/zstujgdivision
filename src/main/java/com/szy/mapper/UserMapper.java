@@ -1,8 +1,11 @@
 package com.szy.mapper;
 
-import com.szy.entity.UserManager;
-import com.szy.entity.UserStudent;
+import com.szy.po.User;
+import com.szy.po.UserRole;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 用户相关持久层接口
@@ -12,107 +15,91 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
     /**
-     * 向tb_user_student插入学生用户
-     * @param students
+     * 插入用户
+     * @param user
      * @throws Exception
      */
-    void insertUserStudent(UserStudent students) throws Exception;
+    void insertUser(User user) throws Exception;
 
     /**
-     * 查找出所有学生
+     * 分配用户角色
+     * @param userId
+     * @param roleId
+     * @throws Exception
+     */
+    void insertUserRole(int userId,int roleId) throws Exception;
+
+    /**
+     * 查找所有教师用户
      * @return
      * @throws Exception
      */
-    UserStudent findUserStudentsAll() throws Exception;
+    List<User> findAllTeachers() throws Exception;
 
     /**
-     * 根据用户名判断用户是否存在
+     * 查找所有学生用户
+     * @return
+     * @throws Exception
+     */
+    List<User> findAllStudents() throws Exception;
+
+    /**
+     * 根据学工号查找用户
      * @param number
      * @return
      * @throws Exception
      */
-    int ifExistsStudent(String number) throws Exception;
+    User findUserByNumber(String number) throws Exception;
 
     /**
-     * 根据用户名密码判断密码是否正确
-     * @param number
-     * @param pwd
-     * @return
-     * @throws Exception
-     */
-    int ifExistsStudentWithPwd(String number, String pwd) throws Exception;
-
-    /**
-     * 根据用户名获得映射
-     */
-    UserStudent findUserStudentByNumber(String number) throws Exception;
-
-    /**
-     * 修改密码
-     * @param pwd
-     * @param number
-     * @throws Exception
-     */
-    void updateStudentPwd(String number,String pwd) throws Exception;
-
-
-    /**
-     * 添加管理员\教师用户信息
-     * @param userManager
-     * @throws Exception
-     */
-    void insertUserManager(UserManager userManager) throws Exception;
-
-    /**
-     * 查找出所有管理员\教师用户信息
-     * @return
-     * @throws Exception
-     */
-    UserManager findUserManagersAll() throws Exception;
-
-    /**
-     * 判断是否存在管理员\教师用户
+     * 根据学工号查找角色
      * @param number
      * @return
      * @throws Exception
      */
-    int ifExistsManager(String number) throws Exception;
+    String findRoleByNumber(String number) throws Exception;
 
     /**
-     * 根据用户名密码判断密码是否正确
-     * @param number
-     * @param pwd
-     * @return
-     * @throws Exception
-     */
-    int ifExistsManagerWithPwd(String number, String pwd) throws Exception;
-
-    /**
-     * 根据管理员\教师用户名映射用户信息
+     * 判断是否存在用户
      * @param number
      * @return
      * @throws Exception
      */
-    UserManager findUserManagerByNumber(String number) throws Exception;
+    int ifExistsUserByNumber(String number) throws Exception;
 
     /**
-     * 更新管理员账号密码
-     * @param pwd
+     * 判断用户名密码是否正确
+     * @param number
+     * @param password
+     * @return
      * @throws Exception
      */
-    void updateManagerPwd(String number,String pwd) throws Exception;
+    int ifExistsUserByNumberAndPwd(String number, String password) throws Exception;
 
     /**
-     * 修改管理员信息
-     * @param userManager
+     * 更新密码
+     * @param number
+     * @param password
      * @throws Exception
      */
-    void updateManager(UserManager userManager) throws Exception;
+    void updatePwdByNumber(String number, String password) throws Exception;
 
     /**
-     * 删除管理员账号
-     * @param id
+     * 删除用户
+     * @param number
      * @throws Exception
      */
-    void deleteManager(int id) throws Exception;
+    void deleteUserByNumber(String number) throws Exception;
+
+    /**
+     * 查询用户对应登录模块的权限
+     * @param number
+     * @throws Exception
+     */
+    int ifHasAccessOfLogin(String number) throws Exception;
+
+    List<String> getAccessByNumber(String number) throws Exception;
+
+
+
 }

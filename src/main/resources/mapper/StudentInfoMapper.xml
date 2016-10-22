@@ -23,27 +23,27 @@
 
     <!--插入学生基础信息-->
     <insert id="insertBasicInfo">
-        INSERT INTO tb_student_info(number, name, origin_class) VALUES (#{0}, #{1}, #{2})
+        INSERT INTO tb_student_info(number, name, original_class) VALUES (#{0}, #{1}, #{2})
     </insert>
 
     <!--插入学生gpa信息-->
     <update id="updateGpa">
         UPDATE tb_student_info
-        SET gpa = #{0} and realGpa = #{1}
+        SET GPA = #{0}, RealGPA = #{1}
         WHERE number = #{2}
     </update>
 
     <!--插入学生高考信息-->
     <update id="updateEntranceScores">
         UPDATE tb_student_info
-        SET entranceScore = #{0} and admissionScore = #{1} and division = #{2} and stuFrom = #{3}
+        SET entranceScore = #{0},admissionScore = #{1},division = #{2},stuFrom = #{3}
         WHERE number = #{4}
     </update>
 
     <!--插入学生计算后分数-->
     <update id="updateRealGrade">
         UPDATE tb_student_info
-        SET gradeOne = #{0} and gradeTwo = #{1} and totalGrade = #{2}
+        SET gradeOne = #{0},gradeTwo = #{1},totalGrade = #{2}
         WHERE number = #{3}
     </update>
 

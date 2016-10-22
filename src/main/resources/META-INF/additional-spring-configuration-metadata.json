@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "spring.freemarker.order",
+      "type": "java.lang.String",
+      "description": "Description for spring.freemarker.order."
+    }
+  ]
+}

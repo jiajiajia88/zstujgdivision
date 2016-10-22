@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+<section layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-1">
+                        <h4>添加专业</h4>
+                    </div>
+                    <div class="form-group col-lg-4 system_input_padding">
+                        <input type="text" class="form-control" id="major" name="major" placeholder="请输入专业名"/>
+                    </div>
+                    <div class="panel-account col-lg-1">
+                        <h4>所属大类</h4>
+                    </div>
+                    <div class="form-group col-lg-1 system_input_padding">
+                        <select class="form-control" title="所属大类">
+                            <option></option>
+                            <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-1 system_input_padding">
+                        <button type="submit" class="btn btn-white btn_major_add">提交</button>
+                    </div>
+                    <table class="table  table-hover general-table">
+                        <thead>
+                        <tr>
+                            <th><h5>已有专业</h5></th>
+                            <th><h5>操作</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="major:${majorList}">
+                            <input type="hidden" th:value="${major.majorId}"/>
+                            <td th:text="${major.majorName}"></td>
+                            <td>
+                                <button type="button" class="btn btn-white btn_major_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_major_delete">删除</button></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${major.majorName}" placeholder="请输入专业名"/>
+                            </td>
+                            <td class="panel_close">
+                                <button type="button" class="btn btn-white btn_species_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_species_submitout">取消修改</button>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- page end -->
+
+</section>
+</body>
+</html>

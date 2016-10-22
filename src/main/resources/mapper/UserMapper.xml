@@ -2,104 +2,88 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.szy.mapper.UserMapper">
 
-    <!--获取所查找的用户名密码-->
-    <resultMap id="stuMap" type="UserStudent">
+    <!--用户-->
+    <resultMap id="userMap" type="User">
         <id property="id" column="id" />
         <result property="number" column="number" />
         <result property="password" column="password" />
+        <result property="createTime" column="create_time" />
     </resultMap>
 
-    <resultMap id="managerMap" type="UserManager">
-        <id property="id" column="id" />
-        <result property="number" column="number" />
-        <result property="password" column="password" />
-    </resultMap>
-
-    <!--向tb_user_student插入学生用户-->
-    <insert id="insertUserStudent" parameterType="UserStudent">
-        INSERT INTO tb_user_student(id, password, number) VALUES (#{id}, #{password}, #{number})
+    <!--插入用户-->
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO tb_user(number, password, create_time) VALUES (#{number}, #{password}, #{createTime})
     </insert>
 
-    <!--查找出所有学生-->
-    <select id="findUserStudentsAll" resultMap="stuMap">
-        SELECT * FROM tb_user_student
+    <!--分配用户角色-->
+    <insert id="insertUserRole">
+        INSERT INTO tb_user_role(user_id, role_id) VALUES (#{userId}, #{roleId})
+    </insert>
+
+    <!--查找所有教师用户-->
+    <select id="findAllTeachers" resultMap="userMap">
+        SELECT a.* FROM tb_user a, tb_user_role b, tb_role c
+        WHERE a.id = b.user_id
+        AND b.role_id = c.id
+        AND c.role_name = 'teacher'
     </select>
 
-    <!--判断是否存在用户名(学号)-->
-    <select id="ifExistsStudent" resultType="int">
-        SELECT count(*)
-        FROM tb_user_student
+    <!--查找所有学生用户-->
+    <select id="findAllStudents" resultMap="userMap">
+        SELECT a.* FROM tb_user a, tb_user_role b, tb_role c
+        WHERE a.id = b.user_id AND
+        b.role_id = c.id AND
+        c.role_name = 'student'
+    </select>
+
+    <!--根据学工号查找用户-->
+    <select id="findUserByNumber" parameterType="string" resultMap="userMap">
+        SELECT * FROM tb_user WHERE number = #{number}
+    </select>
+
+    <!--根据学工号查找角色-->
+    <select id="findRoleByNumber" parameterType="string" resultType="string">
+        SELECT b.role_name FROM tb_user a, tb_role b, tb_user_role c
+        WHERE a.id = c.user_id AND
+        b.id = c.role_id AND
+        number = #{number}
+    </select>
+
+    <!--判断是否存在用户-->
+    <select id="ifExistsUserByNumber" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM tb_user
         WHERE number = #{number}
     </select>
 
     <!--判断用户名密码是否正确-->
-    <select id="ifExistsStudentWithPwd" resultType="int">
-        SELECT count(*)
-        FROM tb_user_student
-        WHERE number = #{0} AND password=#{1}
-    </select>
-
-    <!--获取账号密码相符的实体-->
-    <select id="findUserStudentByNumber" resultMap="stuMap" parameterType="UserStudent">
-        SELECT *
-        FROM tb_user_student
-        WHERE number = #{number}
-    </select>
-
-    <!--修改密码-->
-    <update id="updateStudentPwd">
-        UPDATE tb_user_student
-        SET password = #{1}
-        WHERE number = #{0}
-    </update>
-
-    <!--添加管理员\教师用户信息-->
-    <insert id="insertUserManager" parameterType="UserManager">
-      INSERT INTO tb_user_manager(id, password, number) values (#{id}, #{password}, #{number})
-    </insert>
-
-    <!--查找出所有管理员\教师用户信息-->
-    <select id="findUserManagersAll" resultMap="managerMap">
-        SELECT * FROM tb_user_manager
-    </select>
-
-    <!--判断是否存在管理员\教师用户-->
-    <select id="ifExistsManager" resultType="int">
-        SELECT COUNT(*)
-        FROM tb_user_manager
-        WHERE number = #{0}
-    </select>
-
-    <!--根据用户名密码判断密码是否正确-->
-    <select id="ifExistsManagerWithPwd" resultType="int">
-        SELECT COUNT(*)
-        FROM tb_user_manager
+    <select id="ifExistsUserByNumberAndPwd" resultType="int">
+        SELECT COUNT(*) FROM tb_user
         WHERE number = #{0} AND password = #{1}
     </select>
 
-    <!--根据管理员\教师用户名映射用户信息-->
-    <select id="findUserManagerByNumber" parameterType="string" resultMap="managerMap">
-        SELECT *
-        FROM tb_user_manager
-        WHERE number = #{number}
-    </select>
-
-    <!--更新管理员账号密码-->
-    <update id="updateManagerPwd">
-        UPDATE tb_user_manager
+    <!--更新密码-->
+    <update id="updatePwdByNumber">
+        UPDATE tb_user
         SET password = #{1}
         WHERE number = #{0}
     </update>
 
-    <update id="updateManager" parameterType="UserManager">
-        UPDATE tb_user_manager
-        SET username = #{username} and number = #{number} and position = #{position} and role = #{role}
-        WHERE id = #{id}
-    </update>
-
-    <delete id="deleteManager" parameterType="int">
-        DELETE FROM tb_user_manager
-        WHERE id = #{id}
+    <!--删除用户-->
+    <delete id="deleteUserByNumber" parameterType="string">
+        DELETE FROM tb_user WHERE number = #{number}
     </delete>
+
+    <!--查询用户对应登录模块的权限-->
+    <select id="ifHasAccessOfLogin" parameterType="string" resultType="int">
+        SELECT count(*) FROM tb_user a, tb_user_role b, tb_role c, tb_role_module d, tb_module e
+        WHERE a.id = b.user_id and b.role_id = c.id and c.id = d.role_id and d.module_id = e.id and
+        a.number = #{number} and e.module_key = 'login'
+    </select>
+
+    <select id="getAccessByNumber" parameterType="string" resultType="string">
+        SELECT e.module_key FROM tb_user a, tb_user_role b, tb_role c, tb_role_module d, tb_module e
+        WHERE a.id = b.user_id and b.role_id = c.id and c.id = d.role_id and d.module_id = e.id and
+        a.number = #{number}
+    </select>
 
 </mapper>

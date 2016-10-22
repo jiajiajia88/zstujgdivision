@@ -37,17 +37,16 @@ canvas{
 	z-index: 1;
 }
 .cent-box{
-	width: 300px;
-	height: 440px;
+	width: 330px;
+	height: 359px;
 	vertical-align: middle;
 	white-space: normal;
-	margin: 0 auto;
 	position: absolute;
 	z-index: 2;
 	left: 50%;
 	top: 50%;
-	margin-left: -150px;
-	margin-top: -220px;
+	margin: -220px auto 0 -150px;
+	background-image: url("../images/bg.png");
 }
 .register-box{
 	height: 490px;
@@ -232,10 +231,22 @@ canvas{
 	text-align: center;
 	color: #999;
 	z-index: 2;
-	padding-bottom: 10px;
+	padding-bottom: 40px;
+	margin-bottom: 20px;
 	font-size: 13px;
 }
 .footer a{
 	color: #666;
 	text-decoration: underline;
+}
+
+.position-center{
+	margin: 20px;
+}
+
+.checkbox{
+	margin-left: 4px;
+}
+.register-btn{
+
 }

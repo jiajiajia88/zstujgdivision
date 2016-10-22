@@ -1,6 +1,6 @@
 package com.szy.mapper;
 
-import com.szy.entity.StudentInfo;
+import com.szy.po.StudentInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

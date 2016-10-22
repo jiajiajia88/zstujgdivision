@@ -13,57 +13,150 @@
         <result property="stuAmount" column="stu_amount" />
     </resultMap>
 
+    <resultMap id="majorMap" type="Major">
+        <id property="majorId" column="major_id" />
+        <result property="majorName" column="major_name" />
+        <result property="status" column="status" />
+    </resultMap>
+
     <resultMap id="positionsMap" type="Positions">
         <id property="id" column="id" />
         <result property="description" column="description" />
     </resultMap>
 
+    <resultMap id="teacherInfoMap" type="TeacherInfo">
+        <id property="id" column="id"/>
+        <result property="number" column="number"/>
+        <result property="name" column="name"/>
+        <result property="positionId" column="position_id"/>
+    </resultMap>
+
+    <!--插入年级-->
     <insert id="insertGrade" parameterType="string">
         INSERT INTO tb_grade(grade) VALUES (#{grade})
     </insert>
 
+    <!--查找所有的年级-->
     <select id="findGradesAll" resultMap="gradeMap">
         SELECT * FROM tb_grade
     </select>
 
+    <!--删除年级-->
     <delete id="deleteGrade" parameterType="int">
         DELETE FROM tb_grade WHERE id = #{id}
     </delete>
 
+    <!--插入大类-->
     <insert id="insertSpecies" parameterType="Species">
         INSERT INTO tb_species(species_id,species_name,stu_amount) VALUES (#{speciesId},#{speciesName},#{stuAmount})
     </insert>
 
+    <!--查找所有全部大类-->
     <select id="findSpeciesAll" resultMap="speciesMap">
         SELECT * FROM tb_species
     </select>
 
+    <!--根据大类名获取整个大类信息-->
+    <select id="findSpeciesByName" parameterType="string" resultMap="speciesMap">
+        SELECT * FROM tb_species WHERE species_name = #{speciesName}
+    </select>
+
+    <!--删除大类-->
     <delete id="deleteSpecies" parameterType="int">
         DELETE FROM tb_species WHERE species_id = #{speciesId}
     </delete>
 
+    <!--更新大类-->
     <update id="updateSpecies" parameterType="Species">
         UPDATE tb_species
-        SET species_name = #{speciesName} AND stu_amount = #{stuAmount}
-        WHERE species_id = #{speciesId}
+        SET species_name = #{1}
+        WHERE species_id = #{0}
     </update>
 
+    <!--插入职位-->
     <insert id="insertPositions" parameterType="Positions">
-        INSERT INTO tb_positions(id,position) VALUES (#{id},#{position})
+        INSERT INTO tb_positions(description) VALUES (#{description})
     </insert>
 
+    <!--查找所有全部职位-->
     <select id="findPositionsAll" resultMap="positionsMap">
         SELECT * FROM tb_positions
     </select>
 
+    <!--删除职位-->
     <delete id="deletePositions" parameterType="int">
         DELETE FROM tb_positions WHERE id = #{id}
     </delete>
 
-    <update id="updatePositions" parameterType="Positions">
+    <!--更新职位-->
+    <update id="updatePositions">
         UPDATE tb_positions
-        SET position = #{position}
+        SET position = #{1}
+        WHERE id = #{0}
+    </update>
+
+    <select id="findPositionsByName" parameterType="string">
+        SELECT * FROM tb_positions WHERE description = #{description}
+    </select>
+
+    <!--找到大类编号最后一位-->
+    <select id="findLastSpeciesId" resultMap="speciesMap">
+        SELECT species_id
+        FROM tb_species
+        ORDER BY species_id DESC LIMIT 1
+    </select>
+
+    <!--插入大类-->
+    <insert id="insertMajor" parameterType="Major">
+        INSERT INTO tb_major(major_id,major_name) VALUES (#{majorId},#{majorName})
+    </insert>
+
+    <!--查找所有全部大类-->
+    <select id="findMajorsAll" resultMap="majorMap">
+        SELECT * FROM tb_major
+    </select>
+
+    <!--根据大类名获取整个大类信息-->
+    <select id="findMajorByName" parameterType="string" resultMap="majorMap">
+        SELECT * FROM tb_major WHERE major_name = #{majorName}
+    </select>
+
+    <!--根据大类id获取已有专业数量-->
+    <delete id="deleteMajors" parameterType="int">
+        DELETE FROM tb_major WHERE major_id = #{major_id}
+    </delete>
+
+    <!--根据大类id获取已有专业数量-->
+    <select id="getMajorCountBySpeciesId" parameterType="int" resultType="int">
+        SELECT count(*) FROM tb_major WHERE major_id REGEXP #{speciesId}
+    </select>
+
+    <!--插入教师信息-->
+    <insert id="insertTeacherInfo" parameterType="TeacherInfo">
+        INSERT INTO tb_teacher_info(number,name,position_id) VALUES (#{number}. #{name}, #{positionId})
+    </insert>
+
+    <!--更新教师用户信息-->
+    <update id="updateTeacherInfo" parameterType="TeacherInfo">
+        UPDATE tb_teacher_info SET
+        number = #{number} AND
+        name = #{name} AND
+        position_id = #{positionId}
         WHERE id = #{id}
     </update>
+
+    <!--删除教师用户-->
+    <delete id="deleteTeacherInfo" parameterType="int">
+        DELETE FROM tb_teacher_infoWHERE id = #{id}
+    </delete>
+
+    <!--获取所有教师用户信息-->
+    <select id="findAllTeacherInfos" resultMap="teacherInfoMap">
+        SELECT * FROM tb_teacher_info
+    </select>
+
+    <select id="findTeacherInfoById" parameterType="int" resultMap="teacherInfoMap">
+        SELECT * FROM tb_teacher_info WHERE id = #{id}
+    </select>
 
 </mapper>

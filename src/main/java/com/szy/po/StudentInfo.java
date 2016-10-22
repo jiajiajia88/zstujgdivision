@@ -1,16 +1,15 @@
-package com.szy.entity;
+package com.szy.po;
 
 public class StudentInfo {
-
     private Integer id;
 
     private String name;
 
     private String telephone;
 
-    private int originalClass;
+    private String originalClass;
 
-    private int presentClass;
+    private String presentClass;
 
     private Double gpa;
 
@@ -45,7 +44,7 @@ public class StudentInfo {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getTelephone() {
@@ -53,23 +52,23 @@ public class StudentInfo {
     }
 
     public void setTelephone(String telephone) {
-        this.telephone = telephone;
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public int getOriginalClass() {
+    public String getOriginalClass() {
         return originalClass;
     }
 
-    public void setOriginalClass(int originalClass) {
-        this.originalClass = originalClass;
+    public void setOriginalClass(String originalClass) {
+        this.originalClass = originalClass == null ? null : originalClass.trim();
     }
 
-    public int getPresentClass() {
+    public String getPresentClass() {
         return presentClass;
     }
 
-    public void setPresentClass(int presentClass) {
-        this.presentClass = presentClass;
+    public void setPresentClass(String presentClass) {
+        this.presentClass = presentClass == null ? null : presentClass.trim();
     }
 
     public Double getGpa() {

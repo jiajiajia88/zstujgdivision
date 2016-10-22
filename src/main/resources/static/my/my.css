@@ -37,8 +37,8 @@
 }
 
 .btn_plan_create{
-    float: right;
-    margin-right: 20px;
+    float: left!important;;
+    margin-left: 20px;
 }
 
 .btn_plan_fill{
@@ -47,13 +47,21 @@
 
 .term_picker{
     float: left;
-    margin-right: 0px;
+    margin-right: -50px;
     padding-right: 0px;
-    padding-left: 15px;
+    padding-left: 0px;
+}
+
+.plan_search_panel{
+    margin-top:10px;
 }
 
 .td_species_name{
     vertical-align:middle!important;
+}
+
+.modal-body{
+    padding-left: 0!important;
 }
 
 .modal_input_1{
@@ -105,10 +113,6 @@
     margin-left: 10px!important;
 }
 
-.btn-top{
-    margin-right: 10px!important;
-}
-
 .panel-account{
     padding: 0px 0px 10px;
 }
@@ -131,8 +135,9 @@
 
 .btn_species_modify,.btn_grade_delete,
 .btn_species_delete,.btn_manager_modify,
-.btn_manager_delete,.btn_position_submit,
-.btn_position_modify,.btn_position_delete{
+.btn_manager_delete, .btn_major_delete,
+.btn_position_modify,.btn_position_delete
+.btn_major_add, .btn_major_modify{
     padding: 0 5px!important;
 }
 
@@ -165,6 +170,15 @@
 .dropdown-menu.extended.logout>li>a{
     margin-right: 0!important;
     width: 100%!important;
+}
+
+.plan_new_label{
+    margin-top: 8px;
+}
+
+.btn_plan_search{
+    margin-left:0px;
+    margin-top:15px;
 }
 /* *************logout end***************** */
 
@@ -235,6 +249,11 @@ ul, .list-unstyled{
 
     .system_input_padding{
         padding-left: 0px!important;
+    }
+
+    .fileupload-div{
+        margin-top:10px;
+        width:50%;
     }
 
 }

@@ -1,16 +1,13 @@
 package com.szy.service.impl;
 
-import com.szy.entity.Grade;
-import com.szy.entity.Positions;
-import com.szy.entity.Species;
-import com.szy.entity.UserManager;
+import com.szy.po.*;
 import com.szy.mapper.SystemMapper;
 import com.szy.mapper.UserMapper;
 import com.szy.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * 系统相关Service实现类
@@ -31,7 +28,7 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public LinkedList<Grade> findGradesAll() throws Exception {
+    public List<Grade> findGradesAll() throws Exception {
         return systemMapper.findGradesAll();
     }
 
@@ -46,7 +43,7 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public LinkedList<Species> findSpeciesAll() throws Exception {
+    public List<Species> findSpeciesAll() throws Exception {
         return systemMapper.findSpeciesAll();
     }
 
@@ -56,8 +53,8 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public void updateSpecies(int speciesId, String speciesName, int stuAmount) throws Exception {
-        systemMapper.updateSpecies(speciesId,speciesName,stuAmount);
+    public void updateSpecies(int speciesId, String speciesName) throws Exception {
+        systemMapper.updateSpecies(speciesId,speciesName);
     }
 
     @Override
@@ -66,7 +63,7 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public LinkedList<Positions> findPositionsAll() throws Exception {
+    public List<Positions> findPositionsAll() throws Exception {
         return systemMapper.findPositionsAll();
     }
 
@@ -76,22 +73,88 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public void updatePositions(int id, int grade) throws Exception {
-        systemMapper.updatePositions(id,grade);
+    public void updatePositions(int id, String position) throws Exception {
+        systemMapper.updatePositions(id,position);
     }
 
     @Override
-    public void addManager(UserManager userManager) throws Exception {
-        userMapper.insertUserManager(userManager);
+    public Positions getPositionsByDescription(String description) throws Exception {
+        return systemMapper.findPositionsByDescription(description);
     }
 
     @Override
-    public void updateManager(UserManager userManager) throws Exception {
-        userMapper.updateManager(userManager);
+    public void addTeacherInfo(TeacherInfo teacherInfo) throws Exception {
+        systemMapper.insertTeacherInfo(teacherInfo);
     }
 
     @Override
-    public void deleteManager(int id) throws Exception {
-        userMapper.deleteManager(id);
+    public void addTeacher(TeacherInfo teacherInfo) throws Exception {
+        systemMapper.insertTeacherInfo(teacherInfo);
+        User teacher = new User();
+        teacher.setNumber(teacherInfo.getNumber());
+        teacher.setPassword("123456");
+        teacher.setCreateTime(new Date());
+        userMapper.insertUser(teacher);
+        userMapper.insertUserRole(userMapper.findUserByNumber(teacherInfo.getNumber()).getId(),2);
     }
+
+    @Override
+    public void updateTeacherInfo(TeacherInfo teacherInfo) throws Exception {
+        systemMapper.updateTeacherInfo(teacherInfo);
+    }
+
+    @Override
+    public void deleteTeacherInfo(int id) throws Exception {
+        systemMapper.deleteTeacherInfo(id);
+    }
+
+    @Override
+    public List<TeacherInfo> getAllTeacherInfo() throws Exception {
+        return systemMapper.findAllTeacherInfos();
+    }
+
+    @Override
+    public int findLastSpeciesId() {
+        try {
+            return systemMapper.findLastSpeciesId().getSpeciesId();
+        } catch (Exception e) {
+            return 100;
+        }
+    }
+
+    @Override
+    public Species getSpeciesByName(String speciesName) throws Exception {
+        return systemMapper.findSpeciesByName(speciesName);
+    }
+
+    @Override
+    public void addMajor(Major major) throws Exception {
+        systemMapper.insertMajor(major);
+    }
+
+    @Override
+    public List<Major> findMajorsAll() throws Exception {
+        return systemMapper.findMajorsAll();
+    }
+
+    @Override
+    public void deleteMajor(int id) throws Exception {
+        systemMapper.deleteMajors(id);
+    }
+
+    @Override
+    public Major getMajorByName(String majorName) throws Exception {
+        return systemMapper.findMajorByName(majorName);
+    }
+
+    @Override
+    public int getMajorCountBySpeciesId(int speciesId) throws Exception {
+        return systemMapper.getMajorCountBySpeciesId(speciesId);
+    }
+
+    @Override
+    public TeacherInfo getTeacherInfoById(int id) throws Exception {
+        return systemMapper.findTeacherInfoById(id);
+    }
+
 }

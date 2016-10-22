@@ -1,10 +1,6 @@
-package com.szy.entity;
+package com.szy.po;
 
-/**
- * 大类实体类
- */
 public class Species {
-
     private Integer speciesId;
 
     private String speciesName;

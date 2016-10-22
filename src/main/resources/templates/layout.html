@@ -85,10 +85,24 @@
                         <span>公告发布</span>
                     </a>
                 </li>-->
-                <li>
-                    <a href="/teacher/stu_info" class="stu_info">
+
+
+                <li class="sub-menu dcjq-parent-li">
+                    <a href="javascript:;" class="dcjq-parent stu_info">
                         <i class="fa fa-book"></i>
                         <span>学生信息</span>
+                    </a>
+                    <ul class="sub" style="display: none;">
+                        <li class="stu_info_basic"><a href="/teacher/stu_info_basic">导入基本信息</a></li>
+                        <li class="stu_info_gpa"><a href="/teacher/stu_info_gpa">导入学分绩点</a></li>
+                        <li class="stu_info_entrance"><a href="/teacher/stu_info_entrance">导入高考成绩</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/teacher/stu_info_search" class="stu_info_search">
+                        <i class="fa fa-book"></i>
+                        <span>查询信息</span>
                     </a>
                 </li>
                 <!--<li>
@@ -137,11 +151,22 @@
                     </a>
                 </li>
 
-                <li>
+                <!--<li>
                     <a href="/system_settings" class="system_settings">
                         <i class="fa fa-user"></i>
                         <span>系统设置</span>
                     </a>
+                </li>-->
+                <li class="sub-menu dcjq-parent-li">
+                    <a href="javascript:;" class="dcjq-parent system_settings">
+                        <i class="fa fa-book"></i>
+                        <span>系统设置</span>
+                    </a>
+                    <ul class="sub" style="display: none;">
+                        <li class="system_basic"><a href="/system_basic">系统基本信息</a></li>
+                        <li class="system_major_settings"><a href="/system_major_settings">专业设置</a></li>
+                        <li class="system_teacher_settings"><a href="/system_teacher_settings">教师用户设置</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="/account" class="account">
@@ -243,13 +268,20 @@
 
 </script>
 
-
-
 <script th:inline="javascript">
     jQuery(document).ready(function() {
         /*<![CDATA[*/
         var page = /*[[${page}]]*/;
         $("."+page).addClass("active");
+        if(page == 'stu_info_basic' || page == 'stu_info_gpa' || page == 'stu_info_entrance'){
+            /*$('.stu_info').addClass('active');*/
+            $('.stu_info').parent().children('ul').css("display", "block");
+        }
+
+        if(page == 'system_basic' || page == 'system_major_settings' || page == 'system_teacher_settings'){
+            /*$('.system_settings').addClass('active');*/
+            $('.system_settings').parent().children('ul').css("display", "block");
+        }
         /*]]>*/
     });
 </script>

@@ -1,8 +1,6 @@
 package com.szy.mapper;
 
-import com.szy.entity.Grade;
-import com.szy.entity.Positions;
-import com.szy.entity.Species;
+import com.szy.po.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.LinkedList;
@@ -62,17 +60,24 @@ public interface SystemMapper {
      * 更新大类
      * @param speciesId
      * @param speciesName
-     * @param stuAmount
      * @throws Exception
      */
-    void updateSpecies(int speciesId,String speciesName,int stuAmount) throws Exception;
+    void updateSpecies(int speciesId,String speciesName) throws Exception;
+
+    /**
+     * 根据大类名获取整个大类信息
+     * @param speciesName
+     * @return
+     * @throws Exception
+     */
+    Species findSpeciesByName(String speciesName) throws Exception;
 
     /**
      * 插入职位
-     * @param positions
+     * @param description
      * @throws Exception
      */
-    void  insertPositions(Positions positions) throws Exception;
+    void insertPositions(Positions description) throws Exception;
 
     /**
      * 查找所有全部职位
@@ -90,9 +95,88 @@ public interface SystemMapper {
 
     /**
      * 更新职位
-     * @param grade
+     * @param description
      * @throws Exception
      */
-    void updatePositions(int id,int grade) throws Exception;
+    void updatePositions(int id,String description) throws Exception;
 
+    /**
+     * 查询职位信息
+     * @param description
+     * @return
+     * @throws Exception
+     */
+    Positions findPositionsByDescription(String description) throws Exception;
+
+    /**
+     * 找到大类编号最后一位
+     */
+    Species findLastSpeciesId() throws Exception;
+
+    /**
+     * 插入大类
+     * @param major
+     * @throws Exception
+     */
+    void insertMajor(Major major) throws Exception;
+
+    /**
+     * 查找所有全部大类
+     * @return
+     * @throws Exception
+     */
+    LinkedList<Major> findMajorsAll() throws Exception;
+
+    /**
+     * 删除大类
+     * @param major_id
+     * @throws Exception
+     */
+    void deleteMajors(int major_id) throws Exception;
+
+    /**
+     * 根据大类名获取整个大类信息
+     * @param majorName
+     * @return
+     * @throws Exception
+     */
+    Major findMajorByName(String majorName) throws Exception;
+
+    /**
+     * 根据大类id获取已有专业数量
+     * @param speciesId
+     * @return
+     * @throws Exception
+     */
+    int getMajorCountBySpeciesId(int speciesId) throws Exception;
+
+    /**
+     * 插入教师信息
+     * @param teacherInfo
+     * @throws Exception
+     */
+    void insertTeacherInfo(TeacherInfo teacherInfo) throws Exception;
+
+    /**
+     * 更新教师用户信息
+     * @param teacherInfo
+     * @throws Exception
+     */
+    void updateTeacherInfo(TeacherInfo teacherInfo) throws Exception;
+
+    /**
+     * 删除教师用户
+     * @param id
+     * @throws Exception
+     */
+    void deleteTeacherInfo(int id) throws Exception;
+
+    /**
+     * 获取所有教师用户信息
+     * @return
+     * @throws Exception
+     */
+    List<TeacherInfo> findAllTeacherInfos() throws Exception;
+
+    TeacherInfo findTeacherInfoById(int id) throws Exception;
 }

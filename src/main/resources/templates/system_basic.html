@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<!-- layout文件路径-->
+<body>
+<section layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-6">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-2">
+                        <h4>添加年级</h4>
+                    </div>
+                    <div class="form-group col-lg-8 system_input_padding">
+                        <input type="text" class="form-control" id="grade" placeholder="请输入学期"/>
+                    </div>
+                    <div class="form-group col-lg-2 system_input_padding">
+                        <button type="submit" class="btn btn-white btn_grade_add">提交</button>
+                    </div>
+                    <table class="table table-hover general-table">
+                        <thead>
+                        <tr>
+                            <th><h5>已有学期</h5></th>
+                            <th><h5>操作</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="grade:${gradeList}">
+                            <input type="hidden" th:value="${grade.id}"/>
+                            <td th:text="${grade.grade}"></td>
+                            <td><button type="button" class="btn btn-white btn_grade_delete">删除</button></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-6">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-2">
+                        <h4>添加大类</h4>
+                    </div>
+                    <div class="form-group col-lg-8 system_input_padding">
+                        <input type="text" class="form-control" id="species" name="species" placeholder="请输入大类名"/>
+                    </div>
+                    <div class="form-group col-lg-2 system_input_padding">
+                        <button type="submit" class="btn btn-white btn_species_add">提交</button>
+                    </div>
+                    <table class="table  table-hover general-table">
+                        <thead>
+                        <tr>
+                            <th><h5>已有大类</h5></th>
+                            <th><h5>操作</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="species:${speciesList}">
+
+                            <input type="hidden" th:value="${species.speciesId}"/>
+
+                            <td th:text="${species.speciesName}"></td>
+
+                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${species.speciesName}" placeholder="请输入大类名"/></td>
+
+                            <td class="panel_close">
+                                <button type="button" class="btn btn-white btn_species_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_species_submitout">取消修改</button>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-6">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <div class="panel-account col-lg-2">
+                        <h4>添加职务</h4>
+                    </div>
+                    <div class="form-group col-lg-8 system_input_padding">
+                        <input type="text" class="form-control" id="position" name="species" placeholder="请输入大类名"/>
+                    </div>
+                    <div class="form-group col-lg-2 system_input_padding">
+                        <button type="submit" class="btn btn-white btn_position_add">提交</button>
+                    </div>
+                    <table class="table  table-hover general-table">
+                        <thead>
+                        <tr>
+                            <th><h5>已有职务</h5></th>
+                            <th><h5>操作</h5></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="position:${positionList}">
+                            <td th:text="${position.position}"></td>
+                            <td>
+                                <button type="button" class="btn btn-white btn_position_modify">修改</button>
+                                <button type="button" class="btn btn-white btn_position_delete">删除</button>
+                            </td>
+
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.position}" placeholder="请输入职务"/></td>
+                            <td class="panel_close">
+                                <button type="button" class="btn btn-white btn_position_submit">保存</button>
+                                <button type="button" class="btn btn-white btn_position_submitout">取消修改</button>
+                            </td>
+                            <input type="hidden" th:value="${position.id}"/>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- page end -->
+
+</section>
+</body>
+</html>

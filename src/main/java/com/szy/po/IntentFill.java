@@ -1,17 +1,13 @@
-package com.szy.entity;
+package com.szy.po;
 
-/**
- * 志愿实体类
- */
 public class IntentFill {
-
     private Integer id;
 
     private String name;
 
     private String classes;
 
-    private String teleTelephone;
+    private String telephone;
 
     private Integer firstMajor;
 
@@ -45,12 +41,12 @@ public class IntentFill {
         this.classes = classes == null ? null : classes.trim();
     }
 
-    public String getTeleTelephone() {
-        return teleTelephone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTeleTelephone(String teleTelephone) {
-        this.teleTelephone = teleTelephone == null ? null : teleTelephone.trim();
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
     public Integer getFirstMajor() {
@@ -84,5 +80,4 @@ public class IntentFill {
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
     }
-
 }

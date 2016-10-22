@@ -2,6 +2,7 @@ package com.szy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,4 +17,5 @@ public class ZstuJgDivisionApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ZstuJgDivisionApplication.class, args);
 	}
+
 }

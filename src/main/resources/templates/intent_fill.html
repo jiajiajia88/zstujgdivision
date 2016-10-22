@@ -4,207 +4,213 @@
       layout:decorator="layout">
 <!-- layout文件路径-->
 <body>
-    <div layout:fragment="content">
-        <!-- page start-->
-        <div class="row">
-            <div class="col-sm-12">
+<div layout:fragment="content">
+    <!-- page start-->
+    <div class="row">
+        <div class="col-sm-12">
 
-                <section class="panel panel_plan">
+            <section class="panel panel_plan">
 
 
-                    <div class="panel-body profile-information">
-                        <div class="col-md-5">
-                            <div class="profile-desk">
-                                <h1>施周勇</h1>
-                                <h3>13管理科学与工程类1班</h3>
-                                <h4>浙江 、 理科</h4>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="profile-statistics">
-                                <h1>4.22</h1>
-                                <p>学分平均绩点</p>
-                                <h1>701</h1>
-                                <p>高考成绩</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="profile-statistics">
-                                <h1>3.28</h1>
-                                <p>学分绩点换算总分</p>
-                                <h1>34</h1>
-                                <p>总排名</p>
-                            </div>
+                <div class="panel-body profile-information" th:each="studentinfo:${studentinfo}">
+                    <div class="col-md-5">
+                        <div class="profile-desk">
+                            <h1 th:text="${studentinfo.name}"></h1>
+                            <h3 th:text="${studentinfo.originalClass}"></h3>
+                            <h4 th:text="${studentinfo.stufrom}">、理科</h4>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="profile-statistics">
+                            <h1 th:text="${studentinfo.gpa}"></h1>
+                            <p>学分平均绩点</p>
+                            <h1 th:text="${studentinfo.entrancescore}"></h1>
+                            <p>高考成绩</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="profile-statistics">
+                            <h1 th:text="${studentinfo.realgpa}"></h1>
+                            <p>学分绩点换算总分</p>
+                            <h1>未知</h1>
+                            <p>总排名</p>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="panel-body intent_view col-md-12">
-                        <h4>尚未填写分流志愿</h4>
+                <div class="panel-body intent_view col-md-12">
+                    <h4 th:text="${message}"></h4>
+                    <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_fill">
+                        填报志愿
+                    </a>
+                </div>
+
+                <div class="panel-body intent_view col-md-12" >
+                    <div class="col-md-3"><h4 th:text="${firstmajor}"></h4></div>
+                    <div class="col-md-3"><h4 th:text="${secondmajor}"></h4></div>
+                    <div class="col-md-3"><h4 th:text="${thirdmajor}"></h4></div>
+                    <div class="col-md-3">
                         <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_fill">
-                            填报志愿
+                            修改
                         </a>
                     </div>
+                </div>
 
-                    <div class="panel-body intent_view col-md-12">
-                        <div class="col-md-3"><h4>第一志愿：会计学</h4></div>
-                        <div class="col-md-3"><h4>第二志愿：工商管理</h4></div>
-                        <div class="col-md-3"><h4>第三志愿：市场营销</h4></div>
-                        <div class="col-md-3">
-                            <a href="#myModal2" data-toggle="modal" class="btn btn-white btn_plan_fill">
-                                修改
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="panel-body intent_view col-md-12">
-                        <div class="col-md-3"><h4>第一志愿：会计学</h4></div>
-                        <div class="col-md-3"><h4>第二志愿：工商管理</h4></div>
-                        <div class="col-md-3"><h4>第三志愿：市场营销</h4></div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-white">导出到PDF</button>
-                        </div>
-                    </div>
-                    <!--<div class="panel-body">
-                        &lt;!&ndash;<h5 class="text-left">学生基础信息</h5>&ndash;&gt;
-                        <div class="form-group intent_fill_form_group">
-                            <label class="control-label">姓名</label>
-                            <div class="col-lg-3">
-                                <input type="text" placeholder=" " id="name" class="form-control"/>
-                            </div>
-                            <label class="control-label">班级</label>
-                            <div class="col-lg-3">
-                                <input type="text" placeholder=" " id="class" class="form-control"/>
-                            </div>
-                            <label class="control-label">学号</label>
-                            <div class="col-lg-2">
-                                <input type="text" placeholder=" " id="number" class="form-control"/>
-                            </div>
-                            <label class="control-label">手机长号</label>
-                            <div class="col-lg-2">
-                                <input type="text" placeholder=" " id="phone_number" class="form-control"/>
-                            </div>
-                            <button type="button" class="btn btn-white">保存</button>
-                        </div>
-                    </div>-->
-
-                    <!--<div class="panel-body">
-                        <div class="form-group intent_fill_form_group">
-                            <label class="control-label">第一志愿</label>
-                            <div class="col-sm-3">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
-                                </select>
-                            </div>
-                            <label class="control-label">第二志愿</label>
-                            <div class="col-sm-3">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
-                                </select>
-                            </div>
-                            <label class="control-label">第三志愿</label>
-                            <div class="col-sm-3">
-                                <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
-                                </select>
-                            </div>
-                            <button type="button" class="btn btn-white">保存</button>
-                        </div>
-                    </div>-->
-                </section>
-            </div>
-        </div>
-        <!-- page end-->
-
-        <!-- modal start -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">填报志愿</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" class="form-horizontal">
-
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第一志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第二志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第三志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-default" type="button">提交</button>
-                                </div>
-                            </div>
-
-                        </form>
+                <div class="panel-body intent_view col-md-12">
+                    <div class="col-md-3"><h4 th:text="${firstmajor}"></h4></div>
+                    <div class="col-md-3"><h4 th:text="${secondmajor}"></h4></div>
+                    <div class="col-md-3"><h4 th:text="${thirdmajor}"></h4></div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-white">导出到PDF</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!--modal end-->
-
-        <!-- modal start -->
-        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">修改志愿</h4>
+                <!--<div class="panel-body">
+                    &lt;!&ndash;<h5 class="text-left">学生基础信息</h5>&ndash;&gt;
+                    <div class="form-group intent_fill_form_group">
+                        <label class="control-label">姓名</label>
+                        <div class="col-lg-3">
+                            <input type="text" placeholder=" " id="name" class="form-control"/>
+                        </div>
+                        <label class="control-label">班级</label>
+                        <div class="col-lg-3">
+                            <input type="text" placeholder=" " id="class" class="form-control"/>
+                        </div>
+                        <label class="control-label">学号</label>
+                        <div class="col-lg-2">
+                            <input type="text" placeholder=" " id="number" class="form-control"/>
+                        </div>
+                        <label class="control-label">手机长号</label>
+                        <div class="col-lg-2">
+                            <input type="text" placeholder=" " id="phone_number" class="form-control"/>
+                        </div>
+                        <button type="button" class="btn btn-white">保存</button>
                     </div>
-                    <div class="modal-body">
-                        <form role="form" class="form-horizontal">
+                </div>-->
 
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第一志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第二志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-lg-2 control-label">第三志愿</label>
-                                <div class="col-lg-10">
-                                    <input type="text" placeholder=" " class="form-control"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-lg-offset-2 col-lg-10">
-                                    <button class="btn btn-default" type="button">提交</button>
-                                </div>
-                            </div>
-
-                        </form>
+                <!--<div class="panel-body">
+                    <div class="form-group intent_fill_form_group">
+                        <label class="control-label">第一志愿</label>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option>工商管理</option>
+                                <option>经济学</option>
+                                <option>电子商务</option>
+                            </select>
+                        </div>
+                        <label class="control-label">第二志愿</label>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option>工商管理</option>
+                                <option>经济学</option>
+                                <option>电子商务</option>
+                            </select>
+                        </div>
+                        <label class="control-label">第三志愿</label>
+                        <div class="col-sm-3">
+                            <select class="form-control">
+                                <option>工商管理</option>
+                                <option>经济学</option>
+                                <option>电子商务</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-white">保存</button>
                     </div>
-                </div>
-            </div>
+                </div>-->
+            </section>
         </div>
-        <!--modal end-->
-
     </div>
+    <!-- page end-->
+
+    <!-- modal start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">填报志愿</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal" >
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第一志愿</label>
+                            <div class="col-lg-10">
+                                <select placeholder="请选择第一志愿专业" class="form-control">
+                                    <option th:each="major:${major}" th:text="${major.majorName}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第二志愿</label>
+                            <div class="col-lg-10">
+                                <select placeholder="请选择第二志愿专业" class="form-control">
+                                    <option th:each="major:${major}" th:text="${major.majorName}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第三志愿</label>
+                            <div class="col-lg-10">
+                                <select placeholder="请选择第三志愿专业" class="form-control">
+                                    <option th:each="major:${major}" th:text="${major.majorName}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-default btn_intentPlan_submit" type="button">保存</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal end-->
+
+    <!-- modal start -->
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">修改志愿</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" class="form-horizontal">
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第一志愿</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder=" " class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第二志愿</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder=" " class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">第三志愿</label>
+                            <div class="col-lg-10">
+                                <input type="text" placeholder=" " class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-default" type="button">提交</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--modal end-->
+
+</div>
 </body>
 </html>
