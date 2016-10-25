@@ -1,5 +1,8 @@
 package com.szy.po;
 
+/**
+ * 志愿填报实体
+ */
 public class IntentFill {
     private Integer id;
 
@@ -16,6 +19,8 @@ public class IntentFill {
     private Integer thirdMajor;
 
     private String number;
+
+    private int status;
 
     public Integer getId() {
         return id;
@@ -79,5 +84,13 @@ public class IntentFill {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

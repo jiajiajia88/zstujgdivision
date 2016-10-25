@@ -5,6 +5,7 @@ CREATE TABLE tb_species
   species_id INT NOT NULL COMMENT '大类id',
   species_name VARCHAR(50) NOT NULL COMMENT '大类名',
   stu_amount INT COMMENT '学生人数',
+  status TINYINT DEFAULT 0 COMMENT '状态',
   PRIMARY KEY(species_id)
 )Engine=INNODB DEFAULT CHARSET=utf8;
 
@@ -27,6 +28,7 @@ CREATE TABLE tb_student_info
   number LONG NOT null COMMENT '学号',
   name VARCHAR(50) NOT NULL COMMENT '姓名',
   telephone CHAR(11) DEFAULT NULL COMMENT '手机号（长号）',
+  species INTEGER COMMENT '所属大类',
   original_class VARCHAR(30) NOT NULL COMMENT '原班级',
   present_class VARCHAR(30) DEFAULT NULL COMMENT '现班级',
   GPA DOUBLE COMMENT '平均学分绩点',
@@ -38,9 +40,10 @@ CREATE TABLE tb_student_info
   gradeOne DOUBLE COMMENT '高考成绩/生源省高考录取线',
   gradeTwo DOUBLE COMMENT '30%*高考成绩/生源省高考录取线',
   totalGrade DOUBLE COMMENT '总成绩=70%*平均学分绩点 + 30%*高考成绩/生源省高考录取线',
+  rank INT COMMENT '等级',
   PRIMARY KEY(id)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
-INSERT INTO `tb_student_info` VALUES ('1', '2013333502028', '施周勇', '15858159214', '13管理科学与工程1班', '1030101','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947');
+INSERT INTO `tb_student_info` VALUES ('1', '2013333502028', '施周勇', '15858159214', 2013103, '13管理科学与工程1班', '1030101','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947',4);
 
 /* **** 专业表 **** */
 DROP TABLE IF EXISTS tb_major;
@@ -51,6 +54,18 @@ CREATE TABLE tb_major
   status TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY(major_id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+/* **** 计划专业表 **** */
+DROP TABLE IF EXISTS tb_plan_major;
+CREATE TABLE tb_plan_major
+(
+  id int NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  plan_id INT NOT NULL COMMENT '计划id',
+  major_id INT NOT NULL COMMENT '专业id',
+  stu_number INT NOT NULL COMMENT '学生人数',
+  class_number INT NOT NULL COMMENT '班级数',
+  PRIMARY KEY(id)
+)Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 
 /* **** 志愿填报表 **** */
 DROP TABLE IF EXISTS tb_intent_fill;
@@ -64,6 +79,7 @@ CREATE TABLE tb_intent_fill
   first_major INT NOT NULL COMMENT '第一志愿',
   second_major INT NOT NULL COMMENT '第二志愿',
   third_major INT NOT NULL COMMENT '第二志愿',
+  status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：1保存、2确认',
   PRIMARY KEY(id)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 
@@ -97,7 +113,7 @@ CREATE TABLE tb_plan
   status TINYINT COMMENt '状态',
   PRIMARY KEY(id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
-INSERT INTO tb_plan(id,grade,species,amount_student,amount_major, status) VALUES (2013103,2013,103, 92, 2, 1);
+# INSERT INTO tb_plan(id,grade,species,amount_student,amount_major, status) VALUES (2013103,2013,103, 92, 2, 1);
 
 /* **** 系统日志表 **** */
 DROP TABLE IF EXISTS tb_system_log;

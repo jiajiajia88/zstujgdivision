@@ -2,7 +2,11 @@ package com.szy.po;
 
 import java.util.Date;
 
+/**
+ * 系统日志实体
+ */
 public class SystemLog {
+
     private Integer id;
 
     private Date createTime;

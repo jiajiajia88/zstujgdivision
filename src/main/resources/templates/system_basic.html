@@ -30,7 +30,7 @@
                         <tr th:each="grade:${gradeList}">
                             <input type="hidden" th:value="${grade.id}"/>
                             <td th:text="${grade.grade}"></td>
-                            <td><button type="button" class="btn btn-white btn_grade_delete">删除</button></td>
+                            <td><button type="button" class="btn btn-danger btn_grade_delete btn_panel_normal">删除</button></td>
                         </tr>
 
                         </tbody>
@@ -48,7 +48,7 @@
                         <input type="text" class="form-control" id="species" name="species" placeholder="请输入大类名"/>
                     </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white btn_species_add">提交</button>
+                        <button type="submit" class="btn btn-white btn_species_add ">提交</button>
                     </div>
                     <table class="table  table-hover general-table">
                         <thead>
@@ -64,13 +64,13 @@
 
                             <td th:text="${species.speciesName}"></td>
 
-                            <td><button type="button" class="btn btn-white btn_species_modify">修改</button>
-                                <button type="button" class="btn btn-white btn_species_delete">删除</button></td>
+                            <td><button type="button" class="btn btn-primary btn_species_modify btn_panel_normal">修改</button>
+                                <button type="button" class="btn btn-danger btn_species_delete btn_panel_normal">删除</button></td>
                             <td class="panel_close"><input type="text" class="form-control" th:value="${species.speciesName}" placeholder="请输入大类名"/></td>
 
                             <td class="panel_close">
-                                <button type="button" class="btn btn-white btn_species_submit">保存</button>
-                                <button type="button" class="btn btn-white btn_species_submitout">取消修改</button>
+                                <button type="button" class="btn btn-white btn_species_submit btn_panel_normal">保存</button>
+                                <button type="button" class="btn btn-white btn_species_submitout btn_panel_normal">取消修改</button>
                             </td>
 
                         </tr>
@@ -101,16 +101,16 @@
                         </thead>
                         <tbody>
                         <tr th:each="position:${positionList}">
-                            <td th:text="${position.position}"></td>
+                            <td th:text="${position.description}"></td>
                             <td>
-                                <button type="button" class="btn btn-white btn_position_modify">修改</button>
-                                <button type="button" class="btn btn-white btn_position_delete">删除</button>
+                                <button type="button" class="btn btn-primary btn_position_modify btn_panel_normal">修改</button>
+                                <button type="button" class="btn btn-danger btn_position_delete btn_panel_normal">删除</button>
                             </td>
 
-                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.position}" placeholder="请输入职务"/></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.description}" placeholder="请输入职务"/></td>
                             <td class="panel_close">
-                                <button type="button" class="btn btn-white btn_position_submit">保存</button>
-                                <button type="button" class="btn btn-white btn_position_submitout">取消修改</button>
+                                <button type="button" class="btn btn-white btn_position_submit btn_panel_normal">保存</button>
+                                <button type="button" class="btn btn-white btn_position_submitout btn_panel_normal">取消修改</button>
                             </td>
                             <input type="hidden" th:value="${position.id}"/>
                         </tr>

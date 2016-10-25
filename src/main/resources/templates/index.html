@@ -5,7 +5,19 @@
 <!-- layout文件路径-->
 <body>
     <section layout:fragment="content">
-        <p th:text="${page}"></p>
+        <div class="alert alert-success alert-block fade in">
+            <button data-dismiss="alert" class="close close-sm" type="button">
+                <i class="fa fa-times"></i>
+            </button>
+            <h4>
+                <i class="icon-ok-sign"></i>
+                <span class="username" th:text="${session.username}+'老师，您好！'"></span>
+
+            </h4>
+            <p>这是登陆首页，这个面板还没想好内容，开发会尽快完善的！</p>
+
+            <!--<p th:text="${page}"></p>-->
+        </div>
     </section>
 </body>
 </html>

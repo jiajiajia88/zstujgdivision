@@ -2,7 +2,11 @@ package com.szy.po;
 
 import java.util.Date;
 
+/**
+ * 角色实体
+ */
 public class Role {
+
     private Integer id;
 
     private String roleName;

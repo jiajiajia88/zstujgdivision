@@ -19,27 +19,25 @@
                 <div class="panel-body">
                     <form class="form-horizontal bucket-form" method="get">
                         <div class="form-group">
-                            <div class="term_picker">
+                            <div class="panel_top_select_normal">
                                 <label class="control-label">请选择年级</label>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option>2014</option>
-                                    <option>2015</option>
-                                    <option>2016</option>
+                                    <option></option>
+                                    <option th:each="grade:${gradeList}" th:text="${grade.grade}+'级'"></option>
                                 </select>
                             </div>
-                            <div class="term_picker">
+                            <div class="panel_top_select_normal">
                                 <label class="control-label">请选择大类</label>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
+                                    <option></option>
+                                    <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
                                 </select>
                             </div>
-                            <div class="term_picker">
+                            <div class="panel_top_select_normal">
                                 <label class="control-label">请选择班级</label>
                             </div>
                             <div class="col-sm-2">
@@ -48,7 +46,7 @@
                                     <option>信管2班</option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-white btn_plan_search">删选</button>
+                            <button type="button" class="btn btn-white">删选</button>
                         </div>
                     </form>
                 </div>

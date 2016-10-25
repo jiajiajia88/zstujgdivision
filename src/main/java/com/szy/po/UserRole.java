@@ -1,6 +1,10 @@
 package com.szy.po;
 
+/**
+ * 用户权限
+ */
 public class UserRole {
+
     private Integer id;
 
     private Integer userId;

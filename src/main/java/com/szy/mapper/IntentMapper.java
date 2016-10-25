@@ -31,4 +31,6 @@ public interface IntentMapper {
 
     IntentFill findAllIntentById(int id) throws Exception;
 
+    int ifExistMajorName(String name) throws Exception;
+
 }

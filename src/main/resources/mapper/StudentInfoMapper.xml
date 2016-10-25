@@ -8,6 +8,7 @@
         <result property="number" column="number"/>
         <result property="name" column="name"/>
         <result property="telephone" column="telephone"/>
+        <result property="species" column="species"/>
         <result property="originalClass" column="original_class"/>
         <result property="presentClass" column="present_class"/>
         <result property="gpa" column="GPA"/>
@@ -19,11 +20,12 @@
         <result property="gradeone" column="gradeOne"/>
         <result property="gradetwo" column="gradeTwo"/>
         <result property="totalgrade" column="totalGrade"/>
+        <result property="rank" column="rank"/>
     </resultMap>
 
     <!--插入学生基础信息-->
     <insert id="insertBasicInfo">
-        INSERT INTO tb_student_info(number, name, original_class) VALUES (#{0}, #{1}, #{2})
+        INSERT INTO tb_student_info(number, name, original_class,species) VALUES (#{0}, #{1}, #{2}, #{3})
     </insert>
 
     <!--插入学生gpa信息-->

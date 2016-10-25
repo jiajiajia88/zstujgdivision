@@ -1,6 +1,10 @@
 package com.szy.po;
 
+/**
+ * 教师用户实体
+ */
 public class TeacherInfo {
+
     private Integer id;
 
     private String number;

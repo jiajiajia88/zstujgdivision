@@ -73,6 +73,14 @@ public interface SystemMapper {
     Species findSpeciesByName(String speciesName) throws Exception;
 
     /**
+     * 根据大类名获取整个大类信息
+     * @param speciesId
+     * @return
+     * @throws Exception
+     */
+    Species findSpeciesById(int speciesId) throws Exception;
+
+    /**
      * 插入职位
      * @param description
      * @throws Exception
@@ -114,33 +122,35 @@ public interface SystemMapper {
     Species findLastSpeciesId() throws Exception;
 
     /**
-     * 插入大类
+     * 插入专业
      * @param major
      * @throws Exception
      */
     void insertMajor(Major major) throws Exception;
 
     /**
-     * 查找所有全部大类
+     * 查找所有全部专业
      * @return
      * @throws Exception
      */
     LinkedList<Major> findMajorsAll() throws Exception;
 
     /**
-     * 删除大类
+     * 删除专业
      * @param major_id
      * @throws Exception
      */
     void deleteMajors(int major_id) throws Exception;
 
     /**
-     * 根据大类名获取整个大类信息
+     * 根据专业名获取整个专业信息
      * @param majorName
      * @return
      * @throws Exception
      */
     Major findMajorByName(String majorName) throws Exception;
+
+    List<Major> findMajorsBySpeciesId(int speciesId) throws Exception;
 
     /**
      * 根据大类id获取已有专业数量
@@ -176,7 +186,10 @@ public interface SystemMapper {
      * @return
      * @throws Exception
      */
-    List<TeacherInfo> findAllTeacherInfos() throws Exception;
+    List<TeacherInfoVo> findAllTeacherInfos() throws Exception;
 
-    TeacherInfo findTeacherInfoById(int id) throws Exception;
+    TeacherInfoVo findTeacherInfoById(int id) throws Exception;
+
+    TeacherInfoVo findTeacherInfoByNumber(String number) throws Exception;
+
 }

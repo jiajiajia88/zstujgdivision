@@ -1,11 +1,15 @@
 package com.szy.po;
 
+/**
+ * 专业实体
+ */
 public class Major {
+
     private Integer majorId;
 
     private String majorName;
 
-    private Byte status;
+    private int status;
 
     public Integer getMajorId() {
         return majorId;
@@ -23,11 +27,11 @@ public class Major {
         this.majorName = majorName == null ? null : majorName.trim();
     }
 
-    public Byte getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 }

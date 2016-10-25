@@ -2,7 +2,11 @@ package com.szy.po;
 
 import java.util.Date;
 
+/**
+ * 用户实体
+ */
 public class User {
+
     private Integer id;
 
     private String number;

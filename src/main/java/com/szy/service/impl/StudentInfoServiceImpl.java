@@ -5,7 +5,9 @@ import com.szy.mapper.StudentInfoMapper;
 import com.szy.po.IntentFill;
 import com.szy.po.Major;
 import com.szy.po.StudentInfo;
+import com.szy.po.StudentInfoVo;
 import com.szy.service.StudentInfoService;
+import com.szy.service.SystemService;
 import com.szy.util.ImportExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,9 @@ public class StudentInfoServiceImpl implements StudentInfoService{
     @Autowired
     IntentMapper intentMapper;
 
+    @Autowired
+    SystemService systemService;
+
     @Override
     public String getPhoneNumber(String number) throws Exception {
         StudentInfo studentInfo = studentInfoMapper.findStudentInfoByNumber(number);
@@ -38,15 +43,15 @@ public class StudentInfoServiceImpl implements StudentInfoService{
     }
 
     @Override
-    public void updatePhoneNUmber(String number, String phoneNumber) throws Exception {
+    public void updatePhoneNumber(String number, String phoneNumber) throws Exception {
         studentInfoMapper.updateStudentPhone(number, phoneNumber);
     }
 
     @Override
-    public void importBasicInfo(InputStream in, String fileName) throws Exception {
+    public void importBasicInfo(InputStream in, String fileName,int species) throws Exception {
         List<StudentInfo> stuBasicInfoList =  ImportExcelUtil.getStuInfoListByExcel(in,fileName,1);
         for (StudentInfo stuBasicInfo : stuBasicInfoList) {
-            studentInfoMapper.insertBasicInfo(stuBasicInfo.getNumber(),stuBasicInfo.getName(),stuBasicInfo.getOriginalClass());
+            studentInfoMapper.insertBasicInfo(stuBasicInfo.getNumber(),stuBasicInfo.getName(),stuBasicInfo.getOriginalClass(),species);
         }
     }
 
@@ -70,8 +75,16 @@ public class StudentInfoServiceImpl implements StudentInfoService{
     }
 
     @Override
-    public List<StudentInfo> getStudentInfosAll() throws Exception {
-        return studentInfoMapper.findStudentInfoAll();
+    public List<StudentInfoVo> getStudentInfosAll() throws Exception {
+        List<StudentInfoVo> studentInfoVoList = new LinkedList<>();
+        List<StudentInfo> studentInfoList = studentInfoMapper.findStudentInfoAll();
+        for(StudentInfo studentInfo:studentInfoList){
+            StudentInfoVo studentInfoVo = new StudentInfoVo();
+            studentInfoVo.setStudentInfo(studentInfo);
+            studentInfoVo.setSpeciesName(systemService.getSpeciesById(studentInfo.getSpecies()%1000).getSpeciesName());
+            studentInfoVoList.add(studentInfoVo);
+        }
+        return studentInfoVoList;
     }
 
     @Override
@@ -121,6 +134,42 @@ public class StudentInfoServiceImpl implements StudentInfoService{
     @Override
     public String findMajorNameById(int id) throws Exception {
         return intentMapper.findMajorNameById(id);
+    }
+
+    @Override
+    public Boolean studentIntentUpdate(int id, String first, String second, String third) throws Exception {
+        int firstId,secondId,thirdId;
+
+        if(this.ifExistMajorName(first)||this.ifExistMajorName(second)||this.ifExistMajorName(third)) {
+            firstId = this.findMajorIdByName(first);
+            secondId = this.findMajorIdByName(second);
+            thirdId = this.findMajorIdByName(third);
+            System.out.println(firstId + "/" + secondId + "/" + thirdId);
+
+
+            if(this.ifExistIntentId(id)){
+
+                this.updateIntent(id,firstId,secondId,thirdId);
+
+                System.out.println("更改志愿");
+            } else {
+                StudentInfo studentInfo = this.getStudentInfoById(id);
+                String studentName = studentInfo.getName();
+                String studentNumber = studentInfo.getNumber();
+
+                //               System.out.println(studentName+"---0"+studentNumber);
+                this.insertIntent(id,studentName,"fuck",studentNumber,"15151",firstId,secondId,thirdId);
+                System.out.println("添加志愿");
+            }
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean ifExistMajorName(String name) throws Exception {
+        return intentMapper.ifExistMajorName(name)==1;
     }
 
 }

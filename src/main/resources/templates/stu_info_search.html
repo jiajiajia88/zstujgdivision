@@ -21,27 +21,25 @@
                 <div class="panel-body stu_info_search_panel">
                     <form class="form-horizontal bucket-form" method="get">
                         <div class="form-group">
-                            <div class="term_picker">
+                            <div class="panel_top_select_normal">
                                 <label class="control-label">请选择年级</label>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option>2015-2016-1</option>
-                                    <option>2015-2016-2</option>
-                                    <option>2016-2017-1</option>
+                                    <option></option>
+                                    <option th:each="grade:${gradeList}" th:text="${grade.grade}+'级'"></option>
                                 </select>
                             </div>
-                            <div class="term_picker">
+                            <div class="panel_top_select_normal">
                                 <label class="control-label">请选择大类</label>
                             </div>
                             <div class="col-sm-2">
                                 <select class="form-control">
-                                    <option>工商管理</option>
-                                    <option>经济学</option>
-                                    <option>电子商务</option>
+                                    <option></option>
+                                    <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
                                 </select>
                             </div>
-                            <button type="button" class="btn btn-white btn_plan_search ">查询</button>
+                            <button type="button" class="btn btn-white">查询</button>
                         </div>
                     </form>
                 </div>
@@ -49,7 +47,7 @@
                     <div class="adv-table editable-table">
                         <div class="clearfix">
                             <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-white btn_plan_search">导出pdf</button>
+                                <button type="button" class="btn btn-white btn_plan_export">导出Excel</button>
                             </div>
                             <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                 <thead>

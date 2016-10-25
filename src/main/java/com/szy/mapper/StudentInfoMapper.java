@@ -19,7 +19,7 @@ public interface StudentInfoMapper {
      * @param originalClass
      * @throws Exception
      */
-    void insertBasicInfo(String number, String name, String originalClass) throws Exception;
+    void insertBasicInfo(String number, String name, String originalClass,int species) throws Exception;
 
     /**
      * 插入学生gpa信息

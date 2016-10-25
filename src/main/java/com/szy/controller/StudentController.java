@@ -49,17 +49,24 @@ public class StudentController {
         return "stu_info";
     }
 
+    @RequestMapping(value = "/updatePhone" ,produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String updatePhone(HttpServletRequest request,HttpSession session) throws Exception {
+
+        String number = String.valueOf(session.getAttribute("number"));
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        String phoneNumber = request.getParameter("phoneNumber");
+
+        studentInfoService.updatePhoneNumber(number,phoneNumber);
+        map.put("result",200);
+        return JSON.toJSONString(map);
+    }
+
     @RequestMapping("/intent_fill")
     public String intent_fill(Model model, HttpSession session){
 
         try {
-            //测试方便
-            /*User student = new User();
-            student.setId(1);
-            student.setNumber("2013333502028");
-            student.setPassword("123456");
-            session.setAttribute("userStudent",student);*/
-            //测试方便
             String number = String.valueOf(session.getAttribute("number"));
             StudentInfo studentInfo = studentInfoService.getStudentInfoByNumber(number);
             User student = userService.getUserByNumber(number);
@@ -78,11 +85,14 @@ public class StudentController {
                 if(third == null){
                     third = "未知";
                 }
+                model.addAttribute("ifFillIntent","yes");
+                model.addAttribute("ifConfirm", intentFill.getStatus());
                 model.addAttribute("firstmajor",first);
                 model.addAttribute("secondmajor",second);
                 model.addAttribute("thirdmajor",third);
                 model.addAttribute("message","已填报志愿如下：");
             } else {
+                model.addAttribute("ifFillIntent","not");
                 model.addAttribute("message","尚未填报分流志愿！");
                 model.addAttribute("firstmajor","未知");
                 model.addAttribute("secondmajor","未知");
@@ -108,6 +118,7 @@ public class StudentController {
         return "intent_fill";
     }
 
+
     @RequestMapping("/grades_query")
     public String grades_query(Model model){
         model.addAttribute("page", "grades_query");
@@ -126,37 +137,20 @@ public class StudentController {
     @RequestMapping(value = "/saveIntent" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String saveIntent(HttpServletRequest request, HttpSession session) throws Exception {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> map = new HashMap<>();
         try {
             String number = String.valueOf(session.getAttribute("number"));
             User student = userService.getUserByNumber(number);
             int id = student.getId();
-            System.out.println("----"+id);
-
             String first = request.getParameter("first");
             String second = request.getParameter("second");
             String third = request.getParameter("third");
-            System.out.println(first+second+third);
 
-            int firstId = studentInfoService.findMajorIdByName(first);
-            int secondId = studentInfoService.findMajorIdByName(second);
-            int thirdId = studentInfoService.findMajorIdByName(third);
-
-            if(studentInfoService.ifExistIntentId(id)){
-
-                studentInfoService.updateIntent(id,firstId,secondId,thirdId);
-
-                System.out.println("更改志愿");
+            if(studentInfoService.studentIntentUpdate(id,first,second,third)){
+                map.put("result", 200);
             } else {
-                StudentInfo studentInfo = studentInfoService.getStudentInfoById(id);
-                String studentName = studentInfo.getName();
-                String studentNumber = studentInfo.getNumber();
-
-                //               System.out.println(studentName+"---0"+studentNumber);
-                studentInfoService.insertIntent(id,studentName,"fuck",studentNumber,"15151",firstId,secondId,thirdId);
-                System.out.println("添加志愿");
+                map.put("result",0);
             }
-            map.put("result", 200);
         } catch (Exception e){
             map.put("result",0);
             e.printStackTrace();

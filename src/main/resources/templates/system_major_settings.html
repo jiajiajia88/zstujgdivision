@@ -40,15 +40,8 @@
                             <input type="hidden" th:value="${major.majorId}"/>
                             <td th:text="${major.majorName}"></td>
                             <td>
-                                <button type="button" class="btn btn-white btn_major_modify">修改</button>
-                                <button type="button" class="btn btn-white btn_major_delete">删除</button></td>
-                            <td class="panel_close"><input type="text" class="form-control" th:value="${major.majorName}" placeholder="请输入专业名"/>
+                                <button type="button" class="btn btn-danger btn_major_delete btn_panel_normal">删除</button>
                             </td>
-                            <td class="panel_close">
-                                <button type="button" class="btn btn-white btn_species_submit">保存</button>
-                                <button type="button" class="btn btn-white btn_species_submitout">取消修改</button>
-                            </td>
-
                         </tr>
 
                         </tbody>

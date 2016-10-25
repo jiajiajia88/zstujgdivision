@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- *
+ * 用户权限Service
  * Created by Administrator on 2016/9/15.
  */
 @Service("userService")
@@ -70,7 +70,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean ifHasAccessOfLogin(String number) throws Exception {
-        return (1==userMapper.ifHasAccessOfLogin(number));
+    public boolean ifHasAccess(String number,String module) throws Exception {
+        //System.out.println(number+"--------------"+module);
+        return (1==userMapper.ifHasAccess(number,module));
     }
 }

@@ -3,6 +3,7 @@ package com.szy.service;
 import com.szy.po.IntentFill;
 import com.szy.po.Major;
 import com.szy.po.StudentInfo;
+import com.szy.po.StudentInfoVo;
 
 import java.io.InputStream;
 import java.util.List;
@@ -15,15 +16,15 @@ public interface StudentInfoService {
 
     String getPhoneNumber(String number) throws Exception;
 
-    void updatePhoneNUmber(String number, String phoneNumber) throws Exception;
+    void updatePhoneNumber(String number, String phoneNumber) throws Exception;
 
-    void importBasicInfo(InputStream in, String fileName) throws Exception;
+    void importBasicInfo(InputStream in, String fileName, int species) throws Exception;
 
     void importGpa(InputStream in, String fileName) throws Exception;
 
     void importEntranceScores(InputStream in, String fileName) throws Exception;
 
-    List<StudentInfo> getStudentInfosAll() throws Exception;
+    List<StudentInfoVo> getStudentInfosAll() throws Exception;
 
     StudentInfo getStudentInfoById(int id) throws Exception;
 
@@ -42,4 +43,8 @@ public interface StudentInfoService {
     IntentFill findAllIntentById(int id) throws Exception;
 
     String findMajorNameById(int id) throws Exception;
+
+    Boolean studentIntentUpdate(int id,String first,String second,String third) throws Exception;
+
+    Boolean ifExistMajorName(String name) throws Exception;
 }

@@ -25,28 +25,28 @@
                         <label for="repeat_pwd">重复新密码</label>
                         <input type="password" class="form-control" id="repeat_pwd" placeholder="再一遍输入新密码"/>
                     </div>
-                    <button type="button" id="submit_pwd" class="btn btn-white">提交</button>
+                    <button type="button" id="btn_pwd_update" class="btn btn-info">提交</button>
                 </div>
             </section>
         </div>
 
 
-        <div id="panel_phone_fill" class="col-sm-6" th:case="'true'">
+        <div id="panel_phone_fill" class="col-sm-6" th:case="'true'" th:if="${session.role}=='student'">
             <section class="panel panel_plan">
                 <div class="panel-body">
                     <div class="panel-account col-lg-12">
                         <h4>手机号补充</h4>
                     </div>
                     <div class="form-group">
-                        <label for="phone_number"></label>
-                        <input type="password" class="form-control" id="phone_number" name="phone_number" placeholder="请输入手机号（长号）"/>
+                        <label for="phone_number_add"></label>
+                        <input type="password" class="form-control" id="phone_number_add" name="phone_number" placeholder="请输入手机号（长号）"/>
                     </div>
-                    <button type="submit" class="btn btn-white">提交</button>
+                    <button id="btn_phone_add" type="button" class="btn btn-white">提交</button>
                 </div>
             </section>
         </div>
 
-        <div id="panel_phone_show" class="col-sm-6" th:case="'false'">
+        <div id="panel_phone_show" class="col-sm-6" th:case="'false'" th:if="${session.role}=='student'">
             <section class="panel panel_plan">
                 <div class="panel-body">
                     <div class="panel-account col-lg-12">
@@ -57,7 +57,7 @@
                         <input id="phone_number_modify" type="text" class="form-control panel_close" name="phone_number" th:value="${phoneNumber}" placeholder="请输入手机号（长号）"/>
                     </div>
                     <button id="btn_phone_modify" type="button" class="btn btn-white">修改</button>
-                    <button id="btn_phone_submit" type="button" class="btn btn-white panel_close">提交</button>
+                    <button id="btn_phone_update" type="button" class="btn btn-white panel_close">提交</button>
                     <button id="btn_phone_cancel" type="button" class="btn btn-white panel_close">取消</button>
                 </div>
             </section>
@@ -65,44 +65,7 @@
 
     </div>
 
-
     <!-- page end -->
-    <script>
-        $(document).ready(function() {
-            $('#submit_pwd').on('click', function () {
-                var origin_pwd = $('#origin_pwd').val();
-                var new_pwd = $('#new_pwd').val();
-                var repeat_pwd = $('#repeat_pwd').val();
-
-                var message = '';
-                if(origin_pwd == ''){
-                    message = message + '原密码为空！' + "\n";
-                } else if (new_pwd == ''){
-                    message = message + '新密码为空！' + "\n";
-                } else if (repeat_pwd == '') {
-                    message = message + '重复密码为空！'+ "\n";
-                } else if (new_pwd != repeat_pwd) {
-                    message = message + '新密码与重复密码不一致！'+ "\n";
-                }
-
-                if(message == ''){
-                    $.post("/updatePwd", {origin_pwd: origin_pwd,new_pwd: new_pwd,repeat_pwd: repeat_pwd},function (data){
-                        var result = JSON.parse(data['result']);
-                        alert(data['result']);
-                        if(result===2){
-                            alert('原密码不正确！');
-                        }
-                        if(result===200){
-                            window.location.href="/index";
-                        }
-                    });
-                } else {
-                    alert(message);
-                }
-            });
-        });
-
-    </script>
 </section>
 </body>
 </html>

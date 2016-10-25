@@ -1,8 +1,6 @@
 package com.szy.mapper;
 
-import com.szy.po.Major;
-import com.szy.po.Plan;
-import com.szy.vo.PlanMajor;
+import com.szy.po.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,6 +22,26 @@ public interface PlanMapper {
 
     List<Major> findMajorsAll() throws Exception;
 
-    List<PlanMajor> findPlanMajorsAll() throws Exception;
+    List<PlanVo> findPlanMajorsAll() throws Exception;
+
+    List<MajorVo> findMajorVoAll() throws Exception;
+
+    Major findMajorByName(String majorName) throws Exception;
+
+    void insertPlanMajor(PlanMajor planMajor) throws Exception;
+
+    int ifExistsPlan(int planId) throws Exception;
+
+    void updatePlan(Plan plan) throws Exception;
+
+    void deletePlanMajor(int planId,int majorId) throws Exception;
+
+    int ifExistsPlanMajor(int planId,int majorId) throws Exception;
+
+    void updatePlanMajor(PlanMajor planMajor) throws Exception;
+
+    void updatePlanStatus(int id,int status) throws Exception;
+
+    void deletePlan(int id) throws Exception;
 
 }

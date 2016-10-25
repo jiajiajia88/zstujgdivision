@@ -86,6 +86,6 @@ public interface UserService {
      * @return
      * @throws Exception
      */
-    boolean ifHasAccessOfLogin(String number) throws Exception;
+    boolean ifHasAccess(String number,String module) throws Exception;
 
 }

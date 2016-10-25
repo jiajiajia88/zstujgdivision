@@ -52,6 +52,11 @@
     padding-left: 0px;
 }
 
+.panel_top_select_normal{
+    float: left;
+    margin-left:16px;
+}
+
 .plan_search_panel{
     margin-top:10px;
 }
@@ -67,23 +72,23 @@
 .modal_input_1{
     width: 30%;
     float:left;
-    margin:0px 0px 15px;
+    margin:0 0 15px;
 }
 
 .modal_input_2{
     width: 25%;
     float:left;
-    margin:0px 8px 15px;
+    margin:0 8px 15px;
 }
 
 .modal_input_3{
     width: 10%;
     float:left;
-    margin:0px 4px 15px;
+    margin:0 4px 15px;
 }
 
 .fileupload{
-    margin-left: 0px!important;
+    margin-left: 0 !important;
 }
 
 .intent_fill_form_group > .control-label{
@@ -133,18 +138,26 @@
     display: none;
 }
 
-.btn_species_modify,.btn_grade_delete,
-.btn_species_delete,.btn_manager_modify,
-.btn_manager_delete, .btn_major_delete,
-.btn_position_modify,.btn_position_delete
-.btn_major_add, .btn_major_modify{
-    padding: 0 5px!important;
+.btn_panel_normal{
+    padding: 2px 8px!important;
 }
 
 .btn_species_delete,.btn_manager_delete,.btn_position_delete{
     margin-left: 10px;
 }
 
+.plan_new_label{
+    margin-top: 8px;
+}
+
+.btn_plan_search{
+    margin-left:0px;
+    margin-top:15px;
+}
+
+.btn_plan_export{
+    margin-bottom: 10px;
+}
 /* *************logout start***************** */
 
 .dropdown-menu{
@@ -172,14 +185,6 @@
     width: 100%!important;
 }
 
-.plan_new_label{
-    margin-top: 8px;
-}
-
-.btn_plan_search{
-    margin-left:0px;
-    margin-top:15px;
-}
 /* *************logout end***************** */
 
 /* *************tree start***************** */

@@ -1,11 +1,8 @@
 package com.szy.service;
 
-import com.itextpdf.text.pdf.qrcode.WriterException;
 import com.szy.po.*;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 系统相关Service接口
@@ -99,7 +96,7 @@ public interface SystemService {
     Positions getPositionsByDescription(String description) throws Exception;
 
     /**
-     * 增加管理员
+     * 增加教师用户
      * @param teacherInfo
      * @throws Exception
      */
@@ -126,8 +123,6 @@ public interface SystemService {
      */
     void deleteTeacherInfo(int id) throws Exception;
 
-    List<TeacherInfo> getAllTeacherInfo() throws Exception;
-
     /**
      * 查找最后一个Species的id
      * @return
@@ -141,6 +136,14 @@ public interface SystemService {
      * @throws Exception
      */
     Species getSpeciesByName(String speciesName) throws Exception;
+
+    /**
+     * 根据大类Id查找大类信息
+     * @param speciesId
+     * @return
+     * @throws Exception
+     */
+    Species getSpeciesById(int speciesId) throws Exception;
 
     /**
      * 增加专业
@@ -178,6 +181,12 @@ public interface SystemService {
      */
     int getMajorCountBySpeciesId(int speciesId) throws Exception;
 
-    TeacherInfo getTeacherInfoById(int id) throws Exception;
+    List<TeacherInfoVo> getAllTeacherInfo() throws Exception;
+
+    TeacherInfoVo getTeacherInfoById(int id) throws Exception;
+
+    TeacherInfoVo getTeacherInfoByNumber(String number) throws Exception;
+
+    List<Major> getMajorsBySpeciesId(int speciesId) throws Exception;
 
 }

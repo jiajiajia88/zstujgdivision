@@ -1,6 +1,10 @@
 package com.szy.po;
 
+/**
+ * 分流计划实体
+ */
 public class Plan {
+
     private Integer id;
 
     private Integer grade;

@@ -60,4 +60,11 @@
         FROM tb_intent_fill
         WHERE id = #{0}
     </select>
+
+    <select id="ifExistMajorName" resultType="int">
+        SELECT count(1)
+        FROM tb_major
+        WHERE major_name = #{0}
+    </select>
+
 </mapper>

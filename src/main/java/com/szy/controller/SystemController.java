@@ -46,7 +46,7 @@ public class SystemController {
     public String system_settings(Model model) {
         List<Grade> gradeList = null;
         List<Species> speciesList = null;
-        List<TeacherInfo> teacherList = null;
+        List<TeacherInfoVo> teacherList = null;
         List<Positions> positionList = null;
 
         try {
@@ -69,7 +69,7 @@ public class SystemController {
 
     @RequestMapping("/system_teacher_settings")
     public String system_teacher_settings(Model model) {
-        List<TeacherInfo> teacherList = null;
+        List<TeacherInfoVo> teacherList = null;
         List<Positions> positionList = null;
         try {
             teacherList = systemService.getAllTeacherInfo();
@@ -105,47 +105,6 @@ public class SystemController {
         return "system_basic";
     }
 
-    @RequestMapping(value = "/updatePwd" ,produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String updatePwd(Model model, HttpServletRequest request,HttpSession session) throws Exception {
-
-        String number = String.valueOf(session.getAttribute("number"));
-        System.out.println(number);
-
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        String origin_pwd = request.getParameter("origin_pwd");
-        String new_pwd = request.getParameter("new_pwd");
-        String repeat_pwd = request.getParameter("repeat_pwd");
-
-        int type = (int)session.getAttribute("type");
-        System.out.println(type);
-
-        if(userService.checkLogin(number,origin_pwd) || userService.checkLogin(number,origin_pwd)){
-            if(new_pwd.equals(repeat_pwd)){
-                userService.updatePwd(number,new_pwd);
-                map.put("result",200);
-            } else {
-                map.put("result", 1);
-            }
-        } else {
-            map.put("result", 2);
-        }
-        return JSON.toJSONString(map);
-    }
-
-    @RequestMapping(value = "/updatePhone" ,produces = "application/json;charset=UTF-8")
-    @ResponseBody
-    public String updatePhone(Model model, HttpServletRequest request,HttpSession session) throws Exception {
-
-        String number = String.valueOf(session.getAttribute("number"));
-
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        String phoneNumber = request.getParameter("phoneNumber");
-
-        studentInfoService.updatePhoneNUmber(number,phoneNumber);
-        map.put("result",200);
-        return JSON.toJSONString(map);
-    }
 
     @RequestMapping(value = "/addGrade" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -261,28 +220,37 @@ public class SystemController {
 
     /**
      * 增加教师用户
-     * @param model
      * @param request
      * @return
      */
     @RequestMapping(value = "/addTeacher" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String addManager(Model model, HttpServletRequest request){
+    public String addTeacher(HttpServletRequest request){
 
         Map<String, Integer> map = new HashMap<>();
         String username = request.getParameter("username");
         String number = request.getParameter("number");
+        String position = request.getParameter("position");
+
+        System.out.println(number);
+        System.out.println(position);
+
         try {
             TeacherInfo teacherInfo = new TeacherInfo();
+            User teacher = new User();
             teacherInfo.setName(username);
             teacherInfo.setNumber(number);
+            teacherInfo.setPositionId(systemService.getPositionsByDescription(position).getId());
+            teacher.setNumber(number);
+            teacher.setPassword("123456");
+            teacher.setCreateTime(new Date());
             systemService.addTeacherInfo(teacherInfo);
+            userService.addUser(teacher);
             map.put("result",200);
         } catch (Exception e) {
             map.put("result",0);
             e.printStackTrace();
         }
-        System.out.println(map);
         return JSON.toJSONString(map);
     }
 
@@ -332,7 +300,7 @@ public class SystemController {
             teacherInfo.setName(username);
             teacherInfo.setNumber(number);
             teacherInfo.setPositionId(positionId);
-            systemService.addTeacherInfo(teacherInfo);
+            systemService.updateTeacherInfo(teacherInfo);
             map.put("result",200);
         } catch (Exception e) {
             map.put("result",0);

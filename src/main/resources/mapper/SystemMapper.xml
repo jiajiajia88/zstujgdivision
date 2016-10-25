@@ -24,11 +24,12 @@
         <result property="description" column="description" />
     </resultMap>
 
-    <resultMap id="teacherInfoMap" type="TeacherInfo">
+    <resultMap id="teacherInfoMap" type="TeacherInfoVo">
         <id property="id" column="id"/>
         <result property="number" column="number"/>
         <result property="name" column="name"/>
         <result property="positionId" column="position_id"/>
+        <result property="description" column="description"/>
     </resultMap>
 
     <!--插入年级-->
@@ -38,7 +39,7 @@
 
     <!--查找所有的年级-->
     <select id="findGradesAll" resultMap="gradeMap">
-        SELECT * FROM tb_grade
+        SELECT * FROM tb_grade ORDER BY grade DESC
     </select>
 
     <!--删除年级-->
@@ -59,6 +60,11 @@
     <!--根据大类名获取整个大类信息-->
     <select id="findSpeciesByName" parameterType="string" resultMap="speciesMap">
         SELECT * FROM tb_species WHERE species_name = #{speciesName}
+    </select>
+
+    <!--根据大类id获取整个大类信息-->
+    <select id="findSpeciesById" parameterType="int" resultMap="speciesMap">
+        SELECT * FROM tb_species WHERE species_id = #{speciesId}
     </select>
 
     <!--删除大类-->
@@ -91,11 +97,11 @@
     <!--更新职位-->
     <update id="updatePositions">
         UPDATE tb_positions
-        SET position = #{1}
+        SET description = #{1}
         WHERE id = #{0}
     </update>
 
-    <select id="findPositionsByName" parameterType="string">
+    <select id="findPositionsByDescription" parameterType="string" resultType="Positions">
         SELECT * FROM tb_positions WHERE description = #{description}
     </select>
 
@@ -121,6 +127,10 @@
         SELECT * FROM tb_major WHERE major_name = #{majorName}
     </select>
 
+    <select id="findMajorsBySpeciesId" parameterType="int" resultMap="majorMap">
+        select * from tb_major WHERE SUBSTRING(major_id, 1,3) = #{speciesId}
+    </select>
+
     <!--根据大类id获取已有专业数量-->
     <delete id="deleteMajors" parameterType="int">
         DELETE FROM tb_major WHERE major_id = #{major_id}
@@ -133,14 +143,14 @@
 
     <!--插入教师信息-->
     <insert id="insertTeacherInfo" parameterType="TeacherInfo">
-        INSERT INTO tb_teacher_info(number,name,position_id) VALUES (#{number}. #{name}, #{positionId})
+        INSERT INTO tb_teacher_info(number,name,position_id) VALUES (#{number}, #{name}, #{positionId})
     </insert>
 
     <!--更新教师用户信息-->
     <update id="updateTeacherInfo" parameterType="TeacherInfo">
         UPDATE tb_teacher_info SET
-        number = #{number} AND
-        name = #{name} AND
+        number = #{number},
+        name = #{name},
         position_id = #{positionId}
         WHERE id = #{id}
     </update>
@@ -152,11 +162,17 @@
 
     <!--获取所有教师用户信息-->
     <select id="findAllTeacherInfos" resultMap="teacherInfoMap">
-        SELECT * FROM tb_teacher_info
+        SELECT a.id, a.number, a.name, b.description
+        FROM tb_teacher_info a, tb_positions b
+        WHERE a.position_id = b.id
     </select>
 
     <select id="findTeacherInfoById" parameterType="int" resultMap="teacherInfoMap">
         SELECT * FROM tb_teacher_info WHERE id = #{id}
+    </select>
+
+    <select id="findTeacherInfoByNumber" parameterType="string" resultMap="teacherInfoMap">
+        SELECT * FROM tb_teacher_info WHERE number = #{number}
     </select>
 
 </mapper>

@@ -1,11 +1,14 @@
 package com.szy.po;
 
 public class StudentInfo {
+
     private Integer id;
 
     private String name;
 
     private String telephone;
+
+    private int species;
 
     private String originalClass;
 
@@ -31,6 +34,8 @@ public class StudentInfo {
 
     private String number;
 
+    private Integer rank;
+
     public Integer getId() {
         return id;
     }
@@ -53,6 +58,14 @@ public class StudentInfo {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone == null ? null : telephone.trim();
+    }
+
+    public int getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(int species) {
+        this.species = species;
     }
 
     public String getOriginalClass() {
@@ -149,5 +162,13 @@ public class StudentInfo {
 
     public void setNumber(String number) {
         this.number = number == null ? null : number.trim();
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 }

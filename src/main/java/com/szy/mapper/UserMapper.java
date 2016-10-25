@@ -92,12 +92,18 @@ public interface UserMapper {
     void deleteUserByNumber(String number) throws Exception;
 
     /**
-     * 查询用户对应登录模块的权限
+     * 查询用户对应模块的权限
      * @param number
      * @throws Exception
      */
-    int ifHasAccessOfLogin(String number) throws Exception;
+    int ifHasAccess(String number, String module) throws Exception;
 
+    /**
+     * 根据学工号查询拥有的权限
+     * @param number
+     * @return
+     * @throws Exception
+     */
     List<String> getAccessByNumber(String number) throws Exception;
 
 

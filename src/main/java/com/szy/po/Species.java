@@ -1,6 +1,10 @@
 package com.szy.po;
 
+/**
+ * 专业大类实体
+ */
 public class Species {
+
     private Integer speciesId;
 
     private String speciesName;

@@ -3,11 +3,13 @@ $('#btn_phone_modify').on('click', function () {
     $('#phone_number_modify').removeClass('panel_close');
     $('#phone_number_label').addClass('panel_close');
     $('#btn_phone_modify').addClass('panel_close');
-    $('#btn_phone_submit').removeClass('panel_close');
+    $('#btn_phone_update').removeClass('panel_close');
     $('#btn_phone_cancel').removeClass('panel_close');
 });
 
-/*取消更新电话号码*/
+/**
+ * 取消更新电话号码
+ */
 $('#btn_phone_cancel').on('click', function () {
     $('#phone_number_modify').addClass('panel_close');
     $('#phone_number_label').removeClass('panel_close');
@@ -16,17 +18,72 @@ $('#btn_phone_cancel').on('click', function () {
     $('#btn_phone_cancel').addClass('panel_close');
 });
 
-/*提交更新电话号码*/
-$('#btn_phone_submit').on('click', function () {
+/**
+ * 更新电话号码
+ */
+$('#btn_phone_update').on('click', function () {
+    alert("跟新");
     var phone_number_modify = $('#phone_number_modify').val();
-    $.post("/updatePhone", {phoneNumber: phone_number_modify},function (data){
+    $.post("/student/updatePhone", {phoneNumber: phone_number_modify},function (data){
         var result = JSON.parse(data['result']);
-        if(result===200){
+        if(result === 200){
+            alert("更新手机号成功！");
             window.location.href="/account";
         } else {
             alert("电话号码失败！");
         }
     });
+});
+
+/**
+ * 补充电话号码
+ */
+$('#btn_phone_add').on('click', function () {
+    var phone_number_add = $('#phone_number_add').val();
+    $.post("/student/updatePhone", {phoneNumber: phone_number_add},function (data){
+        var result = JSON.parse(data['result']);
+        if(result === 200){
+            alert("添加手机号成功！");
+            window.location.href="/account";
+        } else {
+            alert("电话号码失败！");
+        }
+    });
+});
+
+/**
+ * 更新密码
+ */
+$('#btn_pwd_update').on('click', function () {
+    var origin_pwd = $('#origin_pwd').val();
+    var new_pwd = $('#new_pwd').val();
+    var repeat_pwd = $('#repeat_pwd').val();
+
+    var message = '';
+    if(origin_pwd == ''){
+        message = message + '原密码为空！' + "\n";
+    } else if (new_pwd == ''){
+        message = message + '新密码为空！' + "\n";
+    } else if (repeat_pwd == '') {
+        message = message + '重复密码为空！'+ "\n";
+    } else if (new_pwd != repeat_pwd) {
+        message = message + '新密码与重复密码不一致！'+ "\n";
+    }
+
+    if(message == ''){
+        $.post("/updatePwd", {origin_pwd: origin_pwd,new_pwd: new_pwd,repeat_pwd: repeat_pwd},function (data){
+            var result = JSON.parse(data['result']);
+            if(result===2){
+                alert('原密码不正确！');
+            }
+            if(result===200){
+                alert("修改密码成功！");
+                window.location.href="/index";
+            }
+        });
+    } else {
+        alert(message);
+    }
 });
 
 /**
@@ -57,10 +114,11 @@ $('.btn_species_add').on('click', function () {
     var species = $(this).parent().parent().children().eq(1).children().eq(0).val();
 
     if(confirm("增加"+species+"?")){
-        $.post('/addSpecies',{species : species},function (data) {
+        $.post('/system/addSpecies',{species : species},function (data) {
             var result = JSON.parse(data['result']);
             if (result === 200) {
-                window.location.href = "/system_basic";
+                alert("添加成功！");
+                window.location.href = "/system/system_basic";
             } else {
                 alert("添加" + species + "失败");
             }
@@ -78,12 +136,13 @@ $('.btn_species_delete').on('click', function () {
     var speciesName = $(this).parent().parent().children().eq(1).text();
 
     if(confirm("删除"+speciesName+"?")){
-        $.post("/deleteSpecies", {speciesId: speciesId},function (data){
+        $.post("/system/deleteSpecies", {speciesId: speciesId},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_basic";
+                alert("添加大类"+speciesName+"失败！");
+                window.location.href="/system/system_basic";
             } else {
-                alert("删除"+speciesName+"失败！");
+                alert("删除大类"+speciesName+"失败！");
             }
         });
     }
@@ -100,10 +159,11 @@ $('.btn_species_submit').on('click', function () {
 
     if(confirm("是否将"+oldSpeciesName+"更名为"+newSpeciesName+"?")){
 
-        $.post("/updateSpecies", {speciesId: speciesId,newSpeciesName: newSpeciesName},function (data){
+        $.post("/system/updateSpecies", {speciesId: speciesId,newSpeciesName: newSpeciesName},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_basic";
+                alert("更新密码成功！");
+                window.location.href="/system/system_basic";
             } else {
                 alert("更新"+oldSpeciesName+"失败！");
             }
@@ -123,11 +183,11 @@ $('.btn_major_add').on('click', function () {
     var major_species = $(this).parent().parent().children().eq(3).children().eq(0).val();
 
     if(confirm("增加"+major_name+"?")){
-        $.post('/addMajor',{major_name :major_name, major_species: major_species},function (data) {
+        $.post('/system/addMajor',{major_name :major_name, major_species: major_species},function (data) {
             var result = JSON.parse(data['result']);
             if (result === 200) {
                 alert("添加"+major_name+"成功！");
-                window.location.href = "/system_major_settings";
+                window.location.href = "/system/system_major_settings";
             } else {
                 alert("添加" + major_name + "失败");
             }
@@ -145,15 +205,39 @@ $('.btn_major_delete').on('click', function () {
     var majorName = $(this).parent().parent().children().eq(1).text();
 
     if(confirm("删除"+majorName+"?")){
-        $.post("/deleteMajor", {majorId: majorId},function (data){
+        $.post("/system/deleteMajor", {majorId: majorId},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
                 alert("删除"+majorName+"成功！");
-                window.location.href="/system_major_settings";
+                window.location.href="/system/system_major_settings";
             } else {
                 alert("删除"+majorName+"失败！");
             }
         });
+    }
+
+});
+
+/**
+ * species更新
+ */
+$('.btn_species_submit').on('click', function () {
+    var speciesId = $(this).parent().parent().children().eq(0).val();
+    var oldSpeciesName = $(this).parent().parent().children().eq(1).text();
+    var newSpeciesName = $(this).parent().parent().children().eq(3).children().eq(0).val();
+
+    if(confirm("是否将"+oldSpeciesName+"更名为"+newSpeciesName+"?")){
+
+        $.post("/system/updateSpecies", {speciesId: speciesId,newSpeciesName: newSpeciesName},function (data){
+            var result = JSON.parse(data['result']);
+            if(result===200){
+                alert("更新成功！");
+                window.location.href="/system/system_basic";
+            } else {
+                alert("更新"+oldSpeciesName+"失败！");
+            }
+        });
+
     }
 
 });
@@ -165,11 +249,12 @@ $('.btn_major_delete').on('click', function () {
 $('.btn_grade_add').on('click', function () {
     var grade = $(this).parent().parent().children().eq(1).children().eq(0).val();
     if(confirm("增加"+grade+"学年")){
-        $.post('/addGrade',{grade : grade},function (data) {
+        $.post('/system/addGrade',{grade : grade},function (data) {
 
             var result = JSON.parse(data['result']);
             if (result === 200) {
-                window.location.href = "/system_basic";
+                alert("删除成功！");
+                window.location.href = "/system/system_basic";
             } else {
                 alert("添加" + grade + "年级失败");
             }
@@ -185,10 +270,11 @@ $('.btn_grade_delete').on('click', function () {
     var id = $(this).parent().parent().children().eq(0).val();
     var grade = $(this).parent().parent().children().eq(1).text();
     if(confirm("删除"+grade+"学年")){
-        $.post("/deleteGrade", {gradeId: id},function (data){
+        $.post("/system/deleteGrade", {gradeId: id},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_basic";
+                alert("删除成功！");
+                window.location.href="/system/system_basic";
             } else {
                 alert("删除"+grade+"年级失败！");
             }
@@ -204,11 +290,12 @@ $('.btn_position_add').on('click', function () {
     var position = $(this).parent().parent().children().eq(1).children().eq(0).val();
 
     if(confirm("增加"+position+"职务？")){
-        $.post('/addPosition',{position : position},function (data) {
+        $.post('/system/addPosition',{position : position},function (data) {
 
             var result = JSON.parse(data['result']);
             if (result === 200) {
-                window.location.href = "/system_basic";
+                alert("添加成功！");
+                window.location.href = "/system/system_basic";
             } else {
                 alert("添加" + position + "职务失败！");
             }
@@ -224,12 +311,13 @@ $('.btn_position_delete').on('click', function () {
     var id = $(this).parent().parent().children().eq(4).val();
     var position = $(this).parent().parent().children().eq(0).text();
     if(confirm("删除"+position+"职务？")){
-        $.post("/deletePosition", {id: id},function (data){
+        $.post("/system/deletePosition", {id: id},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_basic";
+                alert("删除职务"+position+"成功！");
+                window.location.href="/system/system_basic";
             } else {
-                alert("删除"+grade+"年级失败！");
+                alert("删除职务"+position+"失败！");
             }
         });
     }
@@ -256,10 +344,11 @@ $('.btn_position_submit').on('click', function () {
 
     if(confirm("确认将"+oldposition+"更名为"+newposition+"?")){
 
-        $.post("/updatePosition", {id: id,newposition: newposition},function (data){
+        $.post("/system/updatePosition", {id: id,newposition: newposition},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_basic";
+                alert("修改成功！");
+                window.location.href="/system/system_basic";
             } else {
                 alert("更新"+oldSpeciesName+"失败！");
             }
@@ -283,16 +372,17 @@ $('.btn_position_submitout').on('click', function () {
 /**
  * 删除管理员
  */
-$('.btn_manager_delete').on('click', function () {
+$('.btn_teacher_delete').on('click', function () {
     var id = $(this).parent().parent().children().eq(8).val();
-    var manager = $(this).parent().parent().children().eq(0).text();
-    if(confirm("删除"+manager+"管理员账号?")){
-        $.post("/deleteManager", {id: id, manager :manager},function (data){
+    var teacher = $(this).parent().parent().children().eq(0).text();
+    if(confirm("删除"+teacher+"管理员账号?")){
+        $.post("/system/deleteTeacher", {id: id, teacher :teacher},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
-                window.location.href="/system_teacher_settings";
+                alert("成功删除用户"+teacher);
+                window.location.href="/system/system_teacher_settings";
             } else {
-                alert("删除"+speciesName+"失败！");
+                alert("删除用户"+teacher+"失败！");
             }
         });
 
@@ -300,17 +390,19 @@ $('.btn_manager_delete').on('click', function () {
 });
 
 /**
- * 增加管理员
+ * 增加教师用户
  */
-$('.btn_manager_add').on('click', function () {
+$('.btn_teacher_add').on('click', function () {
     var username = $(this).parent().parent().children().eq(1).children().eq(0).val();
     var number = $(this).parent().parent().children().eq(3).children().eq(0).val();
+    var position = $("#position").val();
 
     if(confirm("增加教师（管理员）"+username+",学工号"+number+"?")){
-        $.post('/addManager',{username : username, number : number},function (data) {
+        $.post('/system/addTeacher',{username : username, number : number, position:position},function (data) {
             var result = JSON.parse(data['result']);
             if (result === 200) {
-                window.location.href = "/system_teacher_settings";
+                alert("添加成功！");
+                window.location.href = "/system/system_teacher_settings";
             } else {
                 alert("添加" + username + "管理员失败");
             }
@@ -320,10 +412,10 @@ $('.btn_manager_add').on('click', function () {
 });
 
 /**
- * 修改管理员信息
+ * 修改教师用户信息
  */
 
-$('.btn_manager_modify').on('click', function () {
+$('.btn_teacher_modify').on('click', function () {
     $(this).parent().addClass('panel_close');
     $(this).parent().parent().children().eq(0).addClass('panel_close');
     $(this).parent().parent().children().eq(1).addClass('panel_close');
@@ -335,25 +427,31 @@ $('.btn_manager_modify').on('click', function () {
 });
 
 /**
- * 确认修改管理员信息
+ * 确认修改教师用户信息
  */
 
-$('.btn_manager_submit').on('click', function () {
+$('.btn_teacher_submit').on('click', function () {
     var id = $(this).parent().parent().children().eq(8).val();
     var username = $(this).parent().parent().children().eq(4).children().eq(0).val();
     var number = $(this).parent().parent().children().eq(5).children().eq(0).val();
     var position = $(this).parent().parent().children().eq(6).children().eq(0).val();
 
+    alert(username);
+    alert(number);
+
     if(confirm("请确认更改信息！")){
 
-        $.post("/updateManager", {id: id,username: username,number: number,position: position},function (data){
-            var result = JSON.parse(data['result']);
-            if(result===200){
-                window.location.href="/system_teacher_settings";
-            } else {
-                alert("更新"+oldSpeciesName+"失败！");
+        $.post("/system/updateTeacher", {id: id,username: username,number: number,position: position},
+            function (data){
+                var result = JSON.parse(data['result']);
+                if(result===200){
+                    alert("修改成功！");
+                    window.location.href="/system/system_teacher_settings";
+                } else {
+                    alert("更新"+oldSpeciesName+"失败！");
+                }
             }
-        });
+        );
 
     }
 });
@@ -370,6 +468,7 @@ $('.btn_intentPlan_submit').on('click', function () {
             var result = JSON.parse(data['result']);
 
             if(result===200){
+                alert("提交成功！");
                 window.location.href="/student/intent_fill";
             }else{
                 alert("填报志愿失败！");
@@ -382,7 +481,7 @@ $('.btn_intentPlan_submit').on('click', function () {
 /**
  * 取消修改
  */
-$('.btn_manager_submitout').on('click', function () {
+$('.btn_teacher_submitout').on('click', function () {
     $(this).parent().addClass('panel_close');
     $(this).parent().parent().children().eq(0).removeClass('panel_close');
     $(this).parent().parent().children().eq(1).removeClass('panel_close');
@@ -411,7 +510,7 @@ function major(major_name,class_plan_amount,stu_plan_amount){ //use factory
     this.class_plan_amount = class_plan_amount;
     this.stu_plan_amount = stu_plan_amount;
     return this;
-}
+};
 
 $('#plan_save').on('click', function () {
 
@@ -421,28 +520,70 @@ $('#plan_save').on('click', function () {
     var species = $('#species_select').val();
     var amount = $('#amount_species').val();
 
-    $(".div-append").each(function(){
+    if(grade!="" && species!="" && amount!=""){
+        $(".div-append").each(function(){
 
-        var major_name = $(this).children().eq(0).children().val();
-        var class_plan_amount = $(this).children().eq(1).children().val();
-        var stu_plan_amount = $(this).children().eq(2).children().val();
+            var major_name = $(this).children().eq(0).children().val();
+            var class_plan_amount = $(this).children().eq(1).children().val();
+            var stu_plan_amount = $(this).children().eq(2).children().val();
 
-        json[index] = new major(major_name,class_plan_amount,stu_plan_amount);
-        index++;
-    });
-
-    var json_majors = JSON.stringify(json);
-
-    if(confirm("确认提交！")){
-        $.post("/teacher/savePlan", {grade: grade,species: species,amount: amount,json_majors:json_majors}, function (data) {
-            var result = JSON.parse(data['result']);
-            if(result===200){
-                alert("保存成功！");
-                window.location.href="/teacher/plan_settings";
-            } else {
-                alert("创建计划失败！");
-            }
+            json[index] = new major(major_name,class_plan_amount,stu_plan_amount);
+            index++;
         });
+
+        var json_majors = JSON.stringify(json);
+
+        if(confirm("确认提交！")){
+            $.post("/teacher/savePlan", {grade: grade,species: species,amount: amount,json_majors:json_majors}, function (data) {
+                var result = JSON.parse(data['result']);
+                if(result===200){
+                    alert("保存成功！");
+                    window.location.href="/teacher/plan_settings";
+                } else {
+                    alert("创建计划失败！");
+                }
+            });
+        }
+    } else {
+        alert("请填写完整再提交！");
+    }
+
+});
+
+$('#plan_save_modify').on('click', function () {
+
+    var json = [];
+    var index = 0;
+    var grade = $('#grades_select_modify').val();
+    var species = $('#species_select_modify').val();
+    var amount = $('#amount_species_modify').val();
+
+    if(grade!="" && species!="" && amount!=""){
+        $(".div-append-modify").each(function(){
+
+            var major_name = $(this).children().eq(0).children().val();
+            var class_plan_amount = $(this).children().eq(1).children().val();
+            var stu_plan_amount = $(this).children().eq(2).children().val();
+
+            json[index] = new major(major_name,class_plan_amount,stu_plan_amount);
+            index++;
+        });
+
+        var json_majors = JSON.stringify(json);
+
+        if(confirm("确认提交！")){
+            $.post("/teacher/savePlan", {grade: grade,species: species,amount: amount,json_majors:json_majors}, function (data) {
+                var result = JSON.parse(data['result']);
+                if(result===200){
+                    alert("保存成功！");
+                    window.location.href="/teacher/plan_settings";
+                } else {
+                    alert("保存计划失败！");
+                }
+            });
+        }
+    }else {
+        alert("请填写完整再提交！");
     }
 
 });
@@ -453,8 +594,73 @@ $('#btn_plan_create_show').on('click', function () {
         $(this).text('取消');
     } else {
         $(this).text('新建计划');
+        $(".div-append").remove();
     }
 
     $('#plan_create_panel').toggleClass('panel_close');
 });
 
+$("#plan_submitout").on('click', function () {
+    $(this).parent().parent().parent().addClass('panel_close');
+    if($("#btn_plan_create_show").text()=='新建计划'){
+        $("#btn_plan_create_show").text('取消');
+    } else {
+        $("#btn_plan_create_show").text('新建计划');
+        $(".div-append").remove();
+    }
+});
+
+$("#plan_submitout_modify").on('click', function () {
+    $(this).parent().parent().parent().addClass('panel_close');
+    $(".div-append-modify").remove();
+});
+
+$(".btn_plan_release").on('click', function(){
+    var tbody = $(this).parent().parent().children("table").children("tbody");
+    var species = tbody.children().eq(0).children();
+    var planId = species.children().eq(0).val();
+    var status = species.children().eq(1).val();
+    if(confirm("是否确认发布！")) {
+        $.post("/teacher/changePlanStatus", {planId: planId, status: status}, function (data) {
+            if (data.result === 200) {
+                alert("发布成功！");
+                window.location.href = "/teacher/plan_settings";
+            } else {
+                alert("发布失败！！");
+            }
+        });
+    }
+});
+
+$(".btn_plan_revocation_release").on('click', function(){
+    var tbody = $(this).parent().parent().children("table").children("tbody");
+    var species = tbody.children().eq(0).children();
+    var planId = species.children().eq(0).val();
+    var status = species.children().eq(1).val();
+    if(confirm("是否确认撤销发布！")) {
+        $.post("/teacher/changePlanStatus", {planId: planId, status: status}, function (data) {
+            if (data.result === 200) {
+                alert("撤销成功！");
+                window.location.href = "/teacher/plan_settings";
+            } else {
+                alert("撤销失败！！");
+            }
+        });
+    }
+});
+
+$(".btn_plan_delete").on('click', function(){
+    var tbody = $(this).parent().parent().children("table").children("tbody");
+    var species = tbody.children().eq(0).children();
+    var planId = species.children().eq(0).val();
+    if(confirm("请慎重删除！")) {
+        $.post("/teacher/deletePlan", {planId: planId}, function (data) {
+            if (data.result === 200) {
+                alert("删除成功！");
+                window.location.href = "/teacher/plan_settings";
+            } else {
+                alert("删除失败！！");
+            }
+        });
+    }
+});

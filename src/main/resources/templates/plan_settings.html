@@ -6,55 +6,6 @@
 <section layout:fragment="content">
     <!-- page start-->
     <div class="row">
-
-        <div class="col-sm-6">
-            <section class="panel panel_plan">
-                <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
-                        <div class="form-group">
-                            <button type="button" id="btn_plan_create_show" class="btn btn-white btn_plan_create">新建计划</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div id="plan_create_panel" class="panel-body panel_close">
-                    <h4 class="modal-title">新建分流计划</h4>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label class="control-label" for="species_select">请选择大类</label>
-                            <select id="species_select" class="form-control">
-                                <option></option>
-                                <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
-                            </select>
-                            <label class="control-label plan_new_label" for="grades_select">年级</label>
-                            <select id="grades_select" class="form-control">
-                                <option></option>
-                                <option th:each="grade:${gradeList}" th:text="${grade.grade}"></option>
-                            </select>
-                            <label class="control-label plan_new_label" for="amount_species">总人数</label>
-                            <input type="text" id="amount_species" class="form-control" placeholder="请输入总人数" />
-                        </div>
-                        <div class="form-group" id="modal_append">
-                            <!--<div class="modal_input_1">
-                                <input type="text" class="form-control" placeholder="请输入专业名"/>
-                            </div>
-                            <div class="modal_input_2">
-                                <input type="text" class="form-control" placeholder="请输入计划班级数"/>
-                            </div>
-                            <div class="modal_input_2">
-                                <input type="text" class="form-control" placeholder="请输入计划人数"/>
-                            </div>-->
-                        </div>
-                        <div class="form-group">
-                            <button type="button" class="btn btn-default" id="plan_add">新增</button>
-                            <button type="submit" class="btn btn-default" id="plan_save">保存</button>
-                            <button type="submit" class="btn btn-default" id="plan_submit">提交</button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-
         <div class="col-sm-6">
             <section class="panel panel_plan">
                 <div class="panel-body">
@@ -115,7 +66,13 @@
                     </form>
                 </div>
 
-                <div class="panel-body" th:each="plan:${planList}">
+                <div class="panel-body" th:each="planVo:${planVoList}">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-info btn_plan_modify btn_panel_normal">修改</button>
+                        <button type="button" class="btn btn-success btn_plan_release btn_panel_normal" th:if="${planVo.plan.status==0}">发布</button>
+                        <button type="button" class="btn btn-warning btn_plan_revocation_release btn_panel_normal" th:if="${planVo.plan.status==1}">撤销发布</button>
+                        <button type="button" class="btn btn-danger btn_plan_delete btn_panel_normal">删除</button>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
@@ -127,36 +84,108 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td rowspan="5" class="td_species_name">
-                                <h5 class="text-center" th:text="${plan.grade}+'级'"></h5>
-                                <h5 class="text-center" th:text="${plan.species}"></h5>
-                                <h5 class="text-center" th:text="${plan.amountStudent}+'人'"></h5>
+                            <td th:rowspan="${planVo.majorNumber}+1" class="td_species_name">
+                                <input type="hidden" th:value="${planVo.plan.id}" />
+                                <input type="hidden" th:value="${planVo.plan.status}" />
+                                <input type="hidden" th:value="${planVo.plan.species}" />
+                                <h5 class="text-center" th:text="${planVo.plan.grade}+'级'"></h5>
+                                <h5 class="text-center" th:text="${planVo.speciesName}"></h5>
+                                <h5 class="text-center" th:text="${planVo.plan.amountStudent}+'人'"></h5>
                             </td>
                         </tr>
-                        <tr>
-                            <td>工商管理</td>
-                            <td>2</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>会计学</td>
-                            <td>4</td>
-                            <td>108</td>
-                        </tr>
-                        <tr>
-                            <td>市场营销</td>
-                            <td>2</td>
-                            <td>54</td>
-                        </tr>
-                        <tr>
-                            <td>人力资源管理</td>
-                            <td>2</td>
-                            <td>56</td>
+                        <tr th:each="major:${planVo.majorList}">
+                            <td th:text="${major.majorName}">工商管理</td>
+                            <td th:text="${major.classNumber}">2</td>
+                            <td th:text="${major.stuNumber}">50</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
 
+            </section>
+        </div>
+
+        <div class="col-sm-6">
+            <section class="panel panel_plan">
+                <div class="panel-body">
+                    <form class="form-horizontal bucket-form" method="get">
+                        <div class="form-group">
+                            <button type="button" id="btn_plan_create_show" class="btn btn-white btn_plan_create">新建计划</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="plan_create_panel" class="panel-body panel_close">
+                    <h4 class="modal-title">新建分流计划</h4>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择大类</label>
+                            <select id="species_select" class="form-control">
+                                <option></option>
+                                <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
+                            </select>
+                            <label class="control-label plan_new_label" for="grades_select">年级</label>
+                            <select id="grades_select" class="form-control">
+                                <option></option>
+                                <option th:each="grade:${gradeList}" th:text="${grade.grade}"></option>
+                            </select>
+                            <label class="control-label plan_new_label" for="amount_species">总人数</label>
+                            <input type="text" id="amount_species" class="form-control" placeholder="请输入总人数" />
+                        </div>
+                        <div class="form-group" id="modal_append">
+                            <!--<div class="modal_input_1">
+                                <input type="text" class="form-control" placeholder="请输入专业名"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划班级数"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划人数"/>
+                            </div>-->
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" id="plan_add">增加专业</button>
+                            <button type="submit" class="btn btn-default" id="plan_save">保存</button>
+                            <button type="submit" class="btn btn-default" id="plan_submitout">取消</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="plan_modify_panel" class="panel-body panel_close">
+                    <h4 class="modal-title">修改计划</h4>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label" for="species_select">请选择大类</label>
+                            <select id="species_select_modify" class="form-control">
+                                <option></option>
+                                <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
+                            </select>
+                            <label class="control-label plan_new_label" for="grades_select">年级</label>
+                            <select id="grades_select_modify" class="form-control">
+                                <option></option>
+                                <option th:each="grade:${gradeList}" th:text="${grade.grade}"></option>
+                            </select>
+                            <label class="control-label plan_new_label" for="amount_species">总人数</label>
+                            <input type="text" id="amount_species_modify" class="form-control" placeholder="请输入总人数" />
+                        </div>
+                        <div class="form-group" id="modal_append_modify">
+                            <!--<div class="modal_input_1">
+                                <input type="text" class="form-control" placeholder="请输入专业名"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划班级数"/>
+                            </div>
+                            <div class="modal_input_2">
+                                <input type="text" class="form-control" placeholder="请输入计划人数"/>
+                            </div>-->
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-default" id="plan_add_modify">增加专业</button>
+                            <button type="submit" class="btn btn-default" id="plan_save_modify">保存</button>
+                            <button type="submit" class="btn btn-default" id="plan_submitout_modify">取消</button>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
@@ -167,16 +196,109 @@
         $(document).ready(function() {
             $("#plan_add").on('click', function(){ //on add input button click
                 $("#modal_append").append('<div class="div-append"></div>');
-                $("#modal_append").children(".div-append:last").append('<div class="modal_input_1"><input type="text" class="form-control" placeholder="请输入专业名"/></div>');
+                $("#modal_append").children(".div-append:last").append('<div class="modal_input_1"><select class="form-control"><option></option><option th:each="major:${majorList}" th:text="${major.majorName}"></option></select></div>');
                 $("#modal_append").children(".div-append:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划班级数"/></div>');
                 $("#modal_append").children(".div-append:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划人数"/></div>');
                 $("#modal_append").children(".div-append:last").append('<div class="modal_input_3"><button type="button" class="btn btn-white delete_major">删除</button></div>');
             });
 
             $("body").on("click", ".delete_major", function(){
-                //alert("你好");
                 $(this).parent('div').parent('.div-append').remove();
             });
+
+            $("#plan_add_modify").on('click', function(){ //on add input button click
+                $("#modal_append_modify").append('<div class="div-append-modify"></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_1"><select class="form-control"><option></option><option th:each="major:${majorList}" th:text="${major.majorName}"></option></select></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划班级数"/></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划人数"/></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_3"><button type="button" class="btn btn-white delete_major_modify">删除</button></div>');
+            });
+
+            $("body").on("click", ".delete_major_modify", function(){
+                $(this).parent('div').parent('.div-append-modify').remove();
+            });
+
+        });
+
+        $(".btn_plan_modify").on('click', function () {
+
+            $('#plan_modify_panel').removeClass('panel_close');
+
+            var tbody = $(this).parent().parent().children("table").children("tbody");
+            var species = tbody.children().eq(0).children();
+            var speciesId = species.children().eq(2).val();
+            var grade = species.children().eq(3).text().substring(0,4);
+            var speciesName = species.children().eq(4).text();
+            var stuAmount = species.children().eq(5).text().substring(0,2);
+            var count = species.attr("rowspan");
+
+            $("#species_select_modify").find("option").each(function(){
+                if($(this).val() == speciesName){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#grades_select_modify").find("option").each(function(){
+                if($(this).val() == grade){
+                    $(this).attr("selected",true);
+                }
+            });
+
+            $("#amount_species_modify").val(stuAmount);
+
+            $("#modal_append_modify").append('<div class="div-append-modify"></div>');
+
+            $(".div-append-modify").remove();
+
+            //<option th:each="major:${majorList}" th:text="${major.majorName}"></option>
+            var majorNames = [];
+
+            $.ajax({
+                cache: false,
+                async: false,   // 太关键了，学习了，同步和异步的参数
+                dataType: 'json',
+                type: 'post',
+                url: "/teacher/getOptionsOfMajor",
+                data: "speciesId="+speciesId,
+                success: function (data)
+                {
+                    /*<![CDATA[*/
+                    for(var j=0;j<data.majorNameList.length;j++){/*]]>*/
+                        optionValue = data.majorNameList[j].majorName;
+                        majorNames.push(optionValue);
+                    }
+                }
+            });
+
+            /*<![CDATA[*/
+            for (var i=0; i<count-1; i++){/*]]>*/
+                $("#modal_append_modify").append('<div class="div-append-modify"></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_1"><select class="form-control"><option></option></select></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划班级数"/></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_2"><input type="text" class="form-control" placeholder="请输入计划人数"/></div>');
+                $("#modal_append_modify").children(".div-append-modify:last").append('<div class="modal_input_3"><button type="button" class="btn btn-white delete_major_modify">删除</button></div>');
+                var major = tbody.children().eq(i+1);
+                var majorName = major.children().eq(0).text();
+                var classNumber = major.children().eq(1).text();
+                var stuNumber = major.children().eq(2).text();
+                var selector = $("#modal_append_modify").children().eq(i).children().eq(0).children();
+
+                /*<![CDATA[*/
+                for(var k=0;k<majorNames.length;k++){/*]]>*/
+                    selector.append("<option>"+majorNames[k]+"</option>");
+
+                }
+
+                selector.find("option").each(function(){
+                    if($(this).val() == majorName){
+                        $(this).attr("selected",true);
+                    }
+                });
+
+                $("#modal_append_modify").children().eq(i).children().eq(1).children().val(classNumber);
+                $("#modal_append_modify").children().eq(i).children().eq(2).children().val(stuNumber);
+            }
+
         });
     </script>
 </section>

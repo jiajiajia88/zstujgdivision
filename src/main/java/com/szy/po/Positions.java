@@ -1,6 +1,10 @@
 package com.szy.po;
 
+/**
+ * 职位实体
+ */
 public class Positions {
+
     private Integer id;
 
     private String description;

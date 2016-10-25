@@ -10,20 +10,28 @@
         <div class="col-sm-12">
             <section class="panel panel_plan">
                 <div class="panel-body">
-                    <div class="panel-account col-lg-2">
+                    <div class="panel-account col-lg-1">
                         <h4>添加管理员</h4>
                     </div>
-                    <div class="form-group col-lg-3 system_input_padding">
+                    <div class="form-group col-lg-2 system_input_padding">
                         <input type="text" class="form-control" id="manager" name="manager" placeholder="请输入管理员名"/>
                     </div>
                     <div class="panel-account col-lg-1">
                         <h4>学工号</h4>
                     </div>
-                    <div class="form-group col-lg-3 system_input_padding">
+                    <div class="form-group col-lg-2 system_input_padding">
                         <input type="text" class="form-control" id="number" name="number" placeholder="请输入学工号"/>
                     </div>
+                    <div class="panel-account col-lg-1">
+                        <h4>职务</h4>
+                    </div>
                     <div class="form-group col-lg-2 system_input_padding">
-                        <button type="submit" class="btn btn-white btn_manager_add">提交</button>
+                        <select id="position" class="form-control" >
+                            <option th:each="position:${positionList}" th:text="${position.description}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-2 system_input_padding">
+                        <button type="submit" class="btn btn-white btn_teacher_add">提交</button>
                     </div>
                     <table class="table  table-hover general-table">
                         <thead>
@@ -35,29 +43,27 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="manager:${managerList}">
-                            <td th:text="${manager.username}"></td>
-                            <td th:text="${manager.number}"></td>
-                            <td th:text="未知"></td>
-
+                        <tr th:each="teacher:${teacherList}">
+                            <td th:text="${teacher.name}"></td>
+                            <td th:text="${teacher.number}"></td>
+                            <td th:text="${teacher.description}"></td>
                             <td>
-                                <button type="button" class="btn btn-white btn_manager_modify">修改</button>
-                                <button type="button" class="btn btn-white btn_manager_delete">删除</button>
+                                <button type="button" class="btn btn-white btn_teacher_modify btn_panel_normal">修改</button>
+                                <button type="button" class="btn btn-white btn_teacher_delete btn_panel_normal">删除</button>
                             </td>
-                            <td class="panel_close"><input type="text" class="form-control" th:value="${manager.username}" placeholder="请输入大类名"/></td>
-                            <td class="panel_close"><input type="text" class="form-control" th:value="${manager.number}" placeholder="请输入学工号"/></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${teacher.name}" placeholder="请输入大类名"/></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${teacher.number}" placeholder="请输入学工号"/></td>
                             <td class="panel_close">
                                 <select class="form-control" >
-                                    <option th:each="position:${positionList}" th:text="${position.position}"></option>
+                                    <option th:each="position:${positionList}" th:text="${position.description}"></option>
                                 </select>
                             </td>
                             <td class="panel_close">
-                                <button type="button" class="btn btn-white btn_manager_submit">保存</button>
-                                <button type="button" class="btn btn-white btn_manager_submitout">取消修改</button>
+                                <button type="button" class="btn btn-white btn_teacher_submit btn_panel_normal">保存</button>
+                                <button type="button" class="btn btn-white btn_teacher_submitout btn_panel_normal">取消修改</button>
                             </td>
-                            <input type="hidden" th:value="${manager.id}"/>
+                            <input type="hidden" th:value="${teacher.id}"/>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>

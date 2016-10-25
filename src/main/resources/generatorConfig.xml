@@ -42,7 +42,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
-        <table tableName="tb_grade" domainObjectName="Grade" >
+        <!--<table tableName="tb_grade" domainObjectName="Grade" >
         </table>
         <table tableName="tb_intent_fill" domainObjectName="IntentFill" >
         </table>
@@ -69,6 +69,8 @@
         <table tableName="tb_user" domainObjectName="User" >
         </table>
         <table tableName="tb_user_role" domainObjectName="UserRole" >
+        </table>-->
+        <table tableName="tb_plan_major" domainObjectName="PlanMajor">
         </table>
     </context>
 </generatorConfiguration>

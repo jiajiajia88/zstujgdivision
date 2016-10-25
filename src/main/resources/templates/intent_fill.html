@@ -10,45 +10,60 @@
         <div class="col-sm-12">
 
             <section class="panel panel_plan">
-
-
-                <div class="panel-body profile-information" th:each="studentinfo:${studentinfo}">
-                    <div class="col-md-5">
-                        <div class="profile-desk">
+                <div class="panel-body profile-information">
+                    <div class="col-md-4">
+                        <div class="profile-desk" th:switch="${studentinfo.division}==1 ? 'true' : 'false'">
                             <h1 th:text="${studentinfo.name}"></h1>
                             <h3 th:text="${studentinfo.originalClass}"></h3>
-                            <h4 th:text="${studentinfo.stufrom}">、理科</h4>
+                            <h4 th:case="'true'" th:text="${studentinfo.stufrom}+'|文科'"></h4>
+                            <h4 th:case="'false'" th:text="${studentinfo.stufrom}+'|理科'"></h4>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="profile-statistics">
                             <h1 th:text="${studentinfo.gpa}"></h1>
                             <p>学分平均绩点</p>
+                            <h1 th:text="${studentinfo.realgpa}"></h1>
+                            <p>平均学分绩点*70%</p>
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <div class="profile-statistics">
                             <h1 th:text="${studentinfo.entrancescore}"></h1>
                             <p>高考成绩</p>
+                            <h1 th:text="${studentinfo.admissionscore}">未知</h1>
+                            <p>生源省高考录取线</p>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="profile-statistics">
+                            <h1 th:text="${studentinfo.gradeone}"></h1>
+                            <p>高考成绩/生源省高考录取线</p>
+                            <h1 th:text="${studentinfo.gradetwo}">未知</h1>
+                            <p>30%*高考成绩/生源省高考录取线</p>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="profile-statistics">
-                            <h1 th:text="${studentinfo.realgpa}"></h1>
-                            <p>学分绩点换算总分</p>
-                            <h1>未知</h1>
-                            <p>总排名</p>
+                            <h1 th:text="${studentinfo.totalgrade}"></h1>
+                            <p>总成绩（70%*平均学分绩点 + 30%*高考成绩/生源省高考录取线）</p>
+                            <h1 th:text="${studentinfo.rank}">未知</h1>
+                            <p>专业排名</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="panel-body intent_view col-md-12">
+                <div class="panel-body intent_view col-md-12" th:if="${ifFillIntent}=='not'">
                     <h4 th:text="${message}"></h4>
                     <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_fill">
                         填报志愿
                     </a>
                 </div>
 
-                <div class="panel-body intent_view col-md-12" >
-                    <div class="col-md-3"><h4 th:text="${firstmajor}"></h4></div>
-                    <div class="col-md-3"><h4 th:text="${secondmajor}"></h4></div>
-                    <div class="col-md-3"><h4 th:text="${thirdmajor}"></h4></div>
+                <div class="panel-body intent_view col-md-12" th:if="${ifConfirm}==1">
+                    <div class="col-md-3"><h4 id="firstmajor" th:text="${firstmajor}"></h4></div>
+                    <div class="col-md-3"><h4 id="secondmajor" th:text="${secondmajor}"></h4></div>
+                    <div class="col-md-3"><h4 id="thirdmajor" th:text="${thirdmajor}"></h4></div>
                     <div class="col-md-3">
                         <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_fill">
                             修改
@@ -56,7 +71,7 @@
                     </div>
                 </div>
 
-                <div class="panel-body intent_view col-md-12">
+                <div class="panel-body intent_view col-md-12" th:if="${ifConfirm}==2">
                     <div class="col-md-3"><h4 th:text="${firstmajor}"></h4></div>
                     <div class="col-md-3"><h4 th:text="${secondmajor}"></h4></div>
                     <div class="col-md-3"><h4 th:text="${thirdmajor}"></h4></div>
@@ -64,58 +79,7 @@
                         <button type="button" class="btn btn-white">导出到PDF</button>
                     </div>
                 </div>
-                <!--<div class="panel-body">
-                    &lt;!&ndash;<h5 class="text-left">学生基础信息</h5>&ndash;&gt;
-                    <div class="form-group intent_fill_form_group">
-                        <label class="control-label">姓名</label>
-                        <div class="col-lg-3">
-                            <input type="text" placeholder=" " id="name" class="form-control"/>
-                        </div>
-                        <label class="control-label">班级</label>
-                        <div class="col-lg-3">
-                            <input type="text" placeholder=" " id="class" class="form-control"/>
-                        </div>
-                        <label class="control-label">学号</label>
-                        <div class="col-lg-2">
-                            <input type="text" placeholder=" " id="number" class="form-control"/>
-                        </div>
-                        <label class="control-label">手机长号</label>
-                        <div class="col-lg-2">
-                            <input type="text" placeholder=" " id="phone_number" class="form-control"/>
-                        </div>
-                        <button type="button" class="btn btn-white">保存</button>
-                    </div>
-                </div>-->
 
-                <!--<div class="panel-body">
-                    <div class="form-group intent_fill_form_group">
-                        <label class="control-label">第一志愿</label>
-                        <div class="col-sm-3">
-                            <select class="form-control">
-                                <option>工商管理</option>
-                                <option>经济学</option>
-                                <option>电子商务</option>
-                            </select>
-                        </div>
-                        <label class="control-label">第二志愿</label>
-                        <div class="col-sm-3">
-                            <select class="form-control">
-                                <option>工商管理</option>
-                                <option>经济学</option>
-                                <option>电子商务</option>
-                            </select>
-                        </div>
-                        <label class="control-label">第三志愿</label>
-                        <div class="col-sm-3">
-                            <select class="form-control">
-                                <option>工商管理</option>
-                                <option>经济学</option>
-                                <option>电子商务</option>
-                            </select>
-                        </div>
-                        <button type="button" class="btn btn-white">保存</button>
-                    </div>
-                </div>-->
             </section>
         </div>
     </div>
@@ -135,7 +99,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">第一志愿</label>
                             <div class="col-lg-10">
-                                <select placeholder="请选择第一志愿专业" class="form-control">
+                                <select id="first-select" class="form-control">
+                                    <option />
                                     <option th:each="major:${major}" th:text="${major.majorName}"/>
                                 </select>
                             </div>
@@ -143,7 +108,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">第二志愿</label>
                             <div class="col-lg-10">
-                                <select placeholder="请选择第二志愿专业" class="form-control">
+                                <select id="second-select" class="form-control">
+                                    <option />
                                     <option th:each="major:${major}" th:text="${major.majorName}"/>
                                 </select>
                             </div>
@@ -151,7 +117,8 @@
                         <div class="form-group">
                             <label class="col-lg-2 control-label">第三志愿</label>
                             <div class="col-lg-10">
-                                <select placeholder="请选择第三志愿专业" class="form-control">
+                                <select id="third-select" class="form-control">
+                                    <option />
                                     <option th:each="major:${major}" th:text="${major.majorName}"/>
                                 </select>
                             </div>
@@ -210,7 +177,33 @@
         </div>
     </div>
     <!--modal end-->
+    <script th:inline="javascript">
+        jQuery(document).ready(function() {
+            $(function () {
+                var firstmajor = $("#firstmajor").text();
+                var secondmajor = $("#secondmajor").text();
+                var thirdmajor = $("#thirdmajor").text();
 
+                $("#first-select").find("option").each(function(){
+                    if($(this).val() == firstmajor){
+                        $(this).attr("selected",true);
+                    }
+                });
+
+                $("#second-select").find("option").each(function(){
+                    if($(this).val() == secondmajor){
+                        $(this).attr("selected",true);
+                    }
+                });
+
+                $("#third-select").find("option").each(function(){
+                    if($(this).val() == thirdmajor){
+                        $(this).attr("selected",true);
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

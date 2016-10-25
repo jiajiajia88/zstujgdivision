@@ -18,6 +18,24 @@
                 <div class="panel-body stu_info_import_panel">
                     <form role="form" class="form-horizontal bucket-form" id="species_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
                         <div class="form-group">
+                            <div class="panel_top_select_normal">
+                                <label class="control-label">请选择年级</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="grade">
+                                    <option></option>
+                                    <option th:each="grade:${gradeList}" th:text="${grade.grade}+'级'"></option>
+                                </select>
+                            </div>
+                            <div class="panel_top_select_normal">
+                                <label class="control-label">请选择大类</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <select class="form-control" name="species">
+                                    <option></option>
+                                    <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
+                                </select>
+                            </div>
                             <div class="controls col-md-2 fileupload-div">
                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <input name="uploadType" type="hidden" value="3"/>
@@ -40,7 +58,7 @@
                     <div class="adv-table editable-table">
                         <div class="clearfix">
                             <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-white btn_plan_search">导出pdf</button>
+                                <button type="button" class="btn btn-white btn_plan_export">导出Excel</button>
                             </div>
                             <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                 <thead>

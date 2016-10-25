@@ -1,6 +1,7 @@
 package com.szy.controller;
 
 import com.szy.service.StudentInfoService;
+import com.szy.service.SystemService;
 import com.szy.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,9 @@ public class FileController {
     @Autowired
     StudentInfoService studentInfoService;
 
+    @Autowired
+    SystemService systemService;
+
     /**
      * 导入学生基础信息
      * @param file
@@ -40,7 +44,11 @@ public class FileController {
     public String fileUpload(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws Exception {
 
         int uploadType = Integer.parseInt(request.getParameter("uploadType"));
-
+        String grade_post = request.getParameter("grade");
+        String species_post = request.getParameter("species");
+        int grade = Integer.parseInt(grade_post.substring(0,4));
+        int speciesId = systemService.getSpeciesByName(species_post).getSpeciesId();
+        int species = grade*1000+speciesId;
         long startTime = System.currentTimeMillis();
 
         InputStream in;
@@ -49,7 +57,7 @@ public class FileController {
         }
         in = file.getInputStream();
         if(uploadType == 1){
-            studentInfoService.importBasicInfo(in,file.getOriginalFilename());
+            studentInfoService.importBasicInfo(in,file.getOriginalFilename(),species);
         } else if (uploadType == 2) {
             studentInfoService.importGpa(in,file.getOriginalFilename());
         } else {

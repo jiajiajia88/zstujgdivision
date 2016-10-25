@@ -121,7 +121,7 @@
                             <td class="panel_close"><input type="text" class="form-control" value="23423423423" placeholder="请输入学工号"/></td>
                             <td class="panel_close">
                                 <select class="form-control" >
-                                    <option th:each="position:${positionList}" th:text="${position.position}"></option>
+                                    <option th:each="position:${positionList}" th:text="${position.description}"></option>
                                 </select>
                             </td>
                             <td class="panel_close">
@@ -157,13 +157,13 @@
                         </thead>
                         <tbody>
                         <tr th:each="position:${positionList}">
-                            <td th:text="${position.position}"></td>
+                            <td th:text="${position.description}"></td>
                             <td>
                                 <button type="button" class="btn btn-white btn_position_modify">修改</button>
                                 <button type="button" class="btn btn-white btn_position_delete">删除</button>
                             </td>
 
-                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.position}" placeholder="请输入职务"/></td>
+                            <td class="panel_close"><input type="text" class="form-control" th:value="${position.description}" placeholder="请输入职务"/></td>
                             <td class="panel_close">
                                 <button type="button" class="btn btn-white btn_position_submit">保存</button>
                                 <button type="button" class="btn btn-white btn_position_submitout">取消修改</button>

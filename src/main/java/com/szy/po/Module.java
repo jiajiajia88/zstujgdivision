@@ -2,7 +2,11 @@ package com.szy.po;
 
 import java.util.Date;
 
+/**
+ * 模块（权限）实体
+ */
 public class Module {
+
     private Integer id;
 
     private String moduleName;

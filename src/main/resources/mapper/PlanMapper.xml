@@ -14,13 +14,21 @@
     <resultMap id="majorMap" type="Major">
         <id property="majorId" column="major_id" />
         <result property="majorName" column="major_name" />
-        <result property="classPlanNumber" column="class_plan_number" />
-        <result property="stuPlanNumber" column="stu_plan_number" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <resultMap id="majorVoMap" type="MajorVo">
+        <id property="id" column="id" />
+        <result property="planId" column="plan_id" />
+        <result property="majorId" column="major_id" />
+        <result property="stuNumber" column="stu_number" />
+        <result property="classNumber" column="class_number" />
+        <result property="majorName" column="major_name" />
     </resultMap>
 
     <insert id="insertPlan" parameterType="Plan">
-        INSERT INTO tb_plan(grade, species, amount_student, amount_major, status)
-        VALUES (#{grade}, #{species}, #{amountStudent}, #{amountMajor}, #{status})
+        INSERT INTO tb_plan(id,grade, species, amount_student, amount_major, status)
+        VALUES (#{id},#{grade}, #{species}, #{amountStudent}, #{amountMajor}, #{status})
     </insert>
 
     <select id="findPlansAll" resultMap="planMap">
@@ -41,5 +49,49 @@
     <select id="findMajorsAll" resultMap="majorMap">
         SELECT * FROM tb_major
     </select>
+
+    <select id="findMajorVoAll" resultMap="majorVoMap">
+        SELECT a.*,b.major_name FROM tb_plan_major a, tb_major b WHERE a.major_id = b.major_id
+    </select>
+
+    <select id="findMajorByName" resultMap="majorMap">
+        SELECT * FROM tb_major WHERE major_name = #{majorName}
+    </select>
+
+    <insert id="insertPlanMajor" parameterType="PlanMajor">
+        INSERT INTO tb_plan_major(major_id,plan_id,stu_number,class_number) VALUES (#{majorId},#{planId},#{stuNumber},#{classNumber})
+    </insert>
+
+    <select id="ifExistsPlan" parameterType="int" resultType="int">
+        SELECT count(*) FROM tb_plan WHERE id = #{planId}
+    </select>
+
+    <update id="updatePlan" parameterType="Plan">
+        UPDATE tb_plan
+        SET amount_student = #{amountStudent},amount_major = #{amountMajor}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePlanMajor">
+        DELETE FROM tb_plan_major WHERE plan_id = #{0} AND major_id = #{1}
+    </delete>
+
+    <select id="ifExistsPlanMajor" resultType="int">
+        SELECT count(*) FROM tb_plan_major WHERE plan_id = #{0} AND major_id = #{1}
+    </select>
+
+    <update id="updatePlanMajor" parameterType="PlanMajor">
+        UPDATE tb_plan_major
+        SET stu_number = #{stuNumber},class_number = #{classNumber}
+        WHERE plan_id = #{planId} AND major_id = #{majorId}
+    </update>
+
+    <update id="updatePlanStatus">
+        UPDATE tb_plan SET status = #{1} WHERE id = #{0}
+    </update>
+
+    <delete id="deletePlan" parameterType="int">
+        DELETE FROM tb_plan WHERE id = #{id}
+    </delete>
 
 </mapper>

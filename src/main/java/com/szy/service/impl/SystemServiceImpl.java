@@ -100,6 +100,7 @@ public class SystemServiceImpl implements SystemService{
 
     @Override
     public void updateTeacherInfo(TeacherInfo teacherInfo) throws Exception {
+        System.out.println(teacherInfo.getNumber()+"-----"+teacherInfo.getName());
         systemMapper.updateTeacherInfo(teacherInfo);
     }
 
@@ -108,10 +109,6 @@ public class SystemServiceImpl implements SystemService{
         systemMapper.deleteTeacherInfo(id);
     }
 
-    @Override
-    public List<TeacherInfo> getAllTeacherInfo() throws Exception {
-        return systemMapper.findAllTeacherInfos();
-    }
 
     @Override
     public int findLastSpeciesId() {
@@ -125,6 +122,11 @@ public class SystemServiceImpl implements SystemService{
     @Override
     public Species getSpeciesByName(String speciesName) throws Exception {
         return systemMapper.findSpeciesByName(speciesName);
+    }
+
+    @Override
+    public Species getSpeciesById(int speciesId) throws Exception {
+        return systemMapper.findSpeciesById(speciesId);
     }
 
     @Override
@@ -153,8 +155,23 @@ public class SystemServiceImpl implements SystemService{
     }
 
     @Override
-    public TeacherInfo getTeacherInfoById(int id) throws Exception {
+    public List<TeacherInfoVo> getAllTeacherInfo() throws Exception {
+        return systemMapper.findAllTeacherInfos();
+    }
+
+    @Override
+    public TeacherInfoVo getTeacherInfoById(int id) throws Exception {
         return systemMapper.findTeacherInfoById(id);
+    }
+
+    @Override
+    public TeacherInfoVo getTeacherInfoByNumber(String number) throws Exception {
+        return systemMapper.findTeacherInfoByNumber(number);
+    }
+
+    @Override
+    public List<Major> getMajorsBySpeciesId(int speciesId) throws Exception {
+        return systemMapper.findMajorsBySpeciesId(speciesId);
     }
 
 }
