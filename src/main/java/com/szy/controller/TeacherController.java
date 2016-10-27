@@ -108,7 +108,7 @@ public class TeacherController {
             stuInfoList = studentInfoService.getStudentInfosAll();
             gradeList = systemService.findGradesAll();
             speciesList = systemService.findSpeciesAll();
-            model.addAttribute("stuInfoList",stuInfoList);
+            model.addAttribute("studentInfoList",stuInfoList);
             model.addAttribute("gradeList", gradeList);
             model.addAttribute("speciesList", speciesList);
         } catch (Exception e) {
@@ -140,13 +140,33 @@ public class TeacherController {
         return "stu_info_basic";
     }
 
-    @RequestMapping("/stu_info_gpa")
-    public String stu_info_gpa(Model model){
-        List<StudentInfoVo> stugpaInfoList;
+    @RequestMapping("/stu_info_import")
+    public String stu_info_import(Model model){
+        List<StudentInfoVo> studentInfoVoList;
         List<Grade> gradeList = null;
         List<Species> speciesList = null;
         try {
-            stugpaInfoList = studentInfoService.getStudentInfosAll();
+            studentInfoVoList = studentInfoService.getStudentInfosAll();
+            gradeList = systemService.findGradesAll();
+            speciesList = systemService.findSpeciesAll();
+            model.addAttribute("studentInfoList",studentInfoVoList);
+            model.addAttribute("gradeList", gradeList);
+            model.addAttribute("speciesList", speciesList);
+        } catch (Exception e) {
+            logger.info("查询studentInfo出错！");
+            e.printStackTrace();
+        }
+        model.addAttribute("page", "stu_info_import");
+        return "stu_info_import";
+    }
+
+    @RequestMapping("/stu_info_gpa")
+    public String stu_info_gpa(Model model){
+        List<StudentInfo> stugpaInfoList;
+        List<Grade> gradeList = null;
+        List<Species> speciesList = null;
+        try {
+            stugpaInfoList = studentInfoService.getSimpleStudentInfosAll();
             gradeList = systemService.findGradesAll();
             speciesList = systemService.findSpeciesAll();
             model.addAttribute("gradeList", gradeList);
@@ -162,11 +182,11 @@ public class TeacherController {
 
     @RequestMapping("/stu_info_entrance")
     public String stu_info_entrance(Model model){
-        List<StudentInfoVo> stuEntranceInfoList;
+        List<StudentInfo> stuEntranceInfoList;
         List<Grade> gradeList = null;
         List<Species> speciesList = null;
         try {
-            stuEntranceInfoList = studentInfoService.getStudentInfosAll();
+            stuEntranceInfoList = studentInfoService.getSimpleStudentInfosAll();
             gradeList = systemService.findGradesAll();
             speciesList = systemService.findSpeciesAll();
             model.addAttribute("gradeList", gradeList);

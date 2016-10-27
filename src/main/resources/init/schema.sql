@@ -26,11 +26,14 @@ CREATE TABLE tb_student_info
 (
   id INT NOT NULL auto_increment COMMENT '主键id',
   number LONG NOT null COMMENT '学号',
-  name VARCHAR(50) NOT NULL COMMENT '姓名',
-  telephone CHAR(11) DEFAULT NULL COMMENT '手机号（长号）',
-  species INTEGER COMMENT '所属大类',
-  original_class VARCHAR(30) NOT NULL COMMENT '原班级',
-  present_class VARCHAR(30) DEFAULT NULL COMMENT '现班级',
+  name VARCHAR(50) COMMENT '姓名',
+  telephone CHAR(11) COMMENT '手机号（长号）',
+  species INTEGER DEFAULT 0 COMMENT '所属大类',
+  original_class VARCHAR(30) COMMENT '原班级',
+  present_class INT COMMENT '现班级',
+  sex INT COMMENT '男1/女2',
+  dorm VARCHAR(20) COMMENT '寝室',
+  note VARCHAR(30) COMMENT '备注',
   GPA DOUBLE COMMENT '平均学分绩点',
   RealGPA DOUBLE COMMENT '平均学分绩点*70%',
   stuFrom VARCHAR(10) COMMENT '生源地',
@@ -40,10 +43,12 @@ CREATE TABLE tb_student_info
   gradeOne DOUBLE COMMENT '高考成绩/生源省高考录取线',
   gradeTwo DOUBLE COMMENT '30%*高考成绩/生源省高考录取线',
   totalGrade DOUBLE COMMENT '总成绩=70%*平均学分绩点 + 30%*高考成绩/生源省高考录取线',
-  rank INT COMMENT '等级',
+  rank INT COMMENT '排名',
   PRIMARY KEY(id)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
-INSERT INTO `tb_student_info` VALUES ('1', '2013333502028', '施周勇', '15858159214', 2013103, '13管理科学与工程1班', '1030101','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947',4);
+INSERT INTO `tb_student_info` VALUES
+  ('1', '2013333502028', '施周勇', '15858159214', 2013103, '13管理科学与工程1班', '1030101',1,'B2323',
+  '没有','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947',4);
 
 /* **** 专业表 **** */
 DROP TABLE IF EXISTS tb_major;
@@ -135,8 +140,8 @@ CREATE TABLE `tb_user` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_user` VALUES ('3','20061657', '123456', '2016-06-02 23:35:38');
-INSERT INTO `tb_user` VALUES ('2','2013333502028', '123456', '2016-06-02 23:35:38');
+INSERT INTO `tb_user` VALUES ('3','2013333502028', '123456', '2016-06-02 23:35:38');
+INSERT INTO `tb_user` VALUES ('2','20061657', '123456', '2016-06-02 23:35:38');
 INSERT INTO `tb_user` VALUES ('1','123456', '123456', '2016-06-01 23:35:17');
 
 /* **** 角色表 **** */

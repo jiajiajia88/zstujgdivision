@@ -17,7 +17,7 @@
 
     <!--分配用户角色-->
     <insert id="insertUserRole">
-        INSERT INTO tb_user_role(user_id, role_id) VALUES (#{userId}, #{roleId})
+        INSERT INTO tb_user_role(user_id, role_id) VALUES (#{0}, #{1})
     </insert>
 
     <!--查找所有教师用户-->

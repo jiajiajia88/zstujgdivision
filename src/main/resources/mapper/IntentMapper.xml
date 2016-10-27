@@ -26,20 +26,26 @@
     </select>
 
     <insert id="insertIntent">
-        INSERT INTO tb_intent_fill(id,name,classes,number,telephone,first_major,SECOND_major,third_major)
-        VALUES (#{0},#{1},#{2},#{3},#{4},#{5},#{6},#{7});
+        INSERT INTO tb_intent_fill(name,classes,number,telephone,first_major,SECOND_major,third_major)
+        VALUES (#{0},#{1},#{2},#{3},#{4},#{5},#{6});
     </insert>
 
     <update id="updateIntent">
         UPDATE tb_intent_fill
         SET first_major = #{1},second_major = #{2},third_major = #{3}
-        WHERE id = #{0}
+        WHERE number = #{0}
     </update>
 
     <select id="ifExistIntentId" resultType="int">
         SELECT COUNT(1)
         FROM tb_intent_fill
         WHERE id = #{id}
+    </select>
+
+    <select id="ifExistIntent" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_intent_fill
+        WHERE number = #{number}
     </select>
 
     <select id="findMajorIdByName" resultType="int">
@@ -55,10 +61,16 @@
     </select>
 
 
-    <select id="findAllIntentById" resultMap="IntentFillMap" resultType="IntentFill">
+    <select id="findAllIntentById" resultMap="IntentFillMap">
         SELECT *
         FROM tb_intent_fill
-        WHERE id = #{0}
+        WHERE number = #{0}
+    </select>
+
+    <select id="findAllIntentByNumber" resultMap="IntentFillMap">
+        SELECT *
+        FROM tb_intent_fill
+        WHERE number = #{0}
     </select>
 
     <select id="ifExistMajorName" resultType="int">

@@ -2,7 +2,6 @@ package com.szy.service.impl;
 
 import com.szy.mapper.UserMapper;
 import com.szy.po.User;
-import com.szy.po.UserRole;
 import com.szy.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +24,10 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void addUser(User user) throws Exception {
+    public void addUser(User user,int role) throws Exception {
         userMapper.insertUser(user);
+        int id = userMapper.findUserByNumber(user.getNumber()).getId();
+        userMapper.insertUserRole(id,role);
     }
 
     @Override

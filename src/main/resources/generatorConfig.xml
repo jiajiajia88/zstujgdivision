@@ -59,18 +59,18 @@
         <table tableName="tb_role_module" domainObjectName="RoleModule">
         </table>
         <table tableName="tb_species" domainObjectName="Species" >
-        </table>
+        </table>-->
         <table tableName="tb_student_info" domainObjectName="StudentInfo" >
         </table>
-        <table tableName="tb_teacher_info" domainObjectName="TeacherInfo" >
+        <!--<table tableName="tb_teacher_info" domainObjectName="TeacherInfo" >
         </table>
         <table tableName="tb_system_log" domainObjectName="SystemLog" >
         </table>
         <table tableName="tb_user" domainObjectName="User" >
         </table>
         <table tableName="tb_user_role" domainObjectName="UserRole" >
-        </table>-->
-        <table tableName="tb_plan_major" domainObjectName="PlanMajor">
         </table>
+        <table tableName="tb_plan_major" domainObjectName="PlanMajor">
+        </table>-->
     </context>
 </generatorConfiguration>

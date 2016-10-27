@@ -24,7 +24,11 @@ public interface StudentInfoService {
 
     void importEntranceScores(InputStream in, String fileName) throws Exception;
 
+    void importTotalScores(InputStream in, String fileName,int species) throws Exception;
+
     List<StudentInfoVo> getStudentInfosAll() throws Exception;
+
+    List<StudentInfo> getSimpleStudentInfosAll() throws Exception;
 
     StudentInfo getStudentInfoById(int id) throws Exception;
 
@@ -32,19 +36,25 @@ public interface StudentInfoService {
 
     List<Major> findMajorAll() throws Exception;
 
+    boolean ifExistIntent(String number) throws Exception;
+
     boolean ifExistIntentId(int id) throws Exception;
 
     int findMajorIdByName(String name) throws Exception;
 
-    void insertIntent(int id,String name,String classes,String number,String telephone,int first, int second, int third) throws Exception;
+    void insertIntent(String name,String classes,String number,String telephone,int first, int second, int third) throws Exception;
 
-    void updateIntent(int id,int first,int second,int third) throws Exception;
+    void updateIntent(String number,int first,int second,int third) throws Exception;
+
+    IntentFill findAllIntentByNumber(String number) throws Exception;
 
     IntentFill findAllIntentById(int id) throws Exception;
 
     String findMajorNameById(int id) throws Exception;
 
-    Boolean studentIntentUpdate(int id,String first,String second,String third) throws Exception;
+    Boolean studentIntentUpdate(int id,String first,String second,String third,String number) throws Exception;
 
     Boolean ifExistMajorName(String name) throws Exception;
+
+    Boolean ifExistsStudentInfo(String number) throws Exception;
 }

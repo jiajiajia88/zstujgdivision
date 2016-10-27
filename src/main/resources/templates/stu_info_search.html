@@ -45,33 +45,60 @@
                 </div>
                 <div class="panel-body">
                     <div class="adv-table editable-table">
+                        <!--<h4 class="info_h">现有数据</h4>-->
                         <div class="clearfix">
                             <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-white btn_plan_execute">一键计算</button>
                                 <button type="button" class="btn btn-white btn_plan_export">导出Excel</button>
                             </div>
                             <table class="table table-striped table-hover table-bordered" id="editable-sample">
                                 <thead>
-                                    <tr>
-                                        <th>学号</th>
-                                        <th>姓名</th>
-                                        <th>生源地</th>
-                                        <th>文理科</th>
-                                        <th>高考成绩</th>
-                                        <th>生源省高考录取线</th>
-                                    </tr>
+                                <tr>
+                                    <th><input type="checkbox" class="checkbox-all" value="yes"/></th>
+                                    <th>学号</th>
+                                    <th>姓名</th>
+                                    <th>平均学分绩点</th>
+                                    <th>生源地</th>
+                                    <th>文/理</th>
+                                    <th>高考成绩</th>
+                                    <th>生源省高考录取线</th>
+                                    <th>性别</th>
+                                    <th>原来班级</th>
+                                    <th>寝室</th>
+                                    <th>备注</th>
+                                    <th>成绩1</th>
+                                    <th>成绩2</th>
+                                    <th>成绩3</th>
+                                    <th>总分</th>
+                                    <th>排名</th>
+                                    <!--<td class="center">super Admin</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>-->
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="stuInfo:${stuInfoList}">
-                                        <td th:text="${stuInfo.number}"></td>
-                                        <td th:text="${stuInfo.name}"></td>
-                                        <td th:text="${stuInfo.stufrom}"></td>
-                                        <td th:text="${stuInfo.division} == 1 ? '文科' : '理科'"></td>
-                                        <td th:text="${stuInfo.entrancescore}"></td>
-                                        <td th:text="${stuInfo.admissionscore}"></td>
-                                        <!--<td class="center">Lorem ipsume</td>
-                                        <td><a class="edit" href="javascript:;">Edit</a></td>
-                                        <td><a class="delete" href="javascript:;">Delete</a></td>-->
-                                    </tr>
+                                <tr th:each="studentInfo:${studentInfoList}">
+                                    <td><input type="checkbox" class="checkbox-simple" value="yes"/></td>
+                                    <td th:text="${studentInfo.studentInfo.number}"></td>
+                                    <td th:text="${studentInfo.studentInfo.name}"></td>
+                                    <td th:text="${studentInfo.studentInfo.gpa}"></td>
+                                    <td th:text="${studentInfo.studentInfo.stufrom}"></td>
+                                    <td th:text="${studentInfo.studentInfo.division} == 1 ? '文科' : '理科'"></td>
+                                    <td th:text="${studentInfo.studentInfo.entrancescore}"></td>
+                                    <td th:text="${studentInfo.studentInfo.admissionscore}"></td>
+                                    <td th:text="${studentInfo.studentInfo.sex} == 1 ? '男' : '女'"></td>
+                                    <td th:text="${studentInfo.studentInfo.originalClass}"></td>
+                                    <td th:text="${studentInfo.studentInfo.dorm}"></td>
+                                    <td th:text="${studentInfo.studentInfo.note}"></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <!--<td class="center">Lorem ipsume</td>
+                                    <td><a class="edit" href="javascript:;">Edit</a></td>
+                                    <td><a class="delete" href="javascript:;">Delete</a></td>-->
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

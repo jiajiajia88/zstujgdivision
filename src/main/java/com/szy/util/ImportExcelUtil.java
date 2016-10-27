@@ -69,8 +69,11 @@ public class ImportExcelUtil {
                             list.add(parseGpaInfo(row));
                         } else if(type == 3){
                             list.add(parseEntranceInfo(row));
+                        } else if(type == 4){
+                            list.add(parseTotalInfo(row));
                         }
                     } catch(Exception e){
+                        //e.printStackTrace();
                         logger.error("遍历第"+j+"条记录是出现问题！");
                     }
                 }
@@ -150,7 +153,7 @@ public class ImportExcelUtil {
         //System.out.println(entranceInfo.getStufrom());
 
         //文理科
-        Cell cell2 = row.getCell(3);
+        /*Cell cell2 = row.getCell(3);
         String division = cell2.getRichStringCellValue().getString();
         if(division.equals("文科") || division.equals("文")){
             entranceInfo.setDivision(1);
@@ -158,7 +161,7 @@ public class ImportExcelUtil {
             entranceInfo.setDivision(2);
         } else {
             entranceInfo.setDivision(3);
-        }
+        }*/
         //System.out.println(entranceInfo.getDivision());
 
         //高考成绩
@@ -177,6 +180,76 @@ public class ImportExcelUtil {
         //System.out.println(entranceInfo.getNumber());
 
         return entranceInfo;
+    }
+
+    private static StudentInfo parseTotalInfo(Row row){
+
+        StudentInfo studentInfo = new StudentInfo();
+
+        //学号
+        Cell cell0 = row.getCell(0);
+        studentInfo.setNumber(cell0.getRichStringCellValue().getString());
+        //System.out.println(basicInfo.getNumber());
+
+        //姓名
+        Cell cell1 = row.getCell(1);
+        studentInfo.setName(cell1.getRichStringCellValue().getString());
+        //System.out.println(basicInfo.getName());
+
+        //平均学分绩点
+        Cell cell2 = row.getCell(2);
+        studentInfo.setGpa(Double.parseDouble(df2.format(cell2.getNumericCellValue())));
+
+        //生源地
+        Cell cell3 = row.getCell(3);
+        studentInfo.setStufrom(cell3.getRichStringCellValue().getString());
+        //System.out.println(entranceInfo.getStufrom());
+
+        //文理科
+        Cell cell4 = row.getCell(4);
+        String division = cell4.getRichStringCellValue().getString();
+        if(division.equals("文科") || division.equals("文")){
+            studentInfo.setDivision(1);
+        } else if(division.equals("理科") || division.equals("理")){
+            studentInfo.setDivision(2);
+        } else {
+            studentInfo.setDivision(3);
+        }
+
+        //高考成绩
+        Cell cell5 = row.getCell(5);
+        studentInfo.setEntrancescore(Integer.parseInt(df.format(cell5.getNumericCellValue())));
+        //System.out.println(entranceInfo.getEntrancescore());
+
+        //生源省高考录取线
+        Cell cell6 = row.getCell(6);
+        studentInfo.setAdmissionscore(Integer.parseInt(df.format(cell6.getNumericCellValue())));
+        //System.out.println(entranceInfo.getEntrancescore());
+
+        //性别
+        Cell cell7 = row.getCell(7);
+        String sex = cell7.getRichStringCellValue().getString();
+        if(sex.equals("男")){
+            studentInfo.setSex(1);
+        } else if(sex.equals("女")){
+            studentInfo.setSex(2);
+        }
+
+        //原班级
+        Cell cell8 = row.getCell(8);
+        studentInfo.setOriginalClass(cell8.getRichStringCellValue().getString());
+        //System.out.println(basicInfo.getOriginalClass());
+
+        //寝室
+        Cell cell9 = row.getCell(9);
+        studentInfo.setDorm(cell9.getRichStringCellValue().getString());
+
+        //note
+        Cell cell10 = row.getCell(10);
+        studentInfo.setNote(cell10.getRichStringCellValue().getString());
+
+        return studentInfo;
+
     }
 
 

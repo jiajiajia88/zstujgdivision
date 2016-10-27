@@ -13,6 +13,20 @@ import java.util.List;
 public interface StudentInfoMapper {
 
     /**
+     * 导入学生信息
+     * @param studentInfo
+     * @throws Exception
+     */
+    void insertTotalInfo(StudentInfo studentInfo) throws Exception;
+
+    /**
+     * 更新学生信息
+     * @param studentInfo
+     * @throws Exception
+     */
+    void updateTotalInfo(StudentInfo studentInfo) throws Exception;
+
+    /**
      * 插入学生基础信息
      * @param number
      * @param name
@@ -22,6 +36,25 @@ public interface StudentInfoMapper {
     void insertBasicInfo(String number, String name, String originalClass,int species) throws Exception;
 
     /**
+     * 更新学生基础信息
+     * @param number
+     * @param name
+     * @param originalClass
+     * @param species
+     * @throws Exception
+     */
+    void updateBasicInfo(String number, String name, String originalClass,int species) throws Exception;
+
+    /**
+     * 插入学生gpa信息
+     * @param gpa
+     * @param realGpa
+     * @param number
+     * @throws Exception
+     */
+    void insertGpa(Double gpa, Double realGpa, String number) throws Exception;
+
+    /**
      * 插入学生gpa信息
      * @param gpa
      * @param realGpa
@@ -29,6 +62,17 @@ public interface StudentInfoMapper {
      * @throws Exception
      */
     void updateGpa(Double gpa, Double realGpa, String number) throws Exception;
+
+    /**
+     * 更新学生高考信息
+     * @param entranceScore
+     * @param admissionScore
+     * @param division
+     * @param stuFrom
+     * @param number
+     * @throws Exception
+     */
+    void insertEntranceScores(int entranceScore, int admissionScore, int division, String stuFrom, String number) throws Exception;
 
     /**
      * 插入学生高考信息
@@ -102,5 +146,7 @@ public interface StudentInfoMapper {
      * @throws Exception
      */
     void updateStudentPhone(String number, String telephone) throws Exception;
+
+    int ifExistsStudentInfo(String number) throws Exception;
 
 }

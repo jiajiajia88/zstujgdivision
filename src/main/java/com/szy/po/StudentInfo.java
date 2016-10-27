@@ -8,11 +8,17 @@ public class StudentInfo {
 
     private String telephone;
 
-    private int species;
+    private Integer species;
 
     private String originalClass;
 
     private String presentClass;
+
+    private Integer sex;
+
+    private String dorm;
+
+    private String note;
 
     private Double gpa;
 
@@ -32,9 +38,9 @@ public class StudentInfo {
 
     private Double totalgrade;
 
-    private String number;
-
     private Integer rank;
+
+    private String number;
 
     public Integer getId() {
         return id;
@@ -60,11 +66,11 @@ public class StudentInfo {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public int getSpecies() {
+    public Integer getSpecies() {
         return species;
     }
 
-    public void setSpecies(int species) {
+    public void setSpecies(Integer species) {
         this.species = species;
     }
 
@@ -82,6 +88,30 @@ public class StudentInfo {
 
     public void setPresentClass(String presentClass) {
         this.presentClass = presentClass == null ? null : presentClass.trim();
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getDorm() {
+        return dorm;
+    }
+
+    public void setDorm(String dorm) {
+        this.dorm = dorm == null ? null : dorm.trim();
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note == null ? null : note.trim();
     }
 
     public Double getGpa() {
@@ -156,19 +186,19 @@ public class StudentInfo {
         this.totalgrade = totalgrade;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number == null ? null : number.trim();
-    }
-
     public Integer getRank() {
         return rank;
     }
 
     public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number == null ? null : number.trim();
     }
 }

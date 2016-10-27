@@ -60,8 +60,10 @@ public class FileController {
             studentInfoService.importBasicInfo(in,file.getOriginalFilename(),species);
         } else if (uploadType == 2) {
             studentInfoService.importGpa(in,file.getOriginalFilename());
-        } else {
+        } else if (uploadType == 3){
             studentInfoService.importEntranceScores(in,file.getOriginalFilename());
+        } else {
+            studentInfoService.importTotalScores(in,file.getOriginalFilename(),species);
         }
 
         in.close();

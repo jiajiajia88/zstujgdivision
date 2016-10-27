@@ -155,9 +155,18 @@
     margin-top:15px;
 }
 
-.btn_plan_export{
+.btn_plan_export,.btn_grades_excute{
     margin-bottom: 10px;
 }
+
+.info_h{
+    margin-bottom:0;
+}
+
+.checkbox-simple{
+    margin-left: 2px;
+}
+
 /* *************logout start***************** */
 
 .dropdown-menu{

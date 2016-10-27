@@ -14,9 +14,10 @@ public interface UserService {
     /**
      * 增加用户
      * @param user
+     * @param role
      * @throws Exception
      */
-    void addUser(User user) throws Exception;
+    void addUser(User user,int role) throws Exception;
 
     /**
      * 查找所有教师用户

@@ -463,18 +463,23 @@ $('.btn_intentPlan_submit').on('click', function () {
     var first = $(this).parent().parent().parent().children().eq(0).children().eq(1).children().eq(0).val();
     var second = $(this).parent().parent().parent().children().eq(1).children().eq(1).children().eq(0).val();
     var third = $(this).parent().parent().parent().children().eq(2).children().eq(1).children().eq(0).val();
-    if(confirm("保存志愿？")){
-        $.post('/student/saveIntent',{first: first,second: second,third: third},function (data) {
-            var result = JSON.parse(data['result']);
+    if(first!="" && second!="" && third!=""){
+        if(confirm("保存志愿？")){
+            $.post('/student/saveIntent',{first: first,second: second,third: third},function (data) {
+                var result = JSON.parse(data['result']);
 
-            if(result===200){
-                alert("提交成功！");
-                window.location.href="/student/intent_fill";
-            }else{
-                alert("填报志愿失败！");
-            }
-        });
+                if(result===200){
+                    alert("提交成功！");
+                    window.location.href="/student/intent_fill";
+                }else{
+                    alert("填报志愿失败！");
+                }
+            });
+        }
+    } else {
+        alert("请完成全部志愿的选择！");
     }
+
 });
 
 
@@ -663,4 +668,38 @@ $(".btn_plan_delete").on('click', function(){
             }
         });
     }
+});
+
+$(".btn_plan_execute").on('click', function () {
+
+    var json = [];
+
+    $(".checkbox-simple:checked").each(function(index){
+        var number = $(this).parent().parent().children().eq(1).text();
+        json[index] = number;
+    });
+
+    var json_majors = JSON.stringify(json);
+    if(confirm("确认执行！")){
+        $.post("/teacher/execute", {json_majors:json_majors}, function (data) {
+            var result = JSON.parse(data['result']);
+            if(result===200){
+                alert("保存成功！");
+                window.location.href="/teacher/plan_settings";
+            } else {
+                alert("保存计划失败！");
+            }
+        });
+    }
+
+});
+
+$(".checkbox-all").change(function () {
+    if($(".checkbox-all").attr("checked")){
+        //alert("选中");
+        $($(".checkbox-simple").attr("checked",true));
+    } else {
+        $($(".checkbox-simple").attr("checked",false));
+    }
+
 });

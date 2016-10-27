@@ -98,7 +98,7 @@ public class BasicController {
             e.printStackTrace();
             logger.error("account页面查询电话号码出错");
         }
-        if(phoneNumber.equals("")){
+        if(phoneNumber==null){
             tag = 1;
         } else {
             model.addAttribute("phoneNumber", phoneNumber);

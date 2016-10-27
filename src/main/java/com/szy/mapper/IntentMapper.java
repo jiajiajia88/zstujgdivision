@@ -19,9 +19,9 @@ public interface IntentMapper {
      * */
     LinkedList<Major> findMajorAll() throws Exception;
 
-    void updateIntent(int id,int first,int second,int third) throws Exception;
+    void updateIntent(String number,int first,int second,int third) throws Exception;
 
-    void insertIntent(int id,String name,String classes,String number,String telephone,int first,int second,int third) throws Exception;
+    void insertIntent(String name,String classes,String number,String telephone,int first,int second,int third) throws Exception;
 
     int ifExistIntentId(int id) throws Exception;
 
@@ -32,5 +32,9 @@ public interface IntentMapper {
     IntentFill findAllIntentById(int id) throws Exception;
 
     int ifExistMajorName(String name) throws Exception;
+
+    int ifExistIntent(String number) throws Exception;
+
+    IntentFill findAllIntentByNumber(String number) throws Exception;
 
 }

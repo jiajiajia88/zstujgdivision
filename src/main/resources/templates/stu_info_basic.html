@@ -36,7 +36,7 @@
                                     <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
                                 </select>
                             </div>
-                            <div class="controls col-md-2 fileupload-div">
+                            <div class="controls col-md-3 fileupload-div">
                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <input name="uploadType" type="hidden" value="1"/>
                                     <span class="btn btn-white btn-file">
@@ -65,6 +65,7 @@
                                     <tr>
                                         <th>学号</th>
                                         <th>姓名</th>
+                                        <th>年级</th>
                                         <th>大类</th>
                                         <th>班级</th>
                                         <!--<td class="center">super Admin</td>
@@ -76,6 +77,7 @@
                                     <tr th:each="stuBasicInfo:${stuBasicInfoList}">
                                         <td th:text="${stuBasicInfo.studentInfo.number}"></td>
                                         <td th:text="${stuBasicInfo.studentInfo.name}"></td>
+                                        <td th:text="${stuBasicInfo.studentInfo.species}"></td>
                                         <td th:text="${stuBasicInfo.speciesName}"></td>
                                         <td th:text="${stuBasicInfo.studentInfo.originalClass}"></td>
                                         <!--<td class="center">Lorem ipsume</td>

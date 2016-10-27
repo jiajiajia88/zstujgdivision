@@ -245,7 +245,7 @@ public class SystemController {
             teacher.setPassword("123456");
             teacher.setCreateTime(new Date());
             systemService.addTeacherInfo(teacherInfo);
-            userService.addUser(teacher);
+            userService.addUser(teacher,2);
             map.put("result",200);
         } catch (Exception e) {
             map.put("result",0);
@@ -436,7 +436,7 @@ public class SystemController {
         try {
             Major major = new Major();
             int speciesId = systemService.getSpeciesByName(major_species).getSpeciesId();
-            int majorId = speciesId*100 + systemService.getMajorCountBySpeciesId(speciesId);
+            int majorId = speciesId*100 + systemService.getMajorCountBySpeciesId(speciesId)+1;
             major.setMajorId(majorId);
             major.setMajorName(major_name);
             systemService.addMajor(major);

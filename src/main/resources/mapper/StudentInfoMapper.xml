@@ -7,28 +7,54 @@
         <id property="id" column="id"/>
         <result property="number" column="number"/>
         <result property="name" column="name"/>
-        <result property="telephone" column="telephone"/>
-        <result property="species" column="species"/>
-        <result property="originalClass" column="original_class"/>
-        <result property="presentClass" column="present_class"/>
         <result property="gpa" column="GPA"/>
-        <result property="realgpa" column="RealGPA"/>
         <result property="stufrom" column="stuFrom"/>
         <result property="division" column="division"/>
+        <result property="species" column="species"/>
+        <result property="telephone" column="telephone"/>
         <result property="entrancescore" column="entranceScore"/>
         <result property="admissionscore" column="admissionScore"/>
+        <result property="sex" column="sex"/>
+        <result property="originalClass" column="original_class"/>
+        <result property="dorm" column="dorm"/>
+        <result property="note" column="note"/>
+        <result property="presentClass" column="present_class"/>
+        <result property="realgpa" column="RealGPA"/>
         <result property="gradeone" column="gradeOne"/>
         <result property="gradetwo" column="gradeTwo"/>
         <result property="totalgrade" column="totalGrade"/>
         <result property="rank" column="rank"/>
     </resultMap>
 
+    <insert id="insertTotalInfo">
+        INSERT INTO tb_student_info(number, name, GPA, stuFrom, division, species, entranceScore,admissionScore, sex, original_class, dorm, note)
+        VALUES (#{number}, #{name}, #{gpa}, #{stufrom}, #{division}, #{species}, #{entrancescore}, #{admissionscore}, #{sex}, #{originalClass}, #{dorm}, #{note})
+    </insert>
+
+    <update id="updateTotalInfo">
+        UPDATE tb_student_info
+        SET number=#{number}, name=#{name}, GPA=#{gpa}, stuFrom=#{stufrom}, division=#{division}, species=#{species}, entranceScore=#{entrancescore},
+        admissionScore=#{admissionscore}, sex=#{sex}, original_class=#{originalClass}, dorm=#{dorm}, note=#{note}
+    </update>
+
     <!--插入学生基础信息-->
     <insert id="insertBasicInfo">
         INSERT INTO tb_student_info(number, name, original_class,species) VALUES (#{0}, #{1}, #{2}, #{3})
     </insert>
 
+    <!--更新学生基础信息-->
+    <insert id="updateBasicInfo">
+        UPDATE tb_student_info
+        SET name = #{1}, original_class = #{2}, species = #{3}
+        where number = #{0}
+    </insert>
+
     <!--插入学生gpa信息-->
+    <update id="insertGpa">
+        INSERT INTO tb_student_info(number,GPA,RealGPA) VALUES (#{2},#{0},#{1})
+    </update>
+
+    <!--更新学生gpa信息-->
     <update id="updateGpa">
         UPDATE tb_student_info
         SET GPA = #{0}, RealGPA = #{1}
@@ -36,6 +62,12 @@
     </update>
 
     <!--插入学生高考信息-->
+    <update id="insertEntranceScores">
+        INSERT INTO tb_student_info(entranceScore,admissionScore,division,stuFrom,number)
+        VALUES (#{0},#{1},#{2},#{3},#{4})
+    </update>
+
+    <!--更新学生高考信息-->
     <update id="updateEntranceScores">
         UPDATE tb_student_info
         SET entranceScore = #{0},admissionScore = #{1},division = #{2},stuFrom = #{3}
@@ -73,7 +105,7 @@
     <!--查找出所有学生信息-->
     <select id="findStudentInfoAll" resultMap="stuinfoMap">
         SELECT *
-        FROM tb_student_info
+        FROM tb_student_info limit 50
     </select>
 
     <!--根据原班级查找出学生信息-->
@@ -96,5 +128,9 @@
         SET telephone = #{1}
         WHERE number = #{0}
     </update>
+
+    <select id="ifExistsStudentInfo" parameterType="string" resultType="int">
+        SELECT COUNT(*) FROM tb_student_info WHERE number = #{number}
+    </select>
 
 </mapper>

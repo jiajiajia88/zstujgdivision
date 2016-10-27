@@ -21,4 +21,5 @@ public class StudentInfoVo {
     public void setSpeciesName(String speciesName) {
         this.speciesName = speciesName;
     }
+
 }

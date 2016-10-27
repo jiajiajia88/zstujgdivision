@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.szy.po.IntentFill;
 import com.szy.po.Major;
 import com.szy.po.StudentInfo;
-import com.szy.po.User;
 import com.szy.service.StudentInfoService;
+import com.szy.service.SystemService;
 import com.szy.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +36,9 @@ public class StudentController {
 
     @Autowired
     private StudentInfoService studentInfoService;
+
+    @Autowired
+    private SystemService systemService;
 
     @RequestMapping("/major_info")
     public String major_info(Model model){
@@ -68,11 +71,14 @@ public class StudentController {
 
         try {
             String number = String.valueOf(session.getAttribute("number"));
+            int species = studentInfoService.getStudentInfoByNumber(number).getSpecies()%1000;
+            List<Major> majorList = systemService.getMajorsBySpeciesId(species);
+            int majorAmount = systemService.getMajorCountBySpeciesId(species);
             StudentInfo studentInfo = studentInfoService.getStudentInfoByNumber(number);
-            User student = userService.getUserByNumber(number);
-            int id = student.getId();
-            if (studentInfoService.ifExistIntentId(id)){
-                IntentFill intentFill = studentInfoService.findAllIntentById(id);
+
+            if (studentInfoService.ifExistIntent(number)){
+
+                IntentFill intentFill = studentInfoService.findAllIntentByNumber(number);
                 String first = studentInfoService.findMajorNameById(intentFill.getFirstMajor());
                 String second = studentInfoService.findMajorNameById(intentFill.getSecondMajor());
                 String third = studentInfoService.findMajorNameById(intentFill.getThirdMajor());
@@ -90,6 +96,7 @@ public class StudentController {
                 model.addAttribute("firstmajor",first);
                 model.addAttribute("secondmajor",second);
                 model.addAttribute("thirdmajor",third);
+
                 model.addAttribute("message","已填报志愿如下：");
             } else {
                 model.addAttribute("ifFillIntent","not");
@@ -98,20 +105,13 @@ public class StudentController {
                 model.addAttribute("secondmajor","未知");
                 model.addAttribute("thirdmajor","未知");
             }
+            model.addAttribute("majorAmount",majorAmount);
+            model.addAttribute("major",majorList);
             model.addAttribute("studentinfo",studentInfo);
             //System.out.println(studentInfo.getId()+"/"+studentInfo.getName()+"/"+studentInfo.getGpa()+"/"+studentInfo.getEntrancescore()+"/");
         } catch (Exception e){
             e.printStackTrace();
             logger.error("根据id查询学生信息出错1！");
-        }
-
-        try {
-            List<Major> majorList = null;
-            majorList=studentInfoService.findMajorAll();
-            model.addAttribute("major",majorList);
-        } catch (Exception e){
-            e.printStackTrace();
-            logger.error("查询专业信息出错！");
         }
 
         model.addAttribute("page", "intent_fill");
@@ -140,13 +140,18 @@ public class StudentController {
         Map<String, Integer> map = new HashMap<>();
         try {
             String number = String.valueOf(session.getAttribute("number"));
-            User student = userService.getUserByNumber(number);
-            int id = student.getId();
+            System.out.println(number);
+            IntentFill intentFill = studentInfoService.findAllIntentByNumber(number);
+            int id = 0;
+            if(intentFill!=null){
+                 intentFill.getId();
+            }
+
             String first = request.getParameter("first");
             String second = request.getParameter("second");
             String third = request.getParameter("third");
 
-            if(studentInfoService.studentIntentUpdate(id,first,second,third)){
+            if(studentInfoService.studentIntentUpdate(id,first,second,third,number)){
                 map.put("result", 200);
             } else {
                 map.put("result",0);

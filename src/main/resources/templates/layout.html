@@ -93,9 +93,10 @@
                         <span>学生信息</span>
                     </a>
                     <ul class="sub" style="display: none;">
-                        <li class="stu_info_basic"><a href="/teacher/stu_info_basic">导入基本信息</a></li>
+                        <li class="stu_info_import"><a href="/teacher/stu_info_import">导入学生信息</a></li>
+                        <!--<li class="stu_info_basic"><a href="/teacher/stu_info_basic">导入基本信息</a></li>
                         <li class="stu_info_gpa"><a href="/teacher/stu_info_gpa">导入学分绩点</a></li>
-                        <li class="stu_info_entrance"><a href="/teacher/stu_info_entrance">导入高考成绩</a></li>
+                        <li class="stu_info_entrance"><a href="/teacher/stu_info_entrance">导入高考成绩</a></li>-->
                         <li class="stu_info_search"><a href="/teacher/stu_info_search">成绩计算</a></li>
                     </ul>
                 </li>
@@ -268,12 +269,12 @@
         /*<![CDATA[*/
         var page = /*[[${page}]]*/;
         $("."+page).addClass("active");
-        if(page == 'stu_info_basic' || page == 'stu_info_gpa' || page == 'stu_info_entrance' || page == 'stu_info_search'){
+        if(page == 'stu_info_basic' || page == 'stu_info_gpa' || page == 'stu_info_entrance' || page == 'stu_info_search' || page == 'stu_info_import'){
             /*$('.stu_info').addClass('active');*/
             $('.stu_info').parent().children('ul').css("display", "block");
         }
 
-        if(page == 'system_basic' || page == 'system_major_settings' || page == 'system_teacher_settings' || page == 'stu_info_search'){
+        if(page == 'system_basic' || page == 'system_major_settings' || page == 'system_teacher_settings'){
             /*$('.system_settings').addClass('active');*/
             $('.system_settings').parent().children('ul').css("display", "block");
         }

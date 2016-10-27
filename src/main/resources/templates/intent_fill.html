@@ -63,7 +63,7 @@
                 <div class="panel-body intent_view col-md-12" th:if="${ifConfirm}==1">
                     <div class="col-md-3"><h4 id="firstmajor" th:text="${firstmajor}"></h4></div>
                     <div class="col-md-3"><h4 id="secondmajor" th:text="${secondmajor}"></h4></div>
-                    <div class="col-md-3"><h4 id="thirdmajor" th:text="${thirdmajor}"></h4></div>
+                    <div class="col-md-3"><h4 id="thirdmajor" th:if="${majorAmount>2}" th:text="${thirdmajor}"></h4></div>
                     <div class="col-md-3">
                         <a href="#myModal" data-toggle="modal" class="btn btn-white btn_plan_fill">
                             修改
@@ -96,7 +96,7 @@
                 <div class="modal-body">
                     <form role="form" class="form-horizontal" >
 
-                        <div class="form-group">
+                        <div class="form-group" th:if="${majorAmount>0}">
                             <label class="col-lg-2 control-label">第一志愿</label>
                             <div class="col-lg-10">
                                 <select id="first-select" class="form-control">
@@ -105,7 +105,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" th:if="${majorAmount>1}">
                             <label class="col-lg-2 control-label">第二志愿</label>
                             <div class="col-lg-10">
                                 <select id="second-select" class="form-control">
@@ -114,7 +114,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" th:if="${majorAmount>2}">
                             <label class="col-lg-2 control-label">第三志愿</label>
                             <div class="col-lg-10">
                                 <select id="third-select" class="form-control">
