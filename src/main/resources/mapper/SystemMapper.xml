@@ -157,7 +157,7 @@
 
     <!--删除教师用户-->
     <delete id="deleteTeacherInfo" parameterType="int">
-        DELETE FROM tb_teacher_infoWHERE id = #{id}
+        DELETE FROM tb_teacher_info WHERE id = #{id}
     </delete>
 
     <!--获取所有教师用户信息-->

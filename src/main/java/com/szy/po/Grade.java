@@ -4,6 +4,7 @@ package com.szy.po;
  * 年级实体
  */
 public class Grade {
+
     private Integer id;
 
     private Integer grade;

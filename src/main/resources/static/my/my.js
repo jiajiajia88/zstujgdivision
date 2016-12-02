@@ -370,13 +370,13 @@ $('.btn_position_submitout').on('click', function () {
 });
 
 /**
- * 删除管理员
+ * 删除教师
  */
 $('.btn_teacher_delete').on('click', function () {
     var id = $(this).parent().parent().children().eq(8).val();
     var teacher = $(this).parent().parent().children().eq(0).text();
     if(confirm("删除"+teacher+"管理员账号?")){
-        $.post("/system/deleteTeacher", {id: id, teacher :teacher},function (data){
+        $.post('/system/deleteTeacher', {id: id},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
                 alert("成功删除用户"+teacher);
@@ -674,11 +674,6 @@ $(".btn_plan_execute").on('click', function () {
 
     var json = [];
 
-    $(".checkbox-simple:checked").each(function(index){
-        var number = $(this).parent().parent().children().eq(1).text();
-        json[index] = number;
-    });
-
     var json_majors = JSON.stringify(json);
     if(confirm("确认执行！")){
         $.post("/teacher/execute", {json_majors:json_majors}, function (data) {
@@ -694,6 +689,28 @@ $(".btn_plan_execute").on('click', function () {
 
 });
 
+
+$("#import_form").submit(function(e){
+    var grade = $(this).children().children().eq(1).children().val();
+    var species = $(this).children().children().eq(3).children().val();
+    var message = "";
+    if(grade == "" ){
+        message = message + "年级不能为空" + "\n";
+    }
+    if(species == "" ){
+        message = message + "专业大类不能为空" + "\n";
+    }
+    if(message == ""){
+        alert("数据导入成功，请等待到页面刷新再行操作！");
+        return true;
+    } else {
+        alert(message);
+        return false;
+    }
+
+
+});
+
 $(".checkbox-all").change(function () {
     if($(".checkbox-all").attr("checked")){
         //alert("选中");
@@ -703,3 +720,46 @@ $(".checkbox-all").change(function () {
     }
 
 });
+
+/**
+ * 分流计划条件查询
+ */
+$(".btn_plan_search").on('click', function () {
+     var theForm = $(this).parent().parent();
+     var grade = theForm.children().eq(0).children().eq(1).children("select").val();
+     var term = theForm.children().eq(1).children().eq(1).children("select").val();
+     var species = theForm.children().eq(2).children().eq(1).children("select").val()
+     var status = theForm.children().eq(3).children().eq(1).children("select").val();
+     status = (status == "" ? 3 : (status == "发布中" ? 1 : 0));
+     //alert(status);
+     //alert(grade+" "+term+" "+species+" "+status);
+     console.log(grade);
+     $("table").find("tbody").each(function (i,item){
+        if(!$(this).parent().parent().hasClass("panel_close")){
+            $(this).parent().parent().toggleClass("panel_close");
+        }
+        var grade_judge = $(this).children().children().children().eq(3);
+        var term_judge = $(this).children().children().children().eq(0);
+        var species_judge = $(this).children().children().children().eq(4);
+        var status_judge = $(this).children().children().children().eq(1);
+
+        if((grade!="" ? grade==grade_judge.text() : true) && (species!="" ? species==species_judge.text() : true) &&
+        (status!=3 ? status==status_judge.val() : true)){
+           $(this).parent().parent().toggleClass("panel_close");
+        }
+
+     });
+});
+
+/**
+ * 分流计划展示全部
+ */
+$(".btn_plan_search_all").on('click', function () {
+     $("table").find("tbody").each(function (){
+        if($(this).parent().parent().hasClass("panel_close")){
+            $(this).parent().parent().toggleClass("panel_close");
+        }
+     });
+});
+
+

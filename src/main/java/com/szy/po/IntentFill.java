@@ -4,6 +4,7 @@ package com.szy.po;
  * 志愿填报实体
  */
 public class IntentFill {
+
     private Integer id;
 
     private String name;

@@ -16,7 +16,7 @@
         <div class="col-sm-12">
             <section class="panel panel_plan">
                 <div class="panel-body stu_info_import_panel">
-                    <form role="form" class="form-horizontal bucket-form" id="species_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
+                    <form role="form" class="form-horizontal bucket-form" id="import_form" method="post" enctype="multipart/form-data" action="/file/fileUpload">
                         <div class="form-group">
                             <div class="panel_top_select_normal">
                                 <label class="control-label">请选择年级</label>
@@ -36,7 +36,7 @@
                                     <option th:each="species:${speciesList}" th:text="${species.speciesName}"></option>
                                 </select>
                             </div>
-                            <div class="controls col-md-3 fileupload-div">
+                            <div class="controls col-md-4 fileupload-div">
                                 <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <input name="uploadType" type="hidden" value="4"/>
                                     <span class="btn btn-white btn-file">

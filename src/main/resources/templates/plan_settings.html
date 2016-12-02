@@ -60,13 +60,13 @@
                             </div>
                             <div class="col-sm-6">
                                 <button type="button" class="btn btn-white btn_plan_search">查询</button>
-                                <button type="button" class="btn btn-white btn_plan_search">展示全部</button>
+                                <button type="button" class="btn btn-white btn_plan_search_all">展示全部</button>
                             </div>
                         </div>
                     </form>
                 </div>
 
-                <div class="panel-body" th:each="planVo:${planVoList}">
+                <div class="panel-body panel_close" th:each="planVo:${planVoList}">
                     <div class="col-sm-12">
                         <button type="button" class="btn btn-info btn_plan_modify btn_panel_normal">修改</button>
                         <button type="button" class="btn btn-success btn_plan_release btn_panel_normal" th:if="${planVo.plan.status==0}">发布</button>
@@ -301,5 +301,6 @@
 
         });
     </script>
+
 </section>
 </html>

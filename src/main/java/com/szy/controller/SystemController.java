@@ -259,16 +259,17 @@ public class SystemController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/deleteTeacherr" ,produces = "application/json;charset=UTF-8")
+    @RequestMapping(value = "/deleteTeacher" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String deleteTeacherr(HttpServletRequest request){
+    public String deleteTeacher(HttpServletRequest request){
 
         Map<String, Integer> map = new HashMap<>();
         try {
             int id = Integer.parseInt(request.getParameter("id"));
-            systemService.deleteTeacherInfo(id);
+            System.out.println(id);
             String number = systemService.getTeacherInfoById(id).getNumber();
             userService.deleteUser(number);
+            systemService.deleteTeacherInfo(id);
             map.put("result",200);
         } catch (Exception e) {
             map.put("result",0);
