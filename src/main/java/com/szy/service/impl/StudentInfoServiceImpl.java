@@ -114,7 +114,8 @@ public class StudentInfoServiceImpl implements StudentInfoService{
                 user.setNumber(studentInfo.getNumber());
                 user.setPassword("123456");
                 user.setCreateTime(new Date());
-                userService.addUser(user,3);
+                user.setLimit(9);
+                userService.addUser(user);
                 studentInfoMapper.insertTotalInfo(studentInfo);
             }
         }

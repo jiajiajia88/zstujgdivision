@@ -38,9 +38,6 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
         String password = request.getParameter("password");
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
-        System.out.println(number);
-        System.out.println(password);
-
         if(userService.ifExistsUser(number)){
             if(userService.checkLogin(number, password)){
                 if(!userService.ifHasAccess(number, UserLimitUtil.USER_LOGIN))

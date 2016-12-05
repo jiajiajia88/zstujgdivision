@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface PlanService {
 
+    void checkout() throws Exception;
+
     void addPlan(Plan plan) throws Exception;
 
     void addMajor(Major major) throws Exception;

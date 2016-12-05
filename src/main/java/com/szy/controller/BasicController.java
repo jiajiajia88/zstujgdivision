@@ -84,7 +84,7 @@ public class BasicController {
 
     @RequestMapping(value = "/logout")
     public String logout(HttpSession session) throws Exception {
-        session.removeAttribute("userstudent");
+        session.removeAttribute("cache");
         return "redirect:/login";
     }
 

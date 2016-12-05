@@ -1,5 +1,6 @@
 package com.szy.inceptor;
 
+import com.szy.cache.Session;
 import com.szy.service.SystemService;
 import com.szy.service.UserService;
 import com.szy.util.UserLimitUtil;
@@ -23,7 +24,7 @@ public class SystemSecurityInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-        String number = String.valueOf(request.getSession().getAttribute("number"));
+        String number = ((Session)request.getSession().getAttribute("cache")).getNumber();
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
         systemService = (SystemService) factory.getBean("systemService");

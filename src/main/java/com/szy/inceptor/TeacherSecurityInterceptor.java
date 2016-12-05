@@ -1,5 +1,7 @@
 package com.szy.inceptor;
 
+import com.szy.cache.Session;
+import com.szy.service.PlanService;
 import com.szy.service.UserService;
 import com.szy.util.UserLimitUtil;
 import org.springframework.beans.factory.BeanFactory;
@@ -17,14 +19,17 @@ import javax.servlet.http.HttpServletResponse;
 public class TeacherSecurityInterceptor implements HandlerInterceptor {
 
     private static UserService userService;
+    private static PlanService planService;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-        String number = String.valueOf(request.getSession().getAttribute("number"));
+        String number = ((Session)request.getSession().getAttribute("cache")).getNumber();
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
+        planService = (PlanService) factory.getBean("planService");
         if(userService.ifHasAccess(number, UserLimitUtil.USER_TEACHER)){
+            planService.checkout();
             return true;
         } else {
             response.sendRedirect("/noAccess");
@@ -35,7 +40,6 @@ public class TeacherSecurityInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-
     }
 
     @Override

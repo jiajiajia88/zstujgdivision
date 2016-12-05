@@ -1,6 +1,7 @@
 package com.szy.inceptor;
 
 import com.szy.RespEnum;
+import com.szy.cache.Session;
 import com.szy.service.UserService;
 import com.szy.util.UserLimitUtil;
 import org.springframework.beans.factory.BeanFactory;
@@ -22,7 +23,7 @@ public class StudentSecurityInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
-        String number = String.valueOf(request.getSession().getAttribute("number"));
+        String number = ((Session)request.getSession().getAttribute("cache")).getNumber();
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
         if(userService.ifHasAccess(number, UserLimitUtil.USER_STUDENT)){

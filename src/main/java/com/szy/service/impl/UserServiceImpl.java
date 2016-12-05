@@ -25,10 +25,8 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public void addUser(User user,int role) throws Exception {
+    public void addUser(User user) throws Exception {
         userMapper.insertUser(user);
-        int id = userMapper.findUserByNumber(user.getNumber()).getId();
-        userMapper.insertUserRole(id,role);
     }
 
     @Override

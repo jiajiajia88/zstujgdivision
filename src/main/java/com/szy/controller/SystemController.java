@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -223,6 +224,7 @@ public class SystemController {
      * @param request
      * @return
      */
+    @Transactional
     @RequestMapping(value = "/addTeacher" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String addTeacher(HttpServletRequest request){
@@ -231,9 +233,6 @@ public class SystemController {
         String username = request.getParameter("username");
         String number = request.getParameter("number");
         String position = request.getParameter("position");
-
-        System.out.println(number);
-        System.out.println(position);
 
         try {
             TeacherInfo teacherInfo = new TeacherInfo();
@@ -244,8 +243,9 @@ public class SystemController {
             teacher.setNumber(number);
             teacher.setPassword("123456");
             teacher.setCreateTime(new Date());
+            teacher.setLimit(5);
             systemService.addTeacherInfo(teacherInfo);
-            userService.addUser(teacher,2);
+            userService.addUser(teacher);
             map.put("result",200);
         } catch (Exception e) {
             map.put("result",0);

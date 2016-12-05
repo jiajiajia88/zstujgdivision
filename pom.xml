@@ -121,11 +121,11 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.0.26</version>
-		</dependency>
+		</dependency>-->
 
 		<!--引入测试模块依赖-->
 		<dependency>

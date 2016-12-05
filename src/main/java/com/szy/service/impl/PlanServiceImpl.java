@@ -1,5 +1,6 @@
 package com.szy.service.impl;
 
+import com.itextpdf.text.log.SysoCounter;
 import com.szy.mapper.PlanMapper;
 import com.szy.mapper.SystemMapper;
 import com.szy.po.*;
@@ -11,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 分流计划相关serviceImpl
@@ -25,11 +23,20 @@ public class PlanServiceImpl implements PlanService{
 
     private Logger logger = LoggerFactory.getLogger(PlanServiceImpl.class);
 
+    private static volatile List<Plan> planList = new ArrayList<>();
+    private static volatile List<MajorVo> majorVoList = new ArrayList<>();
+
     @Autowired
     private PlanMapper planMapper;
 
     @Autowired
     private SystemMapper systemMapper;
+
+    @Override
+    public void checkout() throws Exception{
+        planList = planMapper.findPlansAll();
+        majorVoList = planMapper.findMajorVoAll();
+    }
 
     @Override
     public void addPlan(Plan plan) throws Exception {
@@ -54,26 +61,25 @@ public class PlanServiceImpl implements PlanService{
     @Override
     public List<PlanVo> getPlanMajorsAll() throws Exception {
 
-        List<Plan> planList = planMapper.findPlansAll();
-        List<MajorVo> majorVoList = planMapper.findMajorVoAll();
-
         List<PlanVo> planVoList = new LinkedList<>();
-
-        for(Plan plan:planList){
-            PlanVo planVo = new PlanVo();
-            List<MajorVo> planMajorList = new LinkedList<>();
-            int majorNumber = 0;
-            for(MajorVo majorVo:majorVoList){
-                if(Objects.equals(majorVo.getPlanId(), plan.getId())){
-                    planMajorList.add(majorVo);
-                    majorNumber++;
+        System.out.println("--------------"+planList.size());
+        if(planList.size()!=0){
+            for(Plan plan:planList){
+                PlanVo planVo = new PlanVo();
+                List<MajorVo> planMajorList = new LinkedList<>();
+                int majorNumber = 0;
+                for(MajorVo majorVo:majorVoList){
+                    if(Objects.equals(majorVo.getPlanId(), plan.getId())){
+                        planMajorList.add(majorVo);
+                        majorNumber++;
+                    }
                 }
+                planVo.setPlan(plan);
+                planVo.setMajorNumber(majorNumber);
+                planVo.setMajorList(planMajorList);
+                planVo.setSpeciesName(systemMapper.findSpeciesById(plan.getSpecies()).getSpeciesName());
+                planVoList.add(planVo);
             }
-            planVo.setPlan(plan);
-            planVo.setMajorNumber(majorNumber);
-            planVo.setMajorList(planMajorList);
-            planVo.setSpeciesName(systemMapper.findSpeciesById(plan.getSpecies()).getSpeciesName());
-            planVoList.add(planVo);
         }
         return planVoList;
     }
