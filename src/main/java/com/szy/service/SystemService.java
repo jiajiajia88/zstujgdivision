@@ -1,6 +1,7 @@
 package com.szy.service;
 
 import com.szy.po.*;
+import com.szy.po.vo.TeacherInfoVo;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ import java.util.List;
  * Created by Administrator on 2016/10/18.
  */
 public interface SystemService {
+
+    void checkout() throws Exception;
 
     /**
      * 增加年级

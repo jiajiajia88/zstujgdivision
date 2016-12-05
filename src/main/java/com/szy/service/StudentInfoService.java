@@ -3,7 +3,7 @@ package com.szy.service;
 import com.szy.po.IntentFill;
 import com.szy.po.Major;
 import com.szy.po.StudentInfo;
-import com.szy.po.StudentInfoVo;
+import com.szy.po.vo.StudentInfoVo;
 
 import java.io.InputStream;
 import java.util.List;

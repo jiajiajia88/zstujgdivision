@@ -4,6 +4,7 @@ import com.szy.mapper.IntentMapper;
 import com.szy.mapper.StudentInfoMapper;
 import com.szy.mapper.UserMapper;
 import com.szy.po.*;
+import com.szy.po.vo.StudentInfoVo;
 import com.szy.service.StudentInfoService;
 import com.szy.service.SystemService;
 import com.szy.service.UserService;

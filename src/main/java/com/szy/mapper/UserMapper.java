@@ -1,10 +1,8 @@
 package com.szy.mapper;
 
 import com.szy.po.User;
-import com.szy.po.UserRole;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -50,14 +48,6 @@ public interface UserMapper {
      * @throws Exception
      */
     User findUserByNumber(String number) throws Exception;
-
-    /**
-     * 根据学工号查找角色
-     * @param number
-     * @return
-     * @throws Exception
-     */
-    String findRoleByNumber(String number) throws Exception;
 
     /**
      * 判断是否存在用户

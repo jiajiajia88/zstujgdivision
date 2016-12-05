@@ -1,7 +1,6 @@
 package com.szy.service;
 
 import com.szy.po.User;
-import com.szy.po.UserRole;
 
 import java.util.List;
 
@@ -42,14 +41,6 @@ public interface UserService {
     User getUserByNumber(String number) throws Exception;
 
     /**
-     * 根据学工号查找角色
-     * @param number
-     * @return
-     * @throws Exception
-     */
-    String getRoleByNumber(String number) throws Exception;
-
-    /**
      * 判断是否存在用户
      * @param number
      * @return
@@ -87,6 +78,6 @@ public interface UserService {
      * @return
      * @throws Exception
      */
-    boolean ifHasAccess(String number,String module) throws Exception;
+    boolean ifHasAccess(String number,int limit) throws Exception;
 
 }

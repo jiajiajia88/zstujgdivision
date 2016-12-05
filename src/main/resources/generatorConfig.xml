@@ -48,15 +48,9 @@
         </table>
         <table tableName="tb_major" domainObjectName="Major" >
         </table>
-        <table tableName="tb_module" domainObjectName="Module" >
-        </table>
         <table tableName="tb_plan" domainObjectName="Plan">
         </table>
         <table tableName="tb_positions" domainObjectName="Positions">
-        </table>
-        <table tableName="tb_role" domainObjectName="Role">
-        </table>
-        <table tableName="tb_role_module" domainObjectName="RoleModule">
         </table>
         <table tableName="tb_species" domainObjectName="Species" >
         </table>-->
@@ -67,8 +61,6 @@
         <table tableName="tb_system_log" domainObjectName="SystemLog" >
         </table>
         <table tableName="tb_user" domainObjectName="User" >
-        </table>
-        <table tableName="tb_user_role" domainObjectName="UserRole" >
         </table>
         <table tableName="tb_plan_major" domainObjectName="PlanMajor">
         </table>-->

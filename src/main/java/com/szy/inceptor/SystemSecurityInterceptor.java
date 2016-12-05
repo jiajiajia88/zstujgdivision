@@ -1,6 +1,8 @@
 package com.szy.inceptor;
 
+import com.szy.service.SystemService;
 import com.szy.service.UserService;
+import com.szy.util.UserLimitUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemSecurityInterceptor implements HandlerInterceptor {
 
     private static UserService userService;
+    private static SystemService systemService;
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -23,7 +26,9 @@ public class SystemSecurityInterceptor implements HandlerInterceptor {
         String number = String.valueOf(request.getSession().getAttribute("number"));
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
-        if(userService.ifHasAccess(number, "system")){
+        systemService = (SystemService) factory.getBean("systemService");
+        if(userService.ifHasAccess(number, UserLimitUtil.USER_MANAGER)){
+            systemService.checkout();
             return true;
         } else {
             response.sendRedirect("/noAccess");

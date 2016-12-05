@@ -7,12 +7,13 @@
         <id property="id" column="id" />
         <result property="number" column="number" />
         <result property="password" column="password" />
+        <result property="limit" column="limit" />
         <result property="createTime" column="create_time" />
     </resultMap>
 
     <!--插入用户-->
     <insert id="insertUser" parameterType="User">
-        INSERT INTO tb_user(number, password, create_time) VALUES (#{number}, #{password}, #{createTime})
+        INSERT INTO tb_user(number, password, `limit`, create_time) VALUES (#{number}, #{password}, #{limit}, #{createTime})
     </insert>
 
     <!--分配用户角色-->
@@ -39,14 +40,6 @@
     <!--根据学工号查找用户-->
     <select id="findUserByNumber" parameterType="string" resultMap="userMap">
         SELECT * FROM tb_user WHERE number = #{number}
-    </select>
-
-    <!--根据学工号查找角色-->
-    <select id="findRoleByNumber" parameterType="string" resultType="string">
-        SELECT b.role_name FROM tb_user a, tb_role b, tb_user_role c
-        WHERE a.id = c.user_id AND
-        b.id = c.role_id AND
-        number = #{number}
     </select>
 
     <!--判断是否存在用户-->

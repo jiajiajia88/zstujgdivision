@@ -1,3 +1,18 @@
+/* **** 用户表 **** */
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `number` varchar(13) DEFAULT NULL COMMENT '学工号',
+  `password` varchar(20) DEFAULT NULL COMMENT '密码',
+  `limit` INT NOT NULL COMMENT '用户权限，1为登录权限，2为系统管理员权限，4为教师用户权限，8为学生用户权限，3为1+2的权限',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY number(number)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+INSERT INTO `tb_user` VALUES ('3','2013333502028', '123456', 9 , NOW());
+INSERT INTO `tb_user` VALUES ('2','20061657', '123456', 5, NOW());
+INSERT INTO `tb_user` VALUES ('1','123456', '123456', 3, NOW());
+
 /* **** 专业大类表 **** */
 DROP TABLE IF EXISTS tb_species;
 CREATE TABLE tb_species
@@ -6,7 +21,8 @@ CREATE TABLE tb_species
   species_name VARCHAR(50) NOT NULL COMMENT '大类名',
   stu_amount INT COMMENT '学生人数',
   status TINYINT DEFAULT 0 COMMENT '状态',
-  PRIMARY KEY(species_id)
+  PRIMARY KEY(species_id),
+  UNIQUE KEY species_name(species_name)
 )Engine=INNODB DEFAULT CHARSET=utf8;
 
 /* **** 教师信息表 **** */
@@ -14,10 +30,11 @@ DROP TABLE IF EXISTS tb_teacher_info;
 CREATE TABLE tb_teacher_info
 (
   id INT NOT NULL auto_increment COMMENT '主键id',
-  number VARCHAR(13) COMMENT '学工号',
+  number CHAR(8) COMMENT '学工号',
   name VARCHAR(30) NOT NULL COMMENT '名字',
   position_id INT COMMENT '职位id',
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  UNIQUE KEY number(number)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 
 /* **** 学生信息表 **** */
@@ -25,7 +42,7 @@ DROP TABLE IF EXISTS tb_student_info;
 CREATE TABLE tb_student_info
 (
   id INT NOT NULL auto_increment COMMENT '主键id',
-  number LONG NOT null COMMENT '学号',
+  number CHAR(13) NOT NULL COMMENT '学号',
   name VARCHAR(50) COMMENT '姓名',
   telephone CHAR(11) COMMENT '手机号（长号）',
   species INTEGER DEFAULT 0 COMMENT '所属大类',
@@ -44,11 +61,12 @@ CREATE TABLE tb_student_info
   gradeTwo DOUBLE COMMENT '30%*高考成绩/生源省高考录取线',
   totalGrade DOUBLE COMMENT '总成绩=70%*平均学分绩点 + 30%*高考成绩/生源省高考录取线',
   rank INT COMMENT '排名',
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  UNIQUE KEY number(number)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 INSERT INTO `tb_student_info` VALUES
   ('1', '2013333502028', '施周勇', '15858159214', 2013103, '13管理科学与工程1班', '1030101',1,'B2323',
-  '没有','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947',4);
+        '没有','4.22', '2.954', '浙江', '2', '575', '526', '1.093156', '0.327947', '3.281947',4);
 
 /* **** 专业表 **** */
 DROP TABLE IF EXISTS tb_major;
@@ -57,7 +75,8 @@ CREATE TABLE tb_major
   major_id INT NOT NULL COMMENT '专业id',
   major_name VARCHAR(50) NOT NULL COMMENT '专业名',
   status TINYINT NOT NULL DEFAULT 0,
-  PRIMARY KEY(major_id)
+  PRIMARY KEY(major_id),
+  UNIQUE KEY major_name(major_name)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 /* **** 计划专业表 **** */
@@ -79,13 +98,14 @@ CREATE TABLE tb_intent_fill
   id INT NOT NULL auto_increment COMMENT '主键id',
   name VARCHAR(50) NOT NULL COMMENT '姓名',
   classes VARCHAR(20) not NULL COMMENT '班级',
-  number LONG NOT NULL COMMENT '学号',
+  number CHAR(13) NOT NULL COMMENT '学号',
   telephone varchar(11) NOT NULL COMMENT '手机长号',
   first_major INT NOT NULL COMMENT '第一志愿',
   second_major INT NOT NULL COMMENT '第二志愿',
   third_major INT NOT NULL COMMENT '第二志愿',
   status TINYINT NOT NULL DEFAULT 1 COMMENT '状态：1保存、2确认',
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  UNIQUE KEY number(number)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 
 /* **** 年级表 **** */
@@ -94,7 +114,8 @@ CREATE TABLE tb_grade
 (
   id INT NOT NULL auto_increment COMMENT '主键id',
   grade INT(4) NOT NULL COMMENT '学期',
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  UNIQUE KEY grade(grade)
 )Engine=INNODB DEFAULT charset=utf8 auto_increment=1;
 
 /* **** 职位表 **** */
@@ -103,7 +124,8 @@ CREATE TABLE tb_positions
 (
   id INT NOT NULL auto_increment COMMENT '主键id',
   description VARCHAR(20) NOT NULL COMMENT '职位',
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  UNIQUE KEY description(description)
 )ENGINE=INNODB DEFAULT CHARSET=utf8 auto_increment=1;
 
 /* **** 分流计划表 **** */
@@ -128,79 +150,11 @@ CREATE TABLE tb_system_log
   create_time TIMESTAMP NOT NULL COMMENT '操作时间',
   user INT NOT NULL COMMENT '操作用户',
   description VARCHAR(50) COMMENT '操作描述',
+  status TINYINT COMMENT '状态',
   PRIMARY KEY(id)
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
 
-/* **** 用户表 **** */
-DROP TABLE IF EXISTS `tb_user`;
-CREATE TABLE `tb_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `number` varchar(13) DEFAULT NULL COMMENT '学工号',
-  `password` varchar(20) DEFAULT NULL COMMENT '密码',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_user` VALUES ('3','2013333502028', '123456', '2016-06-02 23:35:38');
-INSERT INTO `tb_user` VALUES ('2','20061657', '123456', '2016-06-02 23:35:38');
-INSERT INTO `tb_user` VALUES ('1','123456', '123456', '2016-06-01 23:35:17');
 
-/* **** 角色表 **** */
-DROP TABLE IF EXISTS `tb_role`;
-CREATE TABLE `tb_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `role_name` varchar(32) DEFAULT NULL COMMENT '角色名',
-  `description` varchar(200) DEFAULT NULL COMMENT '描述',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_role` VALUES ('3', 'student', '学生用户', '2016-10-21 17:41:11');
-INSERT INTO `tb_role` VALUES ('2', 'teacher', '教师用户', '2016-10-21 17:41:11');
-INSERT INTO `tb_role` VALUES ('1', 'admin', '系统管理员', '2016-10-21 17:41:11');
-
-/* **** 角色模块表 **** */
-DROP TABLE IF EXISTS `tb_role_module`;
-CREATE TABLE `tb_role_module` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色模块',
-  `module_id` int(11) DEFAULT NULL COMMENT '模块id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_role_module` VALUES ('1', '1', '1');
-INSERT INTO `tb_role_module` VALUES ('2', '1', '2');
-INSERT INTO `tb_role_module` VALUES ('3', '1', '3');
-INSERT INTO `tb_role_module` VALUES ('4', '1', '4');
-INSERT INTO `tb_role_module` VALUES ('5', '2', '1');
-INSERT INTO `tb_role_module` VALUES ('6', '2', '3');
-INSERT INTO `tb_role_module` VALUES ('7', '3', '1');
-INSERT INTO `tb_role_module` VALUES ('8', '3', '4');
-
-/* **** 模块表 **** */
-DROP TABLE IF EXISTS `tb_module`;
-CREATE TABLE `tb_module` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `module_name` varchar(32) DEFAULT NULL COMMENT '模块名',
-  `module_path` varchar(50) DEFAULT NULL COMMENT '模块路由',
-  `module_key` varchar(32) DEFAULT NULL COMMENT '模块key',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_module` VALUES ('1', '登陆权限', '/login*', 'login','2016-06-01 23:41:39');
-INSERT INTO `tb_module` VALUES ('2', '系统权限', '/system/*', 'system','2016-06-01 23:41:39');
-INSERT INTO `tb_module` VALUES ('3', '教师用户权限', '/teacher/*', 'teacher','2016-06-01 23:41:39');
-INSERT INTO `tb_module` VALUES ('4', '学生用户权限', '/student/*', 'student','2016-06-01 23:41:39');
-
-
-/* **** 用户角色表 **** */
-DROP TABLE IF EXISTS `tb_user_role`;
-CREATE TABLE `tb_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色id',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-INSERT INTO `tb_user_role` VALUES ('1', '1', '1');
-INSERT INTO `tb_user_role` VALUES ('2', '2', '2');
-INSERT INTO `tb_user_role` VALUES ('3', '3', '3');
 
 
 

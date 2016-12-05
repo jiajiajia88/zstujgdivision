@@ -248,15 +248,15 @@ $('.btn_species_submit').on('click', function () {
 
 $('.btn_grade_add').on('click', function () {
     var grade = $(this).parent().parent().children().eq(1).children().eq(0).val();
-    if(confirm("增加"+grade+"学年")){
+    if(confirm("增加"+grade+"级")){
         $.post('/system/addGrade',{grade : grade},function (data) {
 
             var result = JSON.parse(data['result']);
             if (result === 200) {
-                alert("删除成功！");
+                alert("添加成功！");
                 window.location.href = "/system/system_basic";
             } else {
-                alert("添加" + grade + "年级失败");
+                alert("添加" + grade + "级失败");
             }
         });
     }
@@ -269,14 +269,14 @@ $('.btn_grade_add').on('click', function () {
 $('.btn_grade_delete').on('click', function () {
     var id = $(this).parent().parent().children().eq(0).val();
     var grade = $(this).parent().parent().children().eq(1).text();
-    if(confirm("删除"+grade+"学年")){
+    if(confirm("删除"+grade+"级")){
         $.post("/system/deleteGrade", {gradeId: id},function (data){
             var result = JSON.parse(data['result']);
             if(result===200){
                 alert("删除成功！");
                 window.location.href="/system/system_basic";
             } else {
-                alert("删除"+grade+"年级失败！");
+                alert("删除"+grade+"级失败！");
             }
         });
         //$(this).parent().parent().remove();

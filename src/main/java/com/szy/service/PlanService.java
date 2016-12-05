@@ -3,7 +3,7 @@ package com.szy.service;
 import com.szy.po.Major;
 import com.szy.po.Plan;
 import com.szy.po.PlanMajor;
-import com.szy.po.PlanVo;
+import com.szy.po.vo.PlanVo;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,7 @@
-package com.szy.po;
+package com.szy.po.vo;
+
+import com.szy.po.Plan;
+import com.szy.po.vo.MajorVo;
 
 import java.util.List;
 

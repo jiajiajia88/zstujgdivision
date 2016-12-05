@@ -1,6 +1,8 @@
 package com.szy.inceptor;
 
+import com.szy.RespEnum;
 import com.szy.service.UserService;
+import com.szy.util.UserLimitUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +25,7 @@ public class StudentSecurityInterceptor implements HandlerInterceptor {
         String number = String.valueOf(request.getSession().getAttribute("number"));
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
-        if(userService.ifHasAccess(number, "student")){
+        if(userService.ifHasAccess(number, UserLimitUtil.USER_STUDENT)){
             return true;
         } else {
             response.sendRedirect("/noAccess");

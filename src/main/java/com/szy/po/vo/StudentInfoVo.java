@@ -1,4 +1,6 @@
-package com.szy.po;
+package com.szy.po.vo;
+
+import com.szy.po.StudentInfo;
 
 public class StudentInfoVo {
 

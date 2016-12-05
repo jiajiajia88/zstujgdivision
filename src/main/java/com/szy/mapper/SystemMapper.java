@@ -1,6 +1,7 @@
 package com.szy.mapper;
 
 import com.szy.po.*;
+import com.szy.po.vo.TeacherInfoVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.LinkedList;

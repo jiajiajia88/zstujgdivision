@@ -3,6 +3,7 @@ package com.szy.service.impl;
 import com.szy.mapper.UserMapper;
 import com.szy.po.User;
 import com.szy.service.UserService;
+import com.szy.util.UserLimitUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,6 @@ public class UserServiceImpl implements UserService{
         return userMapper.findUserByNumber(number);
     }
 
-    @Override
-    public String getRoleByNumber(String number) throws Exception {
-        return userMapper.findRoleByNumber(number);
-    }
 
     @Override
     public boolean ifExistsUser(String number) throws Exception {
@@ -71,8 +68,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean ifHasAccess(String number,String module) throws Exception {
+    public boolean ifHasAccess(String number,int limit) throws Exception {
         //System.out.println(number+"--------------"+module);
-        return (1==userMapper.ifHasAccess(number,module));
+        User user = userMapper.findUserByNumber(number);
+        return (UserLimitUtil.verify(user.getLimit(),limit));
     }
 }

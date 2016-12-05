@@ -3,6 +3,8 @@ package com.szy.service.impl;
 import com.szy.mapper.PlanMapper;
 import com.szy.mapper.SystemMapper;
 import com.szy.po.*;
+import com.szy.po.vo.MajorVo;
+import com.szy.po.vo.PlanVo;
 import com.szy.service.PlanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

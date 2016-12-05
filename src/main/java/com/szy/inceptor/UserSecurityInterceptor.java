@@ -1,7 +1,12 @@
 package com.szy.inceptor;
 
+import com.szy.RespEnum;
+import com.szy.cache.Session;
 import com.szy.controller.TeacherController;
+import com.szy.po.User;
 import com.szy.service.UserService;
+import com.szy.util.CacheUtil;
+import com.szy.util.UserLimitUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanFactory;
@@ -11,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 /**
@@ -27,39 +33,29 @@ public class UserSecurityInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
 
-        int tag = 0;
+        int retCode = 0;
         String number = request.getParameter("number");
         String password = request.getParameter("password");
         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
         userService = (UserService) factory.getBean("userService");
-        if(!userService.ifExistsUser(number)){
-            tag = 2;
-        } else{
-            if(userService.checkLogin(number, password)){
-                if(userService.ifHasAccess(number,"login")){
-                    tag = 1;
-                } else {
-                    tag = 3;
-                }
-            } else {
-                tag = 4;
-            }
-        }
+        System.out.println(number);
+        System.out.println(password);
 
-        if(tag == 1){
+        if(userService.ifExistsUser(number)){
+            if(userService.checkLogin(number, password)){
+                if(!userService.ifHasAccess(number, UserLimitUtil.USER_LOGIN))
+                    retCode = RespEnum.NO_ACCESS.getRetCode();
+            } else
+                retCode = RespEnum.PASSWD_ERR.getRetCode();
+        } else
+            retCode = RespEnum.NO_USERNAME.getRetCode();
+
+
+        if(retCode == 0){
             return true;
         } else {
             PrintWriter out = response.getWriter();
-            if(tag == 2){
-                logger.info("noUser");
-                out.print("noUser");
-            } else if(tag == 3){
-                logger.info("noAccess");
-                out.print("noAccess");
-            } else {
-                logger.info("Error");
-                out.print("Error");
-            }
+            out.print(retCode);
             out.flush();
             return false;
         }

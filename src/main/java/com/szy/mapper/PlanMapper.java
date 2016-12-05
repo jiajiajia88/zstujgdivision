@@ -1,6 +1,8 @@
 package com.szy.mapper;
 
 import com.szy.po.*;
+import com.szy.po.vo.MajorVo;
+import com.szy.po.vo.PlanVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

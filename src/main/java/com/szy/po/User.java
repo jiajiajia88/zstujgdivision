@@ -13,6 +13,8 @@ public class User {
 
     private String password;
 
+    private int limit;
+
     private Date createTime;
 
     public Integer getId() {
@@ -37,6 +39,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 
     public Date getCreateTime() {

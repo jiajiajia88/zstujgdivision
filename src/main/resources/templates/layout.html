@@ -56,7 +56,7 @@
                 <li class="dropdown">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <img alt="" src="/images/avatar1_small.jpg"/>
-                        <span class="username" th:text="${session.username}"></span>
+                        <span class="username" th:text="${session.cache.getName()}"></span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu extended logout">
@@ -73,7 +73,7 @@
             <!-- sidebar menu goes here-->
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
-                <li th:if="${session.role}=='teacher'">
+                <li th:if="${session.cache.getLimit()}==4">
                     <a href="/teacher/plan_settings" class="plan_settings">
                         <i class="fa fa-dashboard"></i>
                         <span>分流计划</span>
@@ -87,7 +87,7 @@
                 </li>-->
 
 
-                <li class="sub-menu dcjq-parent-li" th:if="${session.role}=='teacher'">
+                <li class="sub-menu dcjq-parent-li" th:if="${session.cache.getLimit()}==4">
                     <a href="javascript:;" class="dcjq-parent stu_info">
                         <i class="fa fa-book"></i>
                         <span>学生信息</span>
@@ -121,14 +121,14 @@
                         <span>个人信息</span>
                     </a>
                 </li>-->
-                <li th:if="${session.role}=='student'">
+                <li th:if="${session.cache.getLimit()}==8">
                     <a href="/student/intent_fill" class="intent_fill">
                         <i class=" fa fa-heart-o"></i>
                         <span>志愿填报</span>
                     </a>
                 </li>
 
-                <li th:if="${session.role}=='teacher'">
+                <li th:if="${session.cache.getLimit()}==4">
                     <a href="/teacher/intent_adjust" class="intent_adjust">
                         <i class="fa  fa-retweet"></i>
                         <span>志愿调整</span>
@@ -140,7 +140,7 @@
                         <span>成绩查询</span>
                     </a>
                 </li>-->
-                <li th:if="${session.role}=='student'">
+                <li th:if="${session.cache.getLimit()}==8">
                     <a href="/student/result" class="result">
                         <i class="fa fa-search"></i>
                         <span>分流结果</span>
@@ -153,15 +153,15 @@
                         <span>系统设置</span>
                     </a>
                 </li>-->
-                <li class="sub-menu dcjq-parent-li" th:if="${session.role}=='admin'">
+                <li class="sub-menu dcjq-parent-li" th:if="${session.cache.getLimit()}==2">
                     <a href="javascript:;" class="dcjq-parent system_settings">
                         <i class="fa fa-book"></i>
                         <span>系统设置</span>
                     </a>
                     <ul class="sub" style="display: none;">
-                        <li class="system_basic"><a href="/system/system_basic" th:if="${session.role}=='admin'">系统基本信息</a></li>
-                        <li class="system_major_settings"><a href="/system/system_major_settings" th:if="${session.role}=='admin'">专业设置</a></li>
-                        <li class="system_teacher_settings"><a href="/system/system_teacher_settings" th:if="${session.role}=='admin'">教师用户设置</a></li>
+                        <li class="system_basic"><a href="/system/system_basic" th:if="${session.cache.getLimit()}==2">系统基本信息</a></li>
+                        <li class="system_major_settings"><a href="/system/system_major_settings" th:if="${session.cache.getLimit()}==2">专业设置</a></li>
+                        <li class="system_teacher_settings"><a href="/system/system_teacher_settings" th:if="${session.cache.getLimit()}==2">教师用户设置</a></li>
                     </ul>
                 </li>
                 <li>

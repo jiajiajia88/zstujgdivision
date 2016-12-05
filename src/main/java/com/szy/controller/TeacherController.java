@@ -2,10 +2,11 @@ package com.szy.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.szy.po.*;
+import com.szy.po.vo.StudentInfoVo;
 import com.szy.service.PlanService;
 import com.szy.service.StudentInfoService;
 import com.szy.service.SystemService;
-import com.szy.po.PlanVo;
+import com.szy.po.vo.PlanVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
